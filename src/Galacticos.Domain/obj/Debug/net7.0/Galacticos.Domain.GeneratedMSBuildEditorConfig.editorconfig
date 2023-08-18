@@ -8,4 +8,8 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Galacticos.Domain
+<<<<<<< HEAD
 build_property.ProjectDir = c:\Users\Abuye\Desktop\Startup_Project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\
+=======
+build_property.ProjectDir = C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\src\Galacticos.Domain\
+>>>>>>> 4a0f40ac2a1ea594688e3912ea4129cee3b3102a
