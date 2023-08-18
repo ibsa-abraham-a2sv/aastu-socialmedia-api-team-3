@@ -8,6 +8,6 @@ namespace Galacticos.Application.Persistence.Contracts
 {
     public interface INewsFeedRepository : IGenericRepository<object>
     {
-        Task<List<object>> GetNewsFeedForUser(int userId);
+        Task<List<object>> GetNewsFeedForUser(int userId, int pageNumber, int pageSize);
     }
 }
