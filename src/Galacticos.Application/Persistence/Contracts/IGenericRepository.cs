@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Galacticos.Application.Persistence.Contracts
 {
-    public interface IGenericRepository
+    public interface IGenericRepository<T> where T : class
     {
         
     }

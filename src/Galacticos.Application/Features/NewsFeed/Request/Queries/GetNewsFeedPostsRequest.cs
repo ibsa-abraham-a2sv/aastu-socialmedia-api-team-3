@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+// using Galacticos.Application.DTOs.Newsfeed;
 
 namespace Galacticos.Application.Features.NewsFeed.Request.Queries
 {
-    public class GetNewsFeedPostsRequest : IRequest
+    public class GetNewsFeedPostsRequest : IRequest<List<object>>
     {
-        public int UserId { get; set; }
-        
+        public int Id { get; set; }
     }
 }
