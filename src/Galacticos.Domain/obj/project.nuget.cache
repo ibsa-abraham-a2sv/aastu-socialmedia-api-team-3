@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9v11gerUGbsgkX5iWbNWEAkARjEwErgLrktAyv9F/mVyFFU8OB61A8g1jC881UR9vZ8LvTkd0BzDpTbANtwYKw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Abuye\\.nuget\\packages\\erroror\\1.2.1\\erroror.1.2.1.nupkg.sha512"
+  ],
+  "logs": []
+}
