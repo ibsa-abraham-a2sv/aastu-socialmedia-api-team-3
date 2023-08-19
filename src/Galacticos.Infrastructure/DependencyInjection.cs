@@ -13,6 +13,10 @@ namespace Galacticos.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
         {
+
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ApiDbContext>(opt =>
+    opt.UseNpgsql(connectionString));
             return services;
         }
     }
