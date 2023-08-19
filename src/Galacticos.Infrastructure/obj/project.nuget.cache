@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "q8d6EStg87LXmpaxYclRAkiMACJlf+c0kgyoFZdRO5Ro7hdzS+JQS1KCViUO/uniHUi73jlI7Hmb2rZcUeSkvw==",
+  "dgSpecHash": "w8FmNrSPADrorIrUaFHQlV6a0gafUAX+mUnv52jfxTphxfPwsOpDlGsNE5RNrD2p2EfrH6gyF6Bw1ueqRkt3Sg==",
   "success": true,
-  "projectFilePath": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abdure\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Abdure\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
