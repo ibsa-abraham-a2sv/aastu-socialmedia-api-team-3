@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Galacticos.Domain.Entities;
 
 namespace Galacticos.Application.Persistence.Contracts
 {
-    public interface IRelationRepository
+    public interface IRelationRepository : IGenericRepository<Relation>
     {
-        
+        Task<List<int>> GetFollowedUserIdsByUserId(int userId);   
     }
 }

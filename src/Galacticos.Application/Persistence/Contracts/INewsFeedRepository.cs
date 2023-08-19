@@ -6,8 +6,8 @@ using Galacticos.Domain.Entities;
 
 namespace Galacticos.Application.Persistence.Contracts
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface INewsFeedRepository
     {
-    
+        Task<List<object>> GetNewsFeedForUser(int userId, int pageNumber, int pageSize);
     }
 }
