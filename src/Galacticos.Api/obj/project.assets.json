@@ -2623,5 +2623,13 @@
         "runtimeIdentifierGraphPath": "/home/yonatantesfaye/.dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file /home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Api/obj/project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

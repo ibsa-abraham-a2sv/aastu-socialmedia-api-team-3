@@ -110,5 +110,12 @@
     "/home/yonatantesfaye/.nuget/packages/system.text.json/4.7.2/system.text.json.4.7.2.nupkg.sha512"
 >>>>>>> 71564e2 (DB config)
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file /home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Infrastructure/obj/project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
