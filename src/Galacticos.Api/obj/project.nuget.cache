@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   parent of cad1951 (user registration in progress)
+=======
+  "dgSpecHash": "yOr0qYISNSZEIFfnhBSt8fdGRvnsOPPLrp7HgcpQ6roR7WZ6iEAHZ93q3PiLJtGY9Y2b9OV8mgHsJZLoNCXHIA==",
+>>>>>>> parent of cad1951 (user registration in progress)
   "success": true,
   "projectFilePath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
   "expectedPackageFiles": [
