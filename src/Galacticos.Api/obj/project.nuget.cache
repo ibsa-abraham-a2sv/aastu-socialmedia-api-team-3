@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "UVPwjLxG5a9Ru0EVODK8uXY1B+c+ydr9PaxIB51cHHMkQOD1gnA6Jrk+Ah/9VA6vqQjsE02XXbESfdmA+J7tCg==",
+=======
+  "dgSpecHash": "yOr0qYISNSZEIFfnhBSt8fdGRvnsOPPLrp7HgcpQ6roR7WZ6iEAHZ93q3PiLJtGY9Y2b9OV8mgHsJZLoNCXHIA==",
+>>>>>>> 576fa8b29823f646ea5d232fd484a893f2a475da
   "success": true,
   "projectFilePath": "c:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
   "expectedPackageFiles": [

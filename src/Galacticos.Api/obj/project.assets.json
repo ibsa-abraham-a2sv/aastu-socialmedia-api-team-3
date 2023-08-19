@@ -2149,11 +2149,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "c:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
       "projectName": "Galacticos.Api",
       "projectPath": "c:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
       "packagesPath": "C:\\Users\\Abuye\\.nuget\\packages\\",
       "outputPath": "c:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
+      "projectName": "Galacticos.Api",
+      "projectPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
+      "packagesPath": "C:\\Users\\Abdure\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\obj\\",
+>>>>>>> 576fa8b29823f646ea5d232fd484a893f2a475da
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Abuye\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -2171,8 +2179,13 @@
             "c:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj": {
               "projectPath": "c:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj"
             },
+<<<<<<< HEAD
             "c:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj": {
               "projectPath": "c:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj"
+=======
+            "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj"
+>>>>>>> 576fa8b29823f646ea5d232fd484a893f2a475da
             }
           }
         }
