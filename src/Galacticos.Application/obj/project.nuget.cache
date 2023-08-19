@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "piSlhIXbKDD0nFObJbg1mCOKq/AwHroQBh5X0QRvchs5oCPEhzqkwOEmQOy9vWPL2ZKHiyAbiEsWB27G/PC1MA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj",
@@ -14,6 +15,22 @@
     "C:\\Users\\Abdure\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\Abdure\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\Abdure\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+=======
+  "dgSpecHash": "aubdzNO/84g6jQ7xjQYjo9/tDzvIMqWsInMnJ5yj/Yd7OLbSemNRUhLDCgvADuSkWgSsNBLrVbr40kFGf4Fyxg==",
+  "success": true,
+  "projectFilePath": "/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/Galacticos.Application.csproj",
+  "expectedPackageFiles": [
+    "/home/yonatantesfaye/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
+    "/home/yonatantesfaye/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "/home/yonatantesfaye/.nuget/packages/erroror/1.2.1/erroror.1.2.1.nupkg.sha512",
+    "/home/yonatantesfaye/.nuget/packages/mediatr/11.1.0/mediatr.11.1.0.nupkg.sha512",
+    "/home/yonatantesfaye/.nuget/packages/mediatr.contracts/1.0.1/mediatr.contracts.1.0.1.nupkg.sha512",
+    "/home/yonatantesfaye/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
+    "/home/yonatantesfaye/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "/home/yonatantesfaye/.nuget/packages/microsoft.extensions.options/6.0.0/microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "/home/yonatantesfaye/.nuget/packages/microsoft.extensions.primitives/6.0.0/microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "/home/yonatantesfaye/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+>>>>>>> cb35b74 (database integration done)
   ],
   "logs": []
 }

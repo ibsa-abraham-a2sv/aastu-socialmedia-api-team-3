@@ -1,10 +1,18 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "cQpu+j4po6czzkywF24MBYvPCfDTNu/mXTcRD/IxmK7+PhoC6rMcTjK3hQK+AXWl6nglZxik1H7lGal8De/fJw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abdure\\.nuget\\packages\\erroror\\1.2.1\\erroror.1.2.1.nupkg.sha512"
+=======
+  "dgSpecHash": "tDpf8DjvLE0gr5gWRUOm1SZFPYJJhmlyxGSDweokP5TwFgEvLOPzwd0MUPZlp4LTZfEzTvvTbxkHK2dy/FUWKw==",
+  "success": true,
+  "projectFilePath": "/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Domain/Galacticos.Domain.csproj",
+  "expectedPackageFiles": [
+    "/home/yonatantesfaye/.nuget/packages/erroror/1.2.1/erroror.1.2.1.nupkg.sha512"
+>>>>>>> cb35b74 (database integration done)
   ],
   "logs": []
 }

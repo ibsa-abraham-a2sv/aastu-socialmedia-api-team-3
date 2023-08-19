@@ -13,6 +13,7 @@
 /home/yonatantesfaye/Documents/project/a2sv-socialmedia-api/src/Galacticos.Application/bin/Debug/net7.0/Galacticos.Domain.dll
 /home/yonatantesfaye/Documents/project/a2sv-socialmedia-api/src/Galacticos.Application/bin/Debug/net7.0/Galacticos.Domain.pdb
 /home/yonatantesfaye/Documents/project/a2sv-socialmedia-api/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.csproj.CopyComplete
+<<<<<<< HEAD
 C:\Users\Abuye\Desktop\Startup_Project\aastu-socialmedia-api-team-3\src\Galacticos.Application\bin\Debug\net7.0\Galacticos.Application.deps.json
 C:\Users\Abuye\Desktop\Startup_Project\aastu-socialmedia-api-team-3\src\Galacticos.Application\bin\Debug\net7.0\Galacticos.Application.dll
 C:\Users\Abuye\Desktop\Startup_Project\aastu-socialmedia-api-team-3\src\Galacticos.Application\bin\Debug\net7.0\Galacticos.Application.pdb
@@ -43,3 +44,35 @@ C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\src\Galacticos.Application\
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\src\Galacticos.Application\obj\Debug\net7.0\refint\Galacticos.Application.dll
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\src\Galacticos.Application\obj\Debug\net7.0\Galacticos.Application.pdb
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\src\Galacticos.Application\obj\Debug\net7.0\ref\Galacticos.Application.dll
+=======
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/bin/Debug/net7.0/Galacticos.Application.deps.json
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/bin/Debug/net7.0/Galacticos.Application.dll
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/bin/Debug/net7.0/Galacticos.Application.pdb
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/bin/Debug/net7.0/Galacticos.Domain.dll
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/bin/Debug/net7.0/Galacticos.Domain.pdb
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.csproj.AssemblyReference.cache
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.AssemblyInfoInputs.cache
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.AssemblyInfo.cs
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.csproj.CoreCompileInputs.cache
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.csproj.CopyComplete
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.dll
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/refint/Galacticos.Application.dll
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.pdb
+C:/Users/Abuye/Desktop/Startup_Project/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/ref/Galacticos.Application.dll
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/bin/Debug/net7.0/Galacticos.Application.deps.json
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/bin/Debug/net7.0/Galacticos.Application.dll
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/bin/Debug/net7.0/Galacticos.Application.pdb
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/bin/Debug/net7.0/Galacticos.Domain.dll
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/bin/Debug/net7.0/Galacticos.Domain.pdb
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.csproj.AssemblyReference.cache
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.GeneratedMSBuildEditorConfig.editorconfig
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.AssemblyInfoInputs.cache
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.AssemblyInfo.cs
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.csproj.CoreCompileInputs.cache
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.csproj.CopyComplete
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.dll
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/refint/Galacticos.Application.dll
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/Galacticos.Application.pdb
+/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/Debug/net7.0/ref/Galacticos.Application.dll
+>>>>>>> cb35b74 (database integration done)

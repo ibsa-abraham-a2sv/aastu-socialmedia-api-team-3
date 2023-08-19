@@ -41,11 +41,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\Abdure\\.nuget\\packages\\": {}
+=======
+    "/home/yonatantesfaye/.nuget/packages/": {}
+>>>>>>> cb35b74 (database integration done)
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj",
       "projectName": "Galacticos.Domain",
       "projectPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj",
@@ -54,6 +59,16 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Abdure\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+      "projectUniqueName": "/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Domain/Galacticos.Domain.csproj",
+      "projectName": "Galacticos.Domain",
+      "projectPath": "/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Domain/Galacticos.Domain.csproj",
+      "packagesPath": "/home/yonatantesfaye/.nuget/packages/",
+      "outputPath": "/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Domain/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/home/yonatantesfaye/.nuget/NuGet/NuGet.Config"
+>>>>>>> cb35b74 (database integration done)
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -98,7 +113,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/home/yonatantesfaye/.dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
       }
     }
   }
