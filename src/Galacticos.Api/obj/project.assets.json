@@ -1778,11 +1778,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
+      "projectUniqueName": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
       "projectName": "Galacticos.Api",
-      "projectPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
+      "projectPath": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
       "packagesPath": "C:\\Users\\Abdure\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\obj\\",
+      "outputPath": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Abdure\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1798,11 +1798,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj": {
-              "projectPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj"
+            "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj": {
+              "projectPath": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj"
             },
-            "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj"
+            "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj": {
+              "projectPath": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj"
             }
           }
         }
@@ -1848,5 +1848,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\obj\\project.nuget.cache : Invalid property identifier character: >. Path 'dgSpecHash', line 4, position 0."
+    }
+  ]
 }

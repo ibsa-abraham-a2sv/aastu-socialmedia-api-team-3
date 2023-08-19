@@ -431,11 +431,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj",
+      "projectUniqueName": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj",
       "projectName": "Galacticos.Application",
-      "projectPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj",
+      "projectPath": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj",
       "packagesPath": "C:\\Users\\Abdure\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\obj\\",
+      "outputPath": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Abdure\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -450,8 +450,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj": {
-              "projectPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj"
+            "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj": {
+              "projectPath": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj"
             }
           }
         }
