@@ -8,7 +8,7 @@ namespace Galacticos.Domain.Entities
 {
     public class Post : BaseEntity
     {
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
         public string Caption { get; set; } = null!;
         public string Image { get; set; } = "";
     }

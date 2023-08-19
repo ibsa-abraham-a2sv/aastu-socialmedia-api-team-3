@@ -1,14 +1,16 @@
 using Galacticos.Application.Persistence.Contracts;
+using Galacticos.Infrastructure.Data;
+using Galacticos.Domain.Entities;
 
 namespace Galacticos.Infrastructure.Persistence.Repositories
 {
     public class NewsFeedRepository : INewsFeedRepository
     {
-        private readonly DbContext _dbContext;
+        private readonly SocialMediaDbContext _dbContext;
         private readonly IRelationRepository _relationRepository;
         private readonly IPostRepository _postRepository;
         private readonly IUserRepository _userRepository;
-        public NewsFeedRepository(DbContext dbContext, IRelationRepository relationRepository, IPostRepository postRepository, IUserRepository userRepository)
+        public NewsFeedRepository(SocialMediaDbContext dbContext, IRelationRepository relationRepository, IPostRepository postRepository, IUserRepository userRepository)
         {
             _dbContext = dbContext;
             _relationRepository = relationRepository;
@@ -21,7 +23,7 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
             int itemsToSkip = (pageNumber - 1) * pageSize;
 
             var followedUserIds = await _relationRepository.GetFollowedUserIdsByUserId(userId);
-            var aggregatedPosts = new List<object>();
+            var aggregatedPosts = new List<Post>();
 
             foreach (var followedUserId in followedUserIds)
             {
@@ -30,22 +32,22 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
             }
 
             var paginatedPosts = aggregatedPosts
-                .OrderByDescending(post => post.DateCreated)
+                .OrderByDescending(post => post.CreatedAt)
                 .Skip(itemsToSkip)
                 .Take(pageSize);
 
             var newsFeedData = new List<object>();
 
-            foreach (var post in postsFromFollowedUser)
+            foreach (var post in paginatedPosts)
             {
-                var author = await _userRepository.GetUserById(post.AuthorId);
+                var author = await _userRepository.GetById(post.UserId);
 
                 var newsFeedItem = new
                 {
                     PostId = post.Id,
-                    Content = post.Content,
-                    AuthorName = author.Username,
-                    DateCreated = post.DateCreated
+                    Image = post.Image,
+                    AuthorName = author.UserName,
+                    DateCreated = post.UpdatedAt
                 };
 
                 newsFeedData.Add(newsFeedItem);
