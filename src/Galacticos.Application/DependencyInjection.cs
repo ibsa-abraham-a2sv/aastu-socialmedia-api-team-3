@@ -1,14 +1,17 @@
-
-
-using Galacticos.Application.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Galacticos.Application;
 
-public static class DependencyInjection{
-    public static IServiceCollection AddApplication(this IServiceCollection services){
-        services.AddScoped<IAuthenticationService, AuthenticationService>();
-
-        return services;
+namespace Galacticos.Application
+{
+    public static class DependencyInjection
+    {
+        public static IServiceCollection AddApplication(this IServiceCollection services)
+        {
+            return services;
+        }
     }
 }
