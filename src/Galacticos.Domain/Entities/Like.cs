@@ -10,5 +10,7 @@ namespace Galacticos.Domain.Entities
     {
         public int UserId { get; set; }
         public int PostId { get; set; }
+        public User user { get; set; } = null!;
+        public Post Post { get; set; } = null!;
     }
 }

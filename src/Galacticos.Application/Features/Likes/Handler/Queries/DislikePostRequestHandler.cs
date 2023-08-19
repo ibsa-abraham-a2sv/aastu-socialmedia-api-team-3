@@ -2,6 +2,8 @@ using AutoMapper;
 using MediatR;
 using Galacticos.Application.Features.Likes.Request.Queries;
 using Galacticos.Application.Persistence.Contracts;
+using Galacticos.Application.DTOs.Like.Validators;
+using FluentValidation;
 
 namespace Galacticos.Application.Features.Likes.Handler.Queries
 {
@@ -18,7 +20,15 @@ namespace Galacticos.Application.Features.Likes.Handler.Queries
 
         public async Task<Unit> Handle(DislikePostRequest request, CancellationToken cancellationToken)
         {
-            var like = await _likeRepository.GetLikeByPostIdAndUserId(request.PostId, request.UserId);
+            var Validators = new LikeDtoValidator();
+            var validation = await Validators.ValidateAsync(request.likeDto);
+
+            if (!validation.IsValid)
+            {
+                throw new ValidationException(validation.Errors);
+            }
+            
+            var like = await _likeRepository.GetLikeByPostIdAndUserId(request.likeDto.PostId, request.likeDto.UserId);
 
             if (like == null)
             {

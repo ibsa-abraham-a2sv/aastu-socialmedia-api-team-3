@@ -17,7 +17,7 @@ namespace Galacticos.Application.Features.NewsFeed.Handler.Queries
         }
         public async Task<List<object>> Handle(GetNewsFeedPostsRequest request, CancellationToken cancellationToken)
         {
-            var newsFeedPosts = await _newsFeedRepository.GetNewsFeedForUser(request.Id);
+            var newsFeedPosts = await _newsFeedRepository.GetNewsFeedForUser(request.Id, request.PageNumber, request.PageSize);
             return _mapper.Map<List<object>>(newsFeedPosts);
         }   
     }
