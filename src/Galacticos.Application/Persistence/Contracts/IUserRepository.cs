@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Galacticos.Application.Persistence.Contracts
+namespace Galacticos.Application.Persistence.Contracts;
+public interface IUserRepository
 {
-    public interface IUserRepository
-    {
-        
-    }
+    
 }
