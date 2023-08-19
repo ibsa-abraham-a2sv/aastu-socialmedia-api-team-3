@@ -9,7 +9,11 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Galacticos.Application
 <<<<<<< HEAD
+<<<<<<< HEAD
 build_property.ProjectDir = C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\src\Galacticos.Application\
 =======
 build_property.ProjectDir = /home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/
 >>>>>>> cb35b74 (database integration done)
+=======
+build_property.ProjectDir = /home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/
+>>>>>>> 71564e2 (DB config)

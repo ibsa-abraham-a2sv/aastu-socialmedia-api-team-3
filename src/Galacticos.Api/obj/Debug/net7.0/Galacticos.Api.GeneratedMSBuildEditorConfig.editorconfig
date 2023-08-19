@@ -10,6 +10,7 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Galacticos.Api
 build_property.RootNamespace = Galacticos.Api
 <<<<<<< HEAD
+<<<<<<< HEAD
 build_property.ProjectDir = C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\src\Galacticos.Api\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
@@ -22,4 +23,11 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = /home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Api
 >>>>>>> cb35b74 (database integration done)
+=======
+build_property.ProjectDir = /home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Api/
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Api
+>>>>>>> 71564e2 (DB config)
 build_property._RazorSourceGeneratorDebug = 

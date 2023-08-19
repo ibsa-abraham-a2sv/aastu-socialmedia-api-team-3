@@ -427,14 +427,19 @@
   },
   "packageFolders": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "C:\\Users\\Abdure\\.nuget\\packages\\": {}
 =======
     "/home/yonatantesfaye/.nuget/packages/": {}
 >>>>>>> cb35b74 (database integration done)
+=======
+    "/home/yonatantesfaye/.nuget/packages/": {}
+>>>>>>> 71564e2 (DB config)
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
 <<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj",
       "projectName": "Galacticos.Application",
@@ -454,6 +459,16 @@
       "configFilePaths": [
         "/home/yonatantesfaye/.nuget/NuGet/NuGet.Config"
 >>>>>>> cb35b74 (database integration done)
+=======
+      "projectUniqueName": "/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/Galacticos.Application.csproj",
+      "projectName": "Galacticos.Application",
+      "projectPath": "/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/Galacticos.Application.csproj",
+      "packagesPath": "/home/yonatantesfaye/.nuget/packages/",
+      "outputPath": "/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Application/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/home/yonatantesfaye/.nuget/NuGet/NuGet.Config"
+>>>>>>> 71564e2 (DB config)
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -466,12 +481,17 @@
           "targetAlias": "net7.0",
           "projectReferences": {
 <<<<<<< HEAD
+<<<<<<< HEAD
             "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj": {
               "projectPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj"
 =======
             "/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Domain/Galacticos.Domain.csproj": {
               "projectPath": "/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Domain/Galacticos.Domain.csproj"
 >>>>>>> cb35b74 (database integration done)
+=======
+            "/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Domain/Galacticos.Domain.csproj": {
+              "projectPath": "/home/yonatantesfaye/Desktop/aastu-socialmedia-api-team-3/src/Galacticos.Domain/Galacticos.Domain.csproj"
+>>>>>>> 71564e2 (DB config)
             }
           }
         }
