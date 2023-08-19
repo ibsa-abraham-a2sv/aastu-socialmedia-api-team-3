@@ -1,5 +1,6 @@
 {
   "version": 2,
+  parent of cad1951 (user registration in progress)
   "success": true,
   "projectFilePath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
   "expectedPackageFiles": [
