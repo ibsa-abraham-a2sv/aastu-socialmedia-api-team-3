@@ -1,3 +1,9 @@
-./bin
-./obj
-.env
+
+src/Galacticos.Api/bin
+src/Galacticos.Api/obj
+src/Galacticos.Application/bin
+src/Galacticos.Application/obj
+src/Galacticos.Domain/bin
+src/Galacticos.Domain/obj
+src/Galacticos.Infrastructure/bin
+src/Galacticos.Infrastructure/obj
