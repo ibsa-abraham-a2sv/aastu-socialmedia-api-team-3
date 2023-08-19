@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dFX83UTKdRh3FJVPeXd7iSBeTJT0HLAT2yoK9rcsr/8adf2p1JvD5sWbg/+358XlpDH82ojxnKARc2kHXgT86Q==",
+  "dgSpecHash": "rJoUetVMCRp7lvCroOUvSdrLCMVt5rKFp0ObbOen9VPvK6J58akH43sR2Yxjakm+0D7NcX9jCDbc8QgafSQbVA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\test\\UnitTest\\Galacticos.Domain.UnitTests\\Galacticos.Domain.UnitTests.csproj",
+  "projectFilePath": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\test\\UnitTest\\Galacticos.Domain.UnitTests\\Galacticos.Domain.UnitTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abdure\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
     "C:\\Users\\Abdure\\.nuget\\packages\\microsoft.codecoverage\\17.5.0\\microsoft.codecoverage.17.5.0.nupkg.sha512",

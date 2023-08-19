@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\test\\UnitTest\\Galacticos.Domain.UnitTests\\Galacticos.Domain.UnitTests.csproj": {}
+    "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\test\\UnitTest\\Galacticos.Domain.UnitTests\\Galacticos.Domain.UnitTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\test\\UnitTest\\Galacticos.Domain.UnitTests\\Galacticos.Domain.UnitTests.csproj": {
+    "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\test\\UnitTest\\Galacticos.Domain.UnitTests\\Galacticos.Domain.UnitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\test\\UnitTest\\Galacticos.Domain.UnitTests\\Galacticos.Domain.UnitTests.csproj",
+        "projectUniqueName": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\test\\UnitTest\\Galacticos.Domain.UnitTests\\Galacticos.Domain.UnitTests.csproj",
         "projectName": "Galacticos.Domain.UnitTests",
-        "projectPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\test\\UnitTest\\Galacticos.Domain.UnitTests\\Galacticos.Domain.UnitTests.csproj",
+        "projectPath": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\test\\UnitTest\\Galacticos.Domain.UnitTests\\Galacticos.Domain.UnitTests.csproj",
         "packagesPath": "C:\\Users\\Abdure\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\test\\UnitTest\\Galacticos.Domain.UnitTests\\obj\\",
+        "outputPath": "c:\\Users\\Abdure\\Desktop\\aastu-socialmedia-api-team-3\\test\\UnitTest\\Galacticos.Domain.UnitTests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Abdure\\AppData\\Roaming\\NuGet\\NuGet.Config"

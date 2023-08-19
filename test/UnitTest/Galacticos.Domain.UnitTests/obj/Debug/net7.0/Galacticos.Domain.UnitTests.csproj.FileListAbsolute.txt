@@ -3,8 +3,8 @@ C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Do
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\bin\Debug\net7.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\bin\Debug\net7.0\xunit.runner.reporters.netcoreapp10.dll
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\bin\Debug\net7.0\xunit.runner.utility.netcoreapp10.dll
-C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\bin\Debug\net7.0\Galacticos.Domain.UnitTests.deps.json
-C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\bin\Debug\net7.0\Galacticos.Domain.UnitTests.runtimeconfig.json
+c:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\bin\Debug\net7.0\Galacticos.Domain.UnitTests.deps.json
+c:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\bin\Debug\net7.0\Galacticos.Domain.UnitTests.runtimeconfig.json
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\bin\Debug\net7.0\Galacticos.Domain.UnitTests.dll
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\bin\Debug\net7.0\Galacticos.Domain.UnitTests.pdb
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\bin\Debug\net7.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
@@ -91,9 +91,9 @@ C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Do
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\obj\Debug\net7.0\Galacticos.Domain.UnitTests.AssemblyInfoInputs.cache
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\obj\Debug\net7.0\Galacticos.Domain.UnitTests.AssemblyInfo.cs
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\obj\Debug\net7.0\Galacticos.Domain.UnitTests.csproj.CoreCompileInputs.cache
-C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\obj\Debug\net7.0\Galacticos.Domain.UnitTests.csproj.CopyComplete
+c:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\obj\Debug\net7.0\Galacticos.Domain.UnitTests.csproj.CopyComplete
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\obj\Debug\net7.0\Galacticos.Domain.UnitTests.dll
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\obj\Debug\net7.0\refint\Galacticos.Domain.UnitTests.dll
 C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\obj\Debug\net7.0\Galacticos.Domain.UnitTests.pdb
-C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\obj\Debug\net7.0\Galacticos.Domain.UnitTests.genruntimeconfig.cache
-C:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\obj\Debug\net7.0\ref\Galacticos.Domain.UnitTests.dll
+c:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\obj\Debug\net7.0\Galacticos.Domain.UnitTests.genruntimeconfig.cache
+c:\Users\Abdure\Desktop\aastu-socialmedia-api-team-3\test\UnitTest\Galacticos.Domain.UnitTests\obj\Debug\net7.0\ref\Galacticos.Domain.UnitTests.dll

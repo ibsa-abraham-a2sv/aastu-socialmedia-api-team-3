@@ -1,4 +1,3 @@
-
 src/Galacticos.Api/bin
 src/Galacticos.Api/obj
 src/Galacticos.Application/bin
@@ -7,3 +6,11 @@ src/Galacticos.Domain/bin
 src/Galacticos.Domain/obj
 src/Galacticos.Infrastructure/bin
 src/Galacticos.Infrastructure/obj
+test/UnitTest/Galacticos.Api.UnitTests/bin
+test/UnitTest/Galacticos.Api.UnitTests/obj
+test/UnitTest/Galacticos.Application.UnitTests/bin
+test/UnitTest/Galacticos.Application.UnitTests/obj
+test/UnitTest/Galacticos.Domain.UnitTests/bin
+test/UnitTest/Galacticos.Domain.UnitTests/obj
+test/UnitTest/Galacticos.Infrastructure.UnitTests/bin
+test/UnitTest/Galacticos.Infrastructure.UnitTests/obj
