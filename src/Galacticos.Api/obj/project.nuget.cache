@@ -1,16 +1,14 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "UVPwjLxG5a9Ru0EVODK8uXY1B+c+ydr9PaxIB51cHHMkQOD1gnA6Jrk+Ah/9VA6vqQjsE02XXbESfdmA+J7tCg==",
-=======
-  "dgSpecHash": "yOr0qYISNSZEIFfnhBSt8fdGRvnsOPPLrp7HgcpQ6roR7WZ6iEAHZ93q3PiLJtGY9Y2b9OV8mgHsJZLoNCXHIA==",
->>>>>>> 576fa8b29823f646ea5d232fd484a893f2a475da
+  "dgSpecHash": "S7M37zl5Ss7EFJosPFxqR1p6DUGhsu1ORMJHHF4khOzCrDj/2CuI22DFmgyGbSDgHnX2ZNUBefokCKlfSyPS6g==",
   "success": true,
-  "projectFilePath": "c:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
+  "projectFilePath": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abuye\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Abuye\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Abuye\\.nuget\\packages\\erroror\\1.2.1\\erroror.1.2.1.nupkg.sha512",
+    "C:\\Users\\Abuye\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
+    "C:\\Users\\Abuye\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.7.1\\fluentvalidation.dependencyinjectionextensions.11.7.1.nupkg.sha512",
     "C:\\Users\\Abuye\\.nuget\\packages\\mediatr\\11.1.0\\mediatr.11.1.0.nupkg.sha512",
     "C:\\Users\\Abuye\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
     "C:\\Users\\Abuye\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.10\\microsoft.aspnetcore.authentication.jwtbearer.7.0.10.nupkg.sha512",
@@ -52,5 +50,12 @@
     "C:\\Users\\Abuye\\.nuget\\packages\\system.text.encodings.web\\4.7.2\\system.text.encodings.web.4.7.2.nupkg.sha512",
     "C:\\Users\\Abuye\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
