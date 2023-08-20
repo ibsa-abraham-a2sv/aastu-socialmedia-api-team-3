@@ -1,0 +1,10 @@
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\PostApi\obj\Debug\net7.0\PostApi.csproj.AssemblyReference.cache
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\PostApi\obj\Debug\net7.0\PostApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\PostApi\obj\Debug\net7.0\PostApi.AssemblyInfoInputs.cache
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\PostApi\obj\Debug\net7.0\PostApi.AssemblyInfo.cs
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\PostApi\obj\Debug\net7.0\PostApi.csproj.CoreCompileInputs.cache
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\PostApi\obj\Debug\net7.0\PostApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\PostApi\obj\Debug\net7.0\PostApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\PostApi\obj\Debug\net7.0\PostApi.dll
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\PostApi\obj\Debug\net7.0\refint\PostApi.dll
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\PostApi\obj\Debug\net7.0\PostApi.pdb
