@@ -1,33 +1,35 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj": {}
+    "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj": {
+    "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj",
+        "projectUniqueName": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj",
         "projectName": "Galacticos.Application",
-        "projectPath": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj",
-        "packagesPath": "C:\\Users\\Abuye\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\obj\\",
+        "projectPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj",
+        "packagesPath": "C:\\Users\\Y.S\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Abuye\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Y.S\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj": {
-                "projectPath": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj"
+              "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj": {
+                "projectPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj"
               }
             }
           }
@@ -75,26 +77,28 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj": {
+    "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj",
         "projectName": "Galacticos.Domain",
-        "projectPath": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj",
-        "packagesPath": "C:\\Users\\Abuye\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\obj\\",
+        "projectPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj",
+        "packagesPath": "C:\\Users\\Y.S\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Abuye\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Y.S\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -134,34 +138,36 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj": {
+    "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj",
         "projectName": "Galacticos.Infrastructure",
-        "projectPath": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Abuye\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Y.S\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Abuye\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Y.S\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj": {
-                "projectPath": "C:\\Users\\Abuye\\Desktop\\Startup_Project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj"
+              "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj": {
+                "projectPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj"
               }
             }
           }
@@ -213,7 +219,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }

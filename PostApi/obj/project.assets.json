@@ -543,6 +543,25 @@
           }
         }
       },
+      "Galacticos.Api/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Galacticos.Application": "1.0.0",
+          "Galacticos.Infrastructure": "1.0.0",
+          "Microsoft.AspNetCore.OpenApi": "7.0.9",
+          "Swashbuckle.AspNetCore": "6.5.0"
+        },
+        "compile": {
+          "bin/placeholder/Galacticos.Api.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Galacticos.Api.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Galacticos.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -1748,25 +1767,32 @@
         "version.txt"
       ]
     },
+    "Galacticos.Api/1.0.0": {
+      "type": "project",
+      "path": "../src/Galacticos.Api/Galacticos.Api.csproj",
+      "msbuildProject": "../src/Galacticos.Api/Galacticos.Api.csproj"
+    },
     "Galacticos.Application/1.0.0": {
       "type": "project",
-      "path": "../Galacticos.Application/Galacticos.Application.csproj",
-      "msbuildProject": "../Galacticos.Application/Galacticos.Application.csproj"
+      "path": "../src/Galacticos.Application/Galacticos.Application.csproj",
+      "msbuildProject": "../src/Galacticos.Application/Galacticos.Application.csproj"
     },
     "Galacticos.Domain/1.0.0": {
       "type": "project",
-      "path": "../Galacticos.Domain/Galacticos.Domain.csproj",
-      "msbuildProject": "../Galacticos.Domain/Galacticos.Domain.csproj"
+      "path": "../src/Galacticos.Domain/Galacticos.Domain.csproj",
+      "msbuildProject": "../src/Galacticos.Domain/Galacticos.Domain.csproj"
     },
     "Galacticos.Infrastructure/1.0.0": {
       "type": "project",
-      "path": "../Galacticos.Infrastructure/Galacticos.Infrastructure.csproj",
-      "msbuildProject": "../Galacticos.Infrastructure/Galacticos.Infrastructure.csproj"
+      "path": "../src/Galacticos.Infrastructure/Galacticos.Infrastructure.csproj",
+      "msbuildProject": "../src/Galacticos.Infrastructure/Galacticos.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "Galacticos.Api >= 1.0.0",
       "Galacticos.Application >= 1.0.0",
+      "Galacticos.Domain >= 1.0.0",
       "Galacticos.Infrastructure >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 7.0.9",
       "Swashbuckle.AspNetCore >= 6.5.0"
@@ -1778,11 +1804,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
-      "projectName": "Galacticos.Api",
-      "projectPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj",
+      "projectUniqueName": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\PostApi\\PostApi.csproj",
+      "projectName": "PostApi",
+      "projectPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\PostApi\\PostApi.csproj",
       "packagesPath": "C:\\Users\\Y.S\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\obj\\",
+      "outputPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\PostApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Y.S\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1800,8 +1826,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+            "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj": {
+              "projectPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Api\\Galacticos.Api.csproj"
+            },
             "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj": {
               "projectPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Application\\Galacticos.Application.csproj"
+            },
+            "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj": {
+              "projectPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj"
             },
             "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj": {
               "projectPath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Infrastructure\\Galacticos.Infrastructure.csproj"
