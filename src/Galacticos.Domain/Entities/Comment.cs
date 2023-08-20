@@ -11,5 +11,7 @@ namespace Galacticos.Domain.Entities
         public Guid UserId { get; set; }
         public Guid PostId { get; set; }
         public string Content { get; set; } = null!;
+
+        public virtual Post Post { get; set; }
     }
 }

@@ -15,5 +15,8 @@ namespace Galacticos.Domain.Entities
         public string Password {set; get; } = null!;
         public string Bio {set; get; } = "";
         public string Picture {set; get; } = "";
+
+        public virtual ICollection<Post> posts { get; set; }
+
     }
 }

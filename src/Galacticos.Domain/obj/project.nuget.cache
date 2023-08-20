@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "N5zYtTWUhEQYPg6ma1ymLcOGLP5ZvwKboi4t7hd7IOTBeYr/3awCA/ALPeGurDhcJOd8YOSD+qGwH2SiyOHIHw==",
+  "dgSpecHash": "8r3ZwqVsh9CWGyizM8AQTN+vjePsha+L5+wSF8MYPgDWtV9bOKnvtHpXlzndoQdZX+gIdKLzpKX67F1ODnEk+g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj",
+  "projectFilePath": "c:\\Users\\Y.S\\Desktop\\starter project\\aastu-socialmedia-api-team-3\\src\\Galacticos.Domain\\Galacticos.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Y.S\\.nuget\\packages\\erroror\\1.2.1\\erroror.1.2.1.nupkg.sha512"
   ],

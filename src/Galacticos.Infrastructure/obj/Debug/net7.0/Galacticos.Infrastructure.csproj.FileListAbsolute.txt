@@ -32,3 +32,20 @@ C:\Users\Abuye\Desktop\Startup_Project\aastu-socialmedia-api-team-3\src\Galactic
 C:\Users\Abuye\Desktop\Startup_Project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\refint\Galacticos.Infrastructure.dll
 C:\Users\Abuye\Desktop\Startup_Project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\Galacticos.Infrastructure.pdb
 C:\Users\Abuye\Desktop\Startup_Project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\ref\Galacticos.Infrastructure.dll
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\bin\Debug\net7.0\Galacticos.Infrastructure.deps.json
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\bin\Debug\net7.0\Galacticos.Infrastructure.dll
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\bin\Debug\net7.0\Galacticos.Infrastructure.pdb
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\bin\Debug\net7.0\Galacticos.Application.dll
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\bin\Debug\net7.0\Galacticos.Domain.dll
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\bin\Debug\net7.0\Galacticos.Application.pdb
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\bin\Debug\net7.0\Galacticos.Domain.pdb
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\Galacticos.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\Galacticos.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\Galacticos.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\Galacticos.Infrastructure.AssemblyInfo.cs
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\Galacticos.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\Galacticos.Infrastructure.csproj.CopyComplete
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\Galacticos.Infrastructure.dll
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\refint\Galacticos.Infrastructure.dll
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\Galacticos.Infrastructure.pdb
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Infrastructure\obj\Debug\net7.0\ref\Galacticos.Infrastructure.dll

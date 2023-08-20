@@ -22,3 +22,15 @@ C:\Users\Abuye\Desktop\Startup_Project\aastu-socialmedia-api-team-3\src\Galactic
 C:\Users\Abuye\Desktop\Startup_Project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\obj\Debug\net7.0\refint\Galacticos.Domain.dll
 C:\Users\Abuye\Desktop\Startup_Project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\obj\Debug\net7.0\Galacticos.Domain.pdb
 C:\Users\Abuye\Desktop\Startup_Project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\obj\Debug\net7.0\ref\Galacticos.Domain.dll
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\obj\Debug\net7.0\Galacticos.Domain.csproj.AssemblyReference.cache
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\obj\Debug\net7.0\Galacticos.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\obj\Debug\net7.0\Galacticos.Domain.AssemblyInfoInputs.cache
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\obj\Debug\net7.0\Galacticos.Domain.AssemblyInfo.cs
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\obj\Debug\net7.0\Galacticos.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\obj\Debug\net7.0\Galacticos.Domain.dll
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\obj\Debug\net7.0\refint\Galacticos.Domain.dll
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\obj\Debug\net7.0\Galacticos.Domain.pdb
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\bin\Debug\net7.0\Galacticos.Domain.deps.json
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\bin\Debug\net7.0\Galacticos.Domain.dll
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\bin\Debug\net7.0\Galacticos.Domain.pdb
+C:\Users\Y.S\Desktop\starter project\aastu-socialmedia-api-team-3\src\Galacticos.Domain\obj\Debug\net7.0\ref\Galacticos.Domain.dll

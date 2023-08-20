@@ -5,21 +5,22 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{53DE2D95-83A6-43AB-8902-370E65BB1D55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galacticos.Application", "src\Galacticos.Application\Galacticos.Application.csproj", "{C4A1ED59-EA7B-483B-9019-EACA032B2BFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galacticos.Application", "src\Galacticos.Application\Galacticos.Application.csproj", "{C4A1ED59-EA7B-483B-9019-EACA032B2BFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galacticos.Api", "src\Galacticos.Api\Galacticos.Api.csproj", "{9C4BFE37-64C3-4063-AB61-52D30C8473F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galacticos.Api", "src\Galacticos.Api\Galacticos.Api.csproj", "{9C4BFE37-64C3-4063-AB61-52D30C8473F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galacticos.Domain", "src\Galacticos.Domain\Galacticos.Domain.csproj", "{ADAA6C96-59A6-46CE-90E2-DE393A56497E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galacticos.Domain", "src\Galacticos.Domain\Galacticos.Domain.csproj", "{ADAA6C96-59A6-46CE-90E2-DE393A56497E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galacticos.Infrastructure", "src\Galacticos.Infrastructure\Galacticos.Infrastructure.csproj", "{7103CA6C-1056-4200-9998-2C6BB4CF4131}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galacticos.Infrastructure", "src\Galacticos.Infrastructure\Galacticos.Infrastructure.csproj", "{7103CA6C-1056-4200-9998-2C6BB4CF4131}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{BDEB0C28-68F6-4349-AB62-F62C44D12397}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostApi", "PostApi\PostApi.csproj", "{7607A931-F121-491B-AD8C-1975EFDB08A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C4A1ED59-EA7B-483B-9019-EACA032B2BFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -38,11 +39,23 @@ Global
 		{7103CA6C-1056-4200-9998-2C6BB4CF4131}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7103CA6C-1056-4200-9998-2C6BB4CF4131}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7103CA6C-1056-4200-9998-2C6BB4CF4131}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7607A931-F121-491B-AD8C-1975EFDB08A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7607A931-F121-491B-AD8C-1975EFDB08A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7607A931-F121-491B-AD8C-1975EFDB08A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7607A931-F121-491B-AD8C-1975EFDB08A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C4A1ED59-EA7B-483B-9019-EACA032B2BFA} = {53DE2D95-83A6-43AB-8902-370E65BB1D55}
 		{9C4BFE37-64C3-4063-AB61-52D30C8473F8} = {53DE2D95-83A6-43AB-8902-370E65BB1D55}
 		{ADAA6C96-59A6-46CE-90E2-DE393A56497E} = {53DE2D95-83A6-43AB-8902-370E65BB1D55}
 		{7103CA6C-1056-4200-9998-2C6BB4CF4131} = {53DE2D95-83A6-43AB-8902-370E65BB1D55}
+		{BDEB0C28-68F6-4349-AB62-F62C44D12397} = {53DE2D95-83A6-43AB-8902-370E65BB1D55}
+		{7607A931-F121-491B-AD8C-1975EFDB08A5} = {BDEB0C28-68F6-4349-AB62-F62C44D12397}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {928E36F1-E4A7-483F-A2AE-8B0662389FB7}
 	EndGlobalSection
 EndGlobal
