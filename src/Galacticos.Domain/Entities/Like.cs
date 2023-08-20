@@ -8,7 +8,7 @@ namespace Galacticos.Domain.Entities
 {
     public class Like : BaseEntity
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public int PostId { get; set; }
         public User user { get; set; } = null!;
         public Post Post { get; set; } = null!;

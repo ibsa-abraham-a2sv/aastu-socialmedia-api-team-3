@@ -7,7 +7,7 @@ namespace Galacticos.Application.DTOs.Like
 {
     public class CreateLikeDto
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public int PostId { get; set; }
         
     }

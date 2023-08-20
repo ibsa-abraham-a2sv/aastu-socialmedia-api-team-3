@@ -17,7 +17,7 @@ namespace Galacticos.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<Like> LikePost(int userId, int postId)
+        public async Task<Like> LikePost(int postId, Guid userId)
         {
             var like = new Like
             {
@@ -25,15 +25,26 @@ namespace Galacticos.Persistence.Repositories
                 PostId = postId
             };
 
-            await _context.Likes.AddAsync(like);
+            await _context.Likes.Add(like);
             await _context.SaveChangesAsync();
 
             return like;
         }
 
-        public async Task<Like> GetLikeByPostIdAndUserId(int postId, int userId)
+        public async Task<Like> GetLikeByPostIdAndUserId(int postId, Guid userId)
         {
             return await _context.Likes.FirstOrDefaultAsync(l => l.PostId == postId && l.UserId == userId);
         }
+
+        public async Task<Like> UnlikePost(int postId, Guid userId)
+        {
+            var like = await _context.Likes.FirstOrDefaultAsync(l => l.PostId == postId && l.UserId == userId);
+            _context.Likes.Remove(like);
+            await _context.SaveChangesAsync();
+
+            return like;
+        }
+
+
     }
 }
