@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Galacticos.Domain.Entities;
+
 namespace Galacticos.Infrastructure.Data
 {
     public class ApiDbContext : DbContext

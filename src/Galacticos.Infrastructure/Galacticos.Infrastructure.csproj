@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Galacticos.Application\Galacticos.Application.csproj" />
+    <ProjectReference Include="..\Galacticos.Domain\Galacticos.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
