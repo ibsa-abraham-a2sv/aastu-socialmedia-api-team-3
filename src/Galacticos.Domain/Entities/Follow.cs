@@ -8,11 +8,11 @@ namespace Galacticos.Domain.Entities
 {
     public class Follow : BaseEntity
     {
-        public Follow()
-        {
-            Follower = new User();
-            FollowedUser = new User();
-        }
+        // public Follow()
+        // {
+        //     Follower = new User();
+        //     FollowedUser = new User();
+        // }
         public Guid FollowerId { get; set; }
         public User Follower { get; set; } // Navigation property
         

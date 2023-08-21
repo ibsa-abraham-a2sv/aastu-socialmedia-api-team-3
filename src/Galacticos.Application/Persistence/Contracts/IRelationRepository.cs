@@ -6,10 +6,12 @@ using Galacticos.Domain.Entities;
 
 namespace Galacticos.Application.Persistence.Contracts
 {
-    public interface IRelationRepository
+    public interface IRelationRepository : IGenericRepository<Follow>
     {
         Task<Follow> Follow(Guid followerId, Guid followingId); // Follow
         Task<Follow> UnFollow(Guid followerId, Guid followingId); // Unfollow
         Task<Follow> Get(Guid followerId, Guid followingId); // Get Relation
+        Task<List<Guid>> GetFollowedUserIdsByUserId(Guid userId);   
+
     }
 }

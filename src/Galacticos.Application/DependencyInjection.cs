@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-
+using MediatR;
+using System.Reflection;
 
 namespace Galacticos.Application
 {
@@ -11,6 +12,8 @@ namespace Galacticos.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            // services.AddMediatR(typeof(DependencyInjection).Assembly);
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }
     }

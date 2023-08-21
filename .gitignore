@@ -14,3 +14,5 @@ test/UnitTest/Galacticos.Domain.UnitTests/bin
 test/UnitTest/Galacticos.Domain.UnitTests/obj
 test/UnitTest/Galacticos.Infrastructure.UnitTests/bin
 test/UnitTest/Galacticos.Infrastructure.UnitTests/obj
+test/UnitTest/Galacticos.Test.Api.UnitTests/bin
+test/UnitTest/Galacticos.Test.Api.UnitTests/obj
