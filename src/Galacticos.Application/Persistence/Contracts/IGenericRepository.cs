@@ -12,6 +12,6 @@ namespace Galacticos.Application.Persistence.Contracts
         Guid Add(T entity);
         Task Update(T entity);
         void Delete(T entity);
-        
+       
     }
 }

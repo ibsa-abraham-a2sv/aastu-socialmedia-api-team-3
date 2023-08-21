@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Galacticos.Application.DTOs;
 using Galacticos.Domain.Entities;
 
 namespace Galacticos.Application.Persistence.Contracts
