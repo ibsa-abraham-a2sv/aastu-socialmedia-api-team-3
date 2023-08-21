@@ -1,1 +1,1 @@
-# aastu-socialmedia-api-team-4
+# aastu-socialmedia-api-team-3

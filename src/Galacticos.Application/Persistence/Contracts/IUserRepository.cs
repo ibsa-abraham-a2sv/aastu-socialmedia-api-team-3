@@ -6,8 +6,11 @@ using Galacticos.Domain.Entities;
 
 namespace Galacticos.Application.Persistence.Contracts
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface IUserRepository
     {
-    
+        User? GetUserById(Guid id);
+        void AddUser(User user);
+        User EditUser(User user);
+        User GetUserByEmail(string email);
     }
 }

@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Galacticos.Infrastructure.Data;
+using Galacticos.Application.Persistence.Contracts;
+using Galacticos.Infrastructure.Persistence;
 
 namespace Galacticos.Infrastructure
 {
@@ -17,7 +19,8 @@ namespace Galacticos.Infrastructure
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApiDbContext>(opt =>
     opt.UseNpgsql(connectionString));
+            services.AddScoped<IUserRepository, UserRepository>();
             return services;
         }
     }
-}   
+}
