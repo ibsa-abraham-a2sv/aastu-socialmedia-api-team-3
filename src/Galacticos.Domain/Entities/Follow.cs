@@ -13,10 +13,10 @@ namespace Galacticos.Domain.Entities
         //     Follower = new User();
         //     FollowedUser = new User();
         // }
-        public int FollowerId { get; set; }
+        public Guid FollowerId { get; set; }
         public User Follower { get; set; } // Navigation property
         
-        public int FollowedUserId { get; set; }
+        public Guid FollowedUserId { get; set; }
         public User FollowedUser { get; set; } // Navigation property
     }
 }

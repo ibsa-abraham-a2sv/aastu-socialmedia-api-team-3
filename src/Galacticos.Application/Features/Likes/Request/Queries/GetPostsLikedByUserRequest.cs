@@ -5,7 +5,7 @@ namespace Galacticos.Application.Features.Likes.Request.Queries
 {
     public class GetPostsLikedByUserRequest : IRequest<List<PostDto>>
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         
     }
 }

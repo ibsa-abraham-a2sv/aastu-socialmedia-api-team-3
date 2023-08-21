@@ -4,6 +4,6 @@ namespace Galacticos.Application.Persistence.Contracts
 {
     public interface IRelationRepository : IGenericRepository<Follow>
     {
-        Task<List<int>> GetFollowedUserIdsByUserId(int userId);   
+        Task<List<Guid>> GetFollowedUserIdsByUserId(Guid userId);   
     }
 }

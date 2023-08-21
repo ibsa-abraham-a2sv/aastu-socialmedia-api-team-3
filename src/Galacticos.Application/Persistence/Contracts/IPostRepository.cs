@@ -10,7 +10,7 @@ namespace Galacticos.Application.Persistence.Contracts
     public interface IPostRepository : IGenericRepository<Post>
     {
         Task<bool> Exists(Guid id);
-        Task<List<Post>> GetPostsByUserId(int userId);
-        Task<List<Post>> GetPostsLikedByUser(int userId);
+        Task<List<Post>> GetPostsByUserId(Guid userId);
+        Task<List<Post>> GetPostsLikedByUser(Guid userId);
     }
 }

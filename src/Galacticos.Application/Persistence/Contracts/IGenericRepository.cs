@@ -7,11 +7,11 @@ namespace Galacticos.Application.Persistence.Contracts
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<T> GetById(int id);
+        Task<T> GetById(Guid id);
         Task<List<T>> GetAll();
-        Task<T> Add(T entity);
+        Guid Add(T entity);
         Task Update(T entity);
-        Task Delete(T entity);
+        void Delete(T entity);
         
     }
 }

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Galacticos.Application.Features.Likes.Request.Queries
 {
-    public class LikePostRequest : IRequest<int>
+    public class LikePostRequest : IRequest<Guid>
     {
         public CreateLikeDto createLikeDto { get; set; } = new CreateLikeDto();
     }

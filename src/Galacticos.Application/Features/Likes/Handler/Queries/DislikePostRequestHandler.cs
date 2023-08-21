@@ -35,7 +35,7 @@ namespace Galacticos.Application.Features.Likes.Handler.Queries
                 throw new Exception("You cannot dislike a post that you have not liked");
             }
 
-            await _likeRepository.Delete(like);
+            _likeRepository.Delete(like);
 
             return Unit.Value;
         }
