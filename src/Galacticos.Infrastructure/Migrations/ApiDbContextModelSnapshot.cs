@@ -171,7 +171,6 @@ namespace Galacticos.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Bio")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
@@ -194,7 +193,6 @@ namespace Galacticos.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Picture")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
