@@ -7,6 +7,7 @@ using Galacticos.Domain.Entities.Common;
 namespace Galacticos.Domain.Entities
 {
     public class User : BaseEntity
+
     {
         public User()
         {
@@ -27,6 +28,7 @@ namespace Galacticos.Domain.Entities
         public ICollection<Notification> Notifications { get; set; }
         public ICollection<Follow> Followers { get; set; }
         public ICollection<Follow> FollowedUsers { get; set; }
+
 
 
     }

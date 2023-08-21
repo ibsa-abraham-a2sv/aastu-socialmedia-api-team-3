@@ -8,7 +8,7 @@ namespace Galacticos.Domain.Entities
 {
     public class Post : BaseEntity
     {
-        public Post()
+         public Post()
         {
             Comments = new HashSet<Comment>();
             Likes = new HashSet<Like>();
