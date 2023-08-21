@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Galacticos.Application.Dto;
+using Galacticos.Application.DTOs.Posts;
 using Galacticos.Domain.Entities;
 using System;
 using System.Collections.Generic;

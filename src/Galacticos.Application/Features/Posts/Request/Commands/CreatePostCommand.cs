@@ -1,4 +1,4 @@
-﻿using Galacticos.Application.Dto;
+﻿using Galacticos.Application.DTOs.Posts;
 using MediatR;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Galacticos.Application.Dto;
+using Galacticos.Application.DTOs.Posts;
 using Galacticos.Application.Features.Posts.Request.Queries;
 using Galacticos.Application.Persistence.Contracts;
 using MediatR;

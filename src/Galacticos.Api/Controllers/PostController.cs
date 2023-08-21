@@ -1,12 +1,64 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Galacticos.Application.DTOs.Posts;
+using Galacticos.Application.Features.Posts.Request.Commands;
+using Galacticos.Application.Features.Posts.Request.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace Galacticos.Api.Controllers
 {
-    public class PostController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PostController : ControllerBase
     {
+        private readonly IMediator _mediator;
+        public PostController(IMediator mediator)
+        {
+             _mediator = mediator;
+
+        }
         
+        [HttpGet]
+        public async Task<ActionResult<List<PostDto>>> Get()
+        {
+            var posts = await _mediator.Send(new GetPostsRequest());
+            return Ok(posts);
+        }
+
+        
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PostDto>> Get(Guid id)
+        {
+            var post = await _mediator.Send(new GetPostDetailRequest { Id = id });
+            return post;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult>  Post([FromBody] PostDto postDto)
+        {
+            var c = new CreatePostCommand { postDto = postDto };
+            var post = await _mediator.Send(c);
+
+            return Ok(post);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put([FromBody] PostDto postDto)
+        {
+            var c = new UpdatePostCommand { postDto = postDto };
+            var post = await _mediator.Send(c);
+
+            return NoContent();
+        }
+
+        
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var c = new DeletePostCommand { Id = id };
+            var post = await _mediator.Send(c);
+
+            return NoContent();
+        }
     }
 }

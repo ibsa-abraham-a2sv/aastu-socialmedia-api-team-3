@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Galacticos.Application.Dto;
 using Galacticos.Application.Features.Posts.Request.Queries;
 using Galacticos.Application.Persistence.Contracts;
 using MediatR;
@@ -9,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Galacticos.Application.Persistence.Contracts;
+using Galacticos.Application.DTOs.Posts;
+
 namespace Galacticos.Application.Features.Posts.Handlers.Queries
 {
     public class GetPostsRequestHandler : IRequestHandler<GetPostsRequest, List<PostDto>>

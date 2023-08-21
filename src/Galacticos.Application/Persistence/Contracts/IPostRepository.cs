@@ -8,6 +8,6 @@ namespace Galacticos.Application.Persistence.Contracts
 {
     public interface IPostRepository : IGenericRepository<Post>
     {
-        
+        Task<bool> Exists(Guid id);
     }
 }

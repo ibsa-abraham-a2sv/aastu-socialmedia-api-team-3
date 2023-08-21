@@ -1,5 +1,6 @@
 ﻿using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
+using Galacticos.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -12,8 +13,8 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
 {
     public class PostRepository : IPostRepository
     {
-        private readonly GalacticoDbContext DbContext;
-        public PostRepository(GalacticoDbContext D) : base(D)
+        private readonly ApiDbContext DbContext;
+        public PostRepository(ApiDbContext D)
         {
             DbContext = D;
         }
@@ -29,7 +30,7 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
         public async Task Delete(Guid id)
         {
             var post = await DbContext.Set<Post>().FindAsync(id);
-            await DbContext.Set<Post>().Remove(post);
+            DbContext.Set<Post>().Remove(post);
             await DbContext.SaveChangesAsync();
         }
 
@@ -48,6 +49,11 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
             DbContext.Entry(entity).State = EntityState.Modified;
             await DbContext.SaveChangesAsync();
             return entity;
+        }
+
+        public async Task<bool> Exists(Guid id)
+        {
+            return DbContext.posts.Where(x=>x.Id == id).Any();
         }
     }
 }
