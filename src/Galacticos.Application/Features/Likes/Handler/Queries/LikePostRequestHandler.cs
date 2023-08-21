@@ -9,7 +9,7 @@ using Galacticos.Domain.Entities;
 
 namespace Galacticos.Application.Features.Likes.Handler.Queries
 {
-    public class LikePostRequestHandler : IRequestHandler<LikePostRequest, int>
+    public class LikePostRequestHandler : IRequestHandler<LikePostRequest, Guid>
     {
         private readonly ILikeRepository _likeRepository;
         private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ namespace Galacticos.Application.Features.Likes.Handler.Queries
             _mapper = mapper;
         }
 
-        public async Task<int> Handle(LikePostRequest request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(LikePostRequest request, CancellationToken cancellationToken)
         {
             var Validators = new CreateLikeDtoValidator();
             var validation = await Validators.ValidateAsync(request.createLikeDto);

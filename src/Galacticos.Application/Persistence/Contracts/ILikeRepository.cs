@@ -5,10 +5,10 @@ namespace Galacticos.Application.Persistence.Contracts
 {
     public interface ILikeRepository : IGenericRepository<Like>
     {
-        Task<Like> LikePost(int postId, Guid userId);
-        Task<Like> GetLikeByPostIdAndUserId(int postId, Guid userId);
+        Task<Like> LikePost(Guid postId, Guid userId);
+        Task<Like> GetLikeByPostIdAndUserId(Guid postId, Guid userId);
 
-        Task<Like> UnlikePost(int postId, Guid userId);
+        Task<Like> UnlikePost(Guid postId, Guid userId);
            
     }
 }

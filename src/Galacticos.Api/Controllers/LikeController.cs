@@ -7,8 +7,7 @@ using Galacticos.Application.Features.Likes.Request.Queries;
 namespace Galacticos.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class LikeController : ControllerBase
+    public class LikeController : ApiController
     {
         private readonly IMediator _mediator;
 
@@ -18,7 +17,7 @@ namespace Galacticos.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> LikePost(CreateLikeDto createLikeDto)
+        public async Task<ActionResult<Guid>> LikePost(CreateLikeDto createLikeDto)
         {
             var result = await _mediator.Send(new LikePostRequest { createLikeDto = createLikeDto });
             return Ok(result);

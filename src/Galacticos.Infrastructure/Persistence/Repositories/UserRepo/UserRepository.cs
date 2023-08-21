@@ -6,7 +6,7 @@ using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
 using Microsoft.VisualBasic;
 
-namespace Galacticos.Infrastructure.Persistence
+namespace Galacticos.Infrastructure.Persistence.Repositories.UserRepo
 {
     public class UserRepository : IUserRepository
     {

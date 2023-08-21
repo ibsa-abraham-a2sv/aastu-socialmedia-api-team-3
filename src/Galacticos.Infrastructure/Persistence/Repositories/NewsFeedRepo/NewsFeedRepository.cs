@@ -6,11 +6,11 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
 {
     public class NewsFeedRepository : INewsFeedRepository
     {
-        private readonly SocialMediaDbContext _dbContext;
+        private readonly ApiDbContext _dbContext;
         private readonly IRelationRepository _relationRepository;
         private readonly IPostRepository _postRepository;
         private readonly IUserRepository _userRepository;
-        public NewsFeedRepository(SocialMediaDbContext dbContext, IRelationRepository relationRepository, IPostRepository postRepository, IUserRepository userRepository)
+        public NewsFeedRepository(ApiDbContext dbContext, IRelationRepository relationRepository, IPostRepository postRepository, IUserRepository userRepository)
         {
             _dbContext = dbContext;
             _relationRepository = relationRepository;
@@ -18,7 +18,7 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
             _userRepository = userRepository;
         }
 
-        public async Task<List<object>> GetNewsFeedForUser(int userId, int pageNumber, int pageSize)
+        public async Task<List<object>> GetNewsFeedForUser(Guid userId, int pageNumber, int pageSize)
         {
             int itemsToSkip = (pageNumber - 1) * pageSize;
 
@@ -40,7 +40,7 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
 
             foreach (var post in paginatedPosts)
             {
-                var author = await _userRepository.GetById(post.UserId);
+                var author = _userRepository.GetUserById(post.UserId);
 
                 var newsFeedItem = new
                 {

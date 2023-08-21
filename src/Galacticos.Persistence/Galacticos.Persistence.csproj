@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Galacticos.Application\Galacticos.Application.csproj" />
+  </ItemGroup>
+
 </Project>
