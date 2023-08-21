@@ -1,47 +1,70 @@
+using Galacticos.Application.Persistence.Contracts;
+using Galacticos.Domain.Entities;
+using Galacticos.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Galacticos.Application.Persistence.Contracts;
-using Galacticos.Domain.Entities;
 
 namespace Galacticos.Infrastructure.Persistence.Repositories.PostRepo
 {
     public class PostRepository : IPostRepository
     {
-        public Guid Add(Post entity)
+        private readonly ApiDbContext DbContext;
+        public PostRepository(ApiDbContext D)
         {
-            throw new NotImplementedException();
+            DbContext = D;
         }
 
-        public void Delete(Post entity)
+        public async Task<Post> Add(Post entity)
         {
-            throw new NotImplementedException();
+            await DbContext.AddAsync(entity);
+            await DbContext.SaveChangesAsync();
+
+            return entity;
         }
 
-        public Task<List<Post>> GetAll()
+        public async Task Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var post = await DbContext.Set<Post>().FindAsync(id);
+            DbContext.Set<Post>().Remove(post);
+            await DbContext.SaveChangesAsync();
         }
 
-        public Task<Post> GetById(Guid id)
+        public async Task<Post> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return await DbContext.Set<Post>().FindAsync(id);
         }
 
-        public Task<List<Post>> GetPostsByUserId(Guid userId)
+        public async Task<List<Post>> GetAll()
         {
-            throw new NotImplementedException();
+            return await DbContext.Set<Post>().ToListAsync();
+        }
+
+        public async Task<Post> Update(Post entity)
+        {
+            DbContext.Entry(entity).State = EntityState.Modified;
+            await DbContext.SaveChangesAsync();
+            return entity;
+        }
+
+        public async Task<bool> Exists(Guid id)
+        {
+            return DbContext.posts.Where(x=>x.Id == id).Any();
         }
 
         public Task<List<Post>> GetPostsLikedByUser(Guid userId)
         {
-            throw new NotImplementedException();
+            throw new Exception("dd");
         }
-
-        public Task Update(Post entity)
+        
+        public Task<List<Post>> GetPostsByUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            throw new Exception("dd");
         }
+     
     }
 }

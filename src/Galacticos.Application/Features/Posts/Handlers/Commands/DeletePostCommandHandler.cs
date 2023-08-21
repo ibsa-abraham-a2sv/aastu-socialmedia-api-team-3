@@ -2,6 +2,7 @@
 using Galacticos.Application.Features.Posts.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
 using MediatR;
+using Galacticos.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +24,8 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
 
         public async Task<Unit> Handle(DeletePostCommand request, CancellationToken cancellationToken)
         {
-            var post = await _repository.Get(request.Id);
-            await _repository.Delete(post.Id);
+            var posts = await _repository.GetById(request.Id);
+            _repository.Delete(posts.Id);
 
             return Unit.Value;
         }

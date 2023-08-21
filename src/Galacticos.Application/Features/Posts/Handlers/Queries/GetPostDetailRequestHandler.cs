@@ -22,7 +22,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Queries
         }
         public async Task<PostDto> Handle(GetPostDetailRequest request, CancellationToken cancellationToken)
         {
-            var comments = await _iPostRepository.Get(request.Id);
+            var comments = await _iPostRepository.GetById(request.Id);
             return _mapper.Map<PostDto>(comments);
         }
     }

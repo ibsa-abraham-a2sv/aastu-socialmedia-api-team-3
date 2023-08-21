@@ -27,7 +27,7 @@ namespace Galacticos.Api.Controllers
         public async Task<ActionResult<Unit>> UnlikePost(LikeDto likeDto)
         {
             var result = await _mediator.Send(new DislikePostRequest { likeDto = likeDto });
-            return Ok(result);
+            return Unit.Value;
         }
     }
 }

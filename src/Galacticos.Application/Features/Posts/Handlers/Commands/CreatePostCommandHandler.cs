@@ -32,8 +32,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
                 throw new Exception();
             }
             var posts = _mapper.Map<Post>(request.postDto);
-            posts = await _repository.Add(posts);
-
+            _repository.Add(posts);
             return posts.Id;
         }
     }

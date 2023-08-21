@@ -23,7 +23,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
         }
         public async Task<Unit> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
         {
-            var post = await _iRepository.Get(request.postDto.Id);
+            var post = await _iRepository.GetById(request.postDto.Id);
             _mapper.Map(request.postDto, post);
 
             await _iRepository.Update(post);
