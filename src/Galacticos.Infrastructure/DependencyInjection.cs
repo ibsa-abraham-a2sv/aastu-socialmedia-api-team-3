@@ -10,7 +10,7 @@ using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Infrastructure.Persistence.Repositories.UserRepo;
 using Galacticos.Persistence.Repositories;
 using Galacticos.Infrastructure.Persistence.Repositories;
-using Galacticos.Infrastructure.Persistence.Repositories.RelationRepo;
+using Galacticos.Infrastructure.Repositories.RelationRepo;
 using Galacticos.Infrastructure.Persistence.Repositories.PostRepo;
 
 namespace Galacticos.Infrastructure

@@ -1,42 +1,58 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
+using Galacticos.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
-namespace Galacticos.Infrastructure.Persistence.Repositories.RelationRepo
+namespace Galacticos.Infrastructure.Repositories.RelationRepo
 {
     public class RelationRepository : IRelationRepository
     {
-        public Guid Add(Follow entity)
+        private readonly ApiDbContext _context;
+        // private readonly IMapper _mapper;
+        public RelationRepository(ApiDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+            // _mapper = mapper;
+        }
+        public async Task<Follow> Follow(Guid followerId, Guid followingId)
+        {
+            var follow = new Follow
+            {
+                FollowerId = followerId,
+                FollowedUserId = followingId
+            };
+
+            await _context.relations.AddAsync(follow);
+            await _context.SaveChangesAsync();
+
+            return follow;
         }
 
-        public void Delete(Follow entity)
+        public async Task<Follow> UnFollow(Guid followerId, Guid followingId)
         {
-            throw new NotImplementedException();
+            var unfollow = await _context.relations.FirstOrDefaultAsync(f => f.FollowerId == followerId && f.FollowedUserId == followingId);
+
+            if (unfollow != null)
+            {
+                _context.relations.Remove(unfollow);
+                await _context.SaveChangesAsync();
+            }
+
+            return unfollow!;
         }
 
-        public Task<List<Follow>> GetAll()
+        public async Task<Follow> Get(Guid followerId, Guid followingId)
         {
-            throw new NotImplementedException();
+            var res = await _context.relations.FirstOrDefaultAsync(f => f.FollowerId == followerId && f.FollowedUserId == followingId);
+            return res!;
         }
 
-        public Task<Follow> GetById(Guid id)
+        public async Task<List<Guid>> GetFollowedUserIdsByUserId(Guid userId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Guid>> GetFollowedUserIdsByUserId(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(Follow entity)
-        {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
+            var res = await _context.relations.Where(f => f.FollowerId == userId).Select(f => f.FollowedUserId).ToListAsync();
+            return res;
         }
     }
 }
