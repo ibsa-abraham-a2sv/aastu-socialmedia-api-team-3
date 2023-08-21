@@ -10,7 +10,6 @@ namespace Galacticos.Infrastructure.Data
     {
         public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

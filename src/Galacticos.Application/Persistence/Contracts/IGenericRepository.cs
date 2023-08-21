@@ -7,6 +7,6 @@ namespace Galacticos.Application.Persistence.Contracts
 {
     public interface IGenericRepository
     {
-        
+
     }
 }
