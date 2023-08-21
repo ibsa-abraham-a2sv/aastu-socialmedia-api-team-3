@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Galacticos.Domain.Entities;
 
 namespace Galacticos.Application.Persistence.Contracts
 {
-    public interface IPostRepository
+    public interface IPostRepository : IGenericRepository<Post>
     {
-        
+        Task<List<Post>> GetPostsByUserId(int userId);
+        Task<List<Post>> GetPostsLikedByUser(int userId);
     }
 }
