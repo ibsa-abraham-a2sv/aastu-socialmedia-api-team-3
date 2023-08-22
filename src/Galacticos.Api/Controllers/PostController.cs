@@ -33,7 +33,7 @@ namespace Galacticos.Api.Controllers
             return post;
         }
 
-        [HttpGet("user/{userId}")]
+        [HttpGet("liked/user/{userId}")]
         public async Task<ActionResult<List<GetPostDto>>> GetPostsLikedByUser(Guid userId)
         {
             var posts = await _mediator.Send(new GetPostsLikedByUserRequest { UserId = userId });
