@@ -20,6 +20,13 @@ namespace Galacticos.Api.Controllers
         public async Task<ActionResult<Guid>> LikePost(CreateLikeDto createLikeDto)
         {
             var result = await _mediator.Send(new LikePostRequest { createLikeDto = createLikeDto });
+            
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
+            if (result == Guid.Empty)
+                return NotFound(new { Message = "Post or user not found." });
+
             return Ok(result);
         }
 
@@ -27,7 +34,14 @@ namespace Galacticos.Api.Controllers
         public async Task<ActionResult<Unit>> UnlikePost(LikeDto likeDto)
         {
             var result = await _mediator.Send(new DislikePostRequest { likeDto = likeDto });
-            return Unit.Value;
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
+            if (result.Equals(Unit.Value))
+                return Unit.Value;
+
+            return NotFound(new { Message = "Like not found." });
         }
     }
 }
