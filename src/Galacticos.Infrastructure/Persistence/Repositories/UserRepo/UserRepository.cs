@@ -31,7 +31,6 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.UserRepo
                 LastName = "Doe",
                 Email = "jane@gmail.com",
                 UserName = "janedoe",
-                Bio = "I am a software engineer",
             };
 
             _users.Add(user1);

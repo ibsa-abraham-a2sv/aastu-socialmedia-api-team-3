@@ -12,7 +12,7 @@ namespace Galacticos.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            // services.AddMediatR(typeof(DependencyInjection).Assembly);
+            services.AddMediatR(cfg=> cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }

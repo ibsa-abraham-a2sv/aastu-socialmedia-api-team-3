@@ -44,5 +44,11 @@ namespace Galacticos.Infrastructure.Repositories
             var res = await _context.relations.FirstOrDefaultAsync(f => f.FollowerId == followerId && f.FollowedUserId == followingId);
             return res!;
         }
+
+        public Task<List<Guid>> GetFollowedUserIdsByUserId(Guid userId)
+        {
+            throw new Exception("dd");
+        } 
+
     }
 }
