@@ -30,5 +30,13 @@ namespace Galacticos.Api.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<Guid>>> GetFollowedUserIdsByUserId(Guid userId)
+        {
+            var query = new GetFollowedUsersRequest { Id = userId };
+            var followedUserIds = await _mediator.Send(query);
+            return Ok(followedUserIds);
+        }
+
     }
 }
