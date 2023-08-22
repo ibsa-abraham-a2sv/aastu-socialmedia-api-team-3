@@ -54,5 +54,17 @@ namespace Galacticos.Api.Controllers
                 error => BadRequest(error)
             );
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAll()
+        {
+            GetAllProfileRequest request = new GetAllProfileRequest();
+            ErrorOr<List<ProfileResponseDTO>> result = await _mediator.Send(request);
+
+            return result.Match<ActionResult>(
+                profileResponseDTOs => Ok(profileResponseDTOs),
+                error => BadRequest(error)
+            );
+        }
     }
 }

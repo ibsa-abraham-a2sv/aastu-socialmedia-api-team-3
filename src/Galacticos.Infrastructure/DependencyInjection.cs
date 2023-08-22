@@ -12,6 +12,10 @@ using Galacticos.Persistence.Repositories;
 using Galacticos.Infrastructure.Persistence.Repositories;
 using Galacticos.Infrastructure.Repositories.RelationRepo;
 using Galacticos.Infrastructure.Persistence.Repositories.PostRepo;
+using Galacticos.Application.Common.Interface.Authentication;
+using Galacticos.Infrastructure.Authentication;
+using Galacticos.Application.Common.Interface.Services;
+using Galacticos.Infrastructure.Services;
 
 namespace Galacticos.Infrastructure
 {
@@ -24,10 +28,16 @@ namespace Galacticos.Infrastructure
             services.AddDbContext<ApiDbContext>(opt =>
     opt.UseNpgsql(connectionString));
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddScoped<INewsFeedRepository, NewsFeedRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IRelationRepository, RelationRepository>();
+            services.AddScoped<ILikeRepository, LikeRepository>();
+            services.AddDbContext<ApiDbContext>(opt => opt.UseNpgsql(connectionString));
+
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+
             return services;
         }
     }

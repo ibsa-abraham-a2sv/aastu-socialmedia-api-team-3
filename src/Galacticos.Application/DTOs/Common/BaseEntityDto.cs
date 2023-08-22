@@ -7,7 +7,7 @@ namespace Galacticos.Application.DTOs.Common
 {
     public class BaseEntityDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? LastModifiedAt { get; set; }
         
