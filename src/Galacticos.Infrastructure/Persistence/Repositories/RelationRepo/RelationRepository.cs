@@ -2,18 +2,15 @@ using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
 using Galacticos.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 
 namespace Galacticos.Infrastructure.Repositories.RelationRepo
 {
     public class RelationRepository : IRelationRepository
     {
         private readonly ApiDbContext _context;
-        // private readonly IMapper _mapper;
         public RelationRepository(ApiDbContext context)
         {
             _context = context;
-            // _mapper = mapper;
         }
         public async Task<Follow> Follow(Guid followerId, Guid followingId)
         {
@@ -48,11 +45,15 @@ namespace Galacticos.Infrastructure.Repositories.RelationRepo
             return res!;
         }
 
-        public async Task<List<Guid>> GetFollowedUserIdsByUserId(Guid userId)
+        public async Task<List<Guid>> GetAllFollowedIdsByUserId(Guid id)
         {
-            // throw new NotImplementedException();
-            var res = await _context.relations.Where(f => f.FollowerId == userId).Select(f => f.FollowedUserId).ToListAsync();
-            return res;
+            var followedIds = await _context.relations
+                .Where(f => f.FollowerId == id)
+                .Select(f => f.FollowedUserId)
+                .ToListAsync();
+
+            return followedIds;
         }
+
     }
 }

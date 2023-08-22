@@ -22,7 +22,7 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
         {
             int itemsToSkip = (pageNumber - 1) * pageSize;
 
-            var followedUserIds = await _relationRepository.GetFollowedUserIdsByUserId(userId);
+            var followedUserIds = await _relationRepository.GetAllFollowedIdsByUserId(userId);
             var aggregatedPosts = new List<Post>();
 
             foreach (var followedUserId in followedUserIds)
