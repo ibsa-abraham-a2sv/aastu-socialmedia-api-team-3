@@ -58,7 +58,8 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.PostRepo
 
         public Task<List<Post>> GetPostsLikedByUser(Guid userId)
         {
-            throw new Exception("dd");
+            var post_ids = DbContext.likes.Where(x => x.UserId == userId).Select(x => x.PostId).ToList();
+            return DbContext.posts.Where(x => post_ids.Contains(x.Id)).ToListAsync();
         }
         
         public Task<List<Post>> GetPostsByUserId(Guid userId)
