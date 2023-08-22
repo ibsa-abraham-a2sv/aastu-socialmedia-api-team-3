@@ -14,4 +14,5 @@ public interface IUserRepository
     User? GetUserByUserName(string userName);
     void AddUser(User user);
     User EditUser(User user);
+    List<User> GetAllUsers();
 }

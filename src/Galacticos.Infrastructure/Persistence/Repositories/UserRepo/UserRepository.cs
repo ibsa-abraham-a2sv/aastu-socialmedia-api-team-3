@@ -61,4 +61,9 @@ public class UserRepository : IUserRepository
         
         return userToEdit;
     }
+
+    public List<User> GetAllUsers()
+    {
+        return _context.users.ToList();
+    }
 }
