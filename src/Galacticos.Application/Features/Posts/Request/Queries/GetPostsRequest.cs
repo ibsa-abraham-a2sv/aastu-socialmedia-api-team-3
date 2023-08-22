@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Galacticos.Application.Features.Posts.Request.Queries
 {
-    public class GetPostsRequest : IRequest<List<PostDto>>
+    public class GetPostsRequest : IRequest<List<GetPostDto>>
     {
-        
     }
 }
