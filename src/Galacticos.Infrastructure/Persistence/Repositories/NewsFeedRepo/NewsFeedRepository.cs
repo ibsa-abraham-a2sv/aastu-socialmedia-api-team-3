@@ -18,7 +18,7 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
             _userRepository = userRepository;
         }
 
-        public async Task<List<object>> GetNewsFeedForUser(Guid userId, int pageNumber, int pageSize)
+        public async Task<List<Post>> GetNewsFeedForUser(Guid userId, int pageNumber, int pageSize)
         {
             int itemsToSkip = (pageNumber - 1) * pageSize;
 
@@ -36,21 +36,12 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
                 .Skip(itemsToSkip)
                 .Take(pageSize);
 
-            var newsFeedData = new List<object>();
+            var newsFeedData = new List<Post>();
 
             foreach (var post in paginatedPosts)
             {
                 var author = _userRepository.GetUserById(post.UserId);
-
-                var newsFeedItem = new
-                {
-                    PostId = post.Id,
-                    Image = post.Image,
-                    AuthorName = author.UserName,
-                    DateCreated = post.UpdatedAt
-                };
-
-                newsFeedData.Add(newsFeedItem);
+                newsFeedData.Add(post);
             }
 
             return newsFeedData;
