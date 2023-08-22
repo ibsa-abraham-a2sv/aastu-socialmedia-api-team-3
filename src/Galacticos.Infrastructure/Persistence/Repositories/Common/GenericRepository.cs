@@ -17,35 +17,6 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
             _mapper = mapper;
         }
 
-        // public T Add(T entity)
-        // {
-        //     _context.Set<T>().Add(entity);
-        //     _context.SaveChanges();
-        //     return entity;
-        // }
-
-        // public void Delete(T entity)
-        // {
-        //     _context.Set<T>().Remove(entity);
-        //     _context.SaveChanges();
-        // }
-
-        // public void Update(T entity)
-        // {
-        //     _context.Set<T>().Update(entity);
-        //     _context.SaveChanges();
-        // }
-
-        // public T GetById(Guid id)
-        // {
-        //     return _context.Set<T>().Find(id);
-        // }
-
-        // public List<T> GetAll()
-        // {
-        //     return _context.Set<T>().ToList();
-        // }
-        // 
         public Guid Add(T entity)
         {
             _context.Set<T>().Add(entity);

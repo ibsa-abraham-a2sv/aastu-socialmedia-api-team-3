@@ -1,71 +1,64 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
-using Microsoft.VisualBasic;
+using Galacticos.Infrastructure.Data;
 
-namespace Galacticos.Infrastructure.Persistence.Repositories.UserRepo
+namespace Galacticos.Infrastructure.Persistence.Repositories.UserRepo;
+
+public class UserRepository : IUserRepository
 {
-    public class UserRepository : IUserRepository
+    private static readonly List<User> _users = new();
+    private readonly ApiDbContext _context;
+
+    public UserRepository(ApiDbContext context)
     {
-        // private readonly _ApiDbContext 
-        private readonly List<User> _users = new List<User>();
-        //insrte some users
-        public UserRepository()
-        {
-            User user1 = new User()
-            {
-                Id = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6"),
-                FirstName = "John",
-                LastName = "Doe",
-                Email = "johndoe@gmail.com",
-                UserName = "johndoe",
-                Bio = "I am a software engineer",
-            };
-            User user2 = new User()
-            {
-                Id = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa7"),
-                FirstName = "Jane",
-                LastName = "Doe",
-                Email = "jane@gmail.com",
-                UserName = "janedoe",
-            };
+        _context = context;
+    }
 
-            _users.Add(user1);
-            _users.Add(user2);
-        }
+    public void AddUser(User user)
+    {
+        _context.users.Add(user);
+        if (_context.SaveChanges() == 0)
+            throw new Exception("User not added");
+    }
 
-        public void AddUser(User user)
-        {
-            _users.Add(user);
-        }
+    public User? GetUserByIdentifier(string identifier)
+    {
+        return _context.users.FirstOrDefault(u => u.Email == identifier || u.UserName == identifier);
+    }
 
-        public User? GetUserById(Guid id)
-        {
-            return _users.FirstOrDefault(user => user.Id == id);
-        }
+    public User? GetUserByEmail(string email)
+    {
+        return _context.users.FirstOrDefault(u => u.Email == email);
+    }
 
-        public User EditUser(User user)
-        {
-            var userToEdit = _users.FirstOrDefault(u => u.Id == user.Id);
-            if (userToEdit == null)
-            {
-                throw new Exception("User not found");
-            }
+    public User? GetUserById(Guid id)
+    {
+        return _context.users.FirstOrDefault(u => u.Id == id);
+    }
 
-            userToEdit.FirstName = user.FirstName;
-            userToEdit.LastName = user.LastName;
-            userToEdit.Email = user.Email;
-            userToEdit.UserName = user.UserName;
-            userToEdit.Bio = user.Bio;
-            return userToEdit;
-        }
+    public User? GetUserByUserName(string userName)
+    {
+        return _context.users.FirstOrDefault(u => u.UserName == userName);
+    }
 
-        public User GetUserByEmail(string email)
-        {
-            return _users.FirstOrDefault(user => user.Email == email);
-        }
+    public User EditUser(User user)
+    {
+        var userToEdit = _context.users.FirstOrDefault(u => u.Id == user.Id);
+        if (userToEdit == null)
+            throw new Exception("User not found");
+        userToEdit.FirstName = user.FirstName;
+        userToEdit.LastName = user.LastName;
+        userToEdit.Email = user.Email;
+        userToEdit.UserName = user.UserName;
+        userToEdit.Bio = user.Bio;
+        userToEdit.Picture = user.Picture;
+
+        if (_context.SaveChanges() == 0)
+            throw new Exception("User not edited");
+        
+        return userToEdit;
     }
 }

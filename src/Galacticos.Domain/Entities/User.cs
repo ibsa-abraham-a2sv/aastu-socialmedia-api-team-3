@@ -20,16 +20,14 @@ namespace Galacticos.Domain.Entities
         public string LastName { set; get; } = null!;
         public string UserName { set; get; } = null!;
         public string Email { set; get; } = null!;
-        public string Password { set; get; } = null!;
-        public string Bio { set; get; } = "";
-        public string Picture { set; get; } = "";
+        public string Password { set; get; }
+        public string? Bio { set; get; } = "";
+        public string? Picture  { set; get; } = "";
 
         public ICollection<Post> Posts { get; set; }
         public ICollection<Notification> Notifications { get; set; }
         public ICollection<Follow> Followers { get; set; }
         public ICollection<Follow> FollowedUsers { get; set; }
-
-
 
     }
 }
