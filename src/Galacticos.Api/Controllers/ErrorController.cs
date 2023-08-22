@@ -1,14 +1,14 @@
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+// using Microsoft.AspNetCore.Diagnostics;
+// using Microsoft.AspNetCore.Mvc;
 
-namespace Galacticos.Api.Controllers;
+// namespace Galacticos.Api.Controllers;
 
-public class ErrorController : ControllerBase
-{
-    [Route("/error")]
-    public IActionResult Error(){
-        Exception? exception = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
+// public class ErrorController : ControllerBase
+// {
+//     [Route("/error")]
+//     public IActionResult Error(){
+//         Exception? exception = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
 
-        return Problem(title: exception?.Message, statusCode: 500);
-    }
-}
+//         return Problem(title: exception?.Message, statusCode: 500);
+//     }
+// }
