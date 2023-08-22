@@ -1,5 +1,5 @@
-using Galacticos.Application.DTOs.Like;
-using Galacticos.Application.DTOs.Like.Validators;
+using Galacticos.Application.DTOs.Likes;
+using Galacticos.Application.DTOs.Likes.Validators;
 using MediatR;
 using Galacticos.Application.Features.Likes.Request.Queries;
 using Galacticos.Application.Persistence.Contracts;

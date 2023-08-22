@@ -1,6 +1,6 @@
 using Galacticos.Application.DTOs.Common;
 
-namespace Galacticos.Application.DTOs.Like
+namespace Galacticos.Application.DTOs.Likes
 {
     public class LikeDto : BaseEntityDto
     {

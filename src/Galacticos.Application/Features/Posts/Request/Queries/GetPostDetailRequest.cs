@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Galacticos.Application.Features.Posts.Request.Queries
 {
-    public class GetPostDetailRequest : IRequest<GetPostDto>
+    public class GetPostDetailRequest : IRequest<GetPostDetailDto>
     {
         public Guid Id { get; set; } = Guid.NewGuid();
     }

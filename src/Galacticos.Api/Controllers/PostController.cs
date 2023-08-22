@@ -19,7 +19,7 @@ namespace Galacticos.Api.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<List<PostDto>>> Get()
+        public async Task<ActionResult<List<GetPostDto>>> Get()
         {
             var posts = await _mediator.Send(new GetPostsRequest());
             return Ok(posts);
@@ -27,7 +27,7 @@ namespace Galacticos.Api.Controllers
 
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<PostDto>> Get(Guid id)
+        public async Task<ActionResult<GetPostDetailDto>> Get(Guid id)
         {
             var post = await _mediator.Send(new GetPostDetailRequest { Id = id });
             return post;

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Galacticos.Application.Features.Posts.Handlers.Queries
 {
-    public class GetPostDetailRequestHandler : IRequestHandler<GetPostDetailRequest, GetPostDto>
+    public class GetPostDetailRequestHandler : IRequestHandler<GetPostDetailRequest, GetPostDetailDto>
     {
         private readonly IMapper _mapper;
         private readonly IPostRepository _iPostRepository;
@@ -20,10 +20,10 @@ namespace Galacticos.Application.Features.Posts.Handlers.Queries
             _iPostRepository = ipostRepository;
             _mapper = mapper;
         }
-        public async Task<GetPostDto> Handle(GetPostDetailRequest request, CancellationToken cancellationToken)
+        public async Task<GetPostDetailDto> Handle(GetPostDetailRequest request, CancellationToken cancellationToken)
         {
             var comments = await _iPostRepository.GetById(request.Id);
-            return _mapper.Map<GetPostDto>(comments);
+            return _mapper.Map<GetPostDetailDto>(comments);
         }
     }
 }
