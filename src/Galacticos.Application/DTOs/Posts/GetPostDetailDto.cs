@@ -14,5 +14,6 @@ namespace Galacticos.Application.DTOs.Posts
         public string Image { get; set; } = "";
         public virtual ICollection<Object>? comments { get; set; }
         public virtual ICollection<Like>? likes { get; set; }
+        public List<TagDto> Tags { get; set; } 
     }
 }

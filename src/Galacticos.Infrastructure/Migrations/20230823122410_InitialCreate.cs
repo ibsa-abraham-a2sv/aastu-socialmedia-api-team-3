@@ -12,6 +12,20 @@ namespace Galacticos.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "tags",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tags", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "users",
                 columns: table => new
                 {
@@ -151,6 +165,33 @@ namespace Galacticos.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "postTags",
+                columns: table => new
+                {
+                    PostId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TagId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_postTags", x => new { x.PostId, x.TagId });
+                    table.ForeignKey(
+                        name: "FK_postTags_posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_postTags_tags_TagId",
+                        column: x => x.TagId,
+                        principalTable: "tags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_comments_PostId",
                 table: "comments",
@@ -177,6 +218,11 @@ namespace Galacticos.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_postTags_TagId",
+                table: "postTags",
+                column: "TagId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_relations_FollowedUserId",
                 table: "relations",
                 column: "FollowedUserId");
@@ -200,10 +246,16 @@ namespace Galacticos.Infrastructure.Migrations
                 name: "notifications");
 
             migrationBuilder.DropTable(
+                name: "postTags");
+
+            migrationBuilder.DropTable(
                 name: "relations");
 
             migrationBuilder.DropTable(
                 name: "posts");
+
+            migrationBuilder.DropTable(
+                name: "tags");
 
             migrationBuilder.DropTable(
                 name: "users");

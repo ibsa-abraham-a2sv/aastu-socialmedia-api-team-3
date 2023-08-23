@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Galacticos.Infrastructure.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20230821131744_InitialCreate")]
+    [Migration("20230823122410_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -167,6 +167,51 @@ namespace Galacticos.Infrastructure.Migrations
                     b.ToTable("posts");
                 });
 
+            modelBuilder.Entity("Galacticos.Domain.Entities.PostTag", b =>
+                {
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TagId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("PostId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("postTags");
+                });
+
+            modelBuilder.Entity("Galacticos.Domain.Entities.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tags");
+                });
+
             modelBuilder.Entity("Galacticos.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -281,11 +326,37 @@ namespace Galacticos.Infrastructure.Migrations
                     b.Navigation("user");
                 });
 
+            modelBuilder.Entity("Galacticos.Domain.Entities.PostTag", b =>
+                {
+                    b.HasOne("Galacticos.Domain.Entities.Post", "Post")
+                        .WithMany("PostTags")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Galacticos.Domain.Entities.Tag", "Tag")
+                        .WithMany("PostTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("Galacticos.Domain.Entities.Post", b =>
                 {
                     b.Navigation("Comments");
 
                     b.Navigation("Likes");
+
+                    b.Navigation("PostTags");
+                });
+
+            modelBuilder.Entity("Galacticos.Domain.Entities.Tag", b =>
+                {
+                    b.Navigation("PostTags");
                 });
 
             modelBuilder.Entity("Galacticos.Domain.Entities.User", b =>

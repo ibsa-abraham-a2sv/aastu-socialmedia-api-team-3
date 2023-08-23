@@ -16,5 +16,6 @@ namespace Galacticos.Application.DTOs.Posts
 
         public virtual ICollection<Comment>? comments { get; set; }
         public virtual User? user { get; set; }
+        public List<TagDto>? Tags { get; set; } 
     }
 }

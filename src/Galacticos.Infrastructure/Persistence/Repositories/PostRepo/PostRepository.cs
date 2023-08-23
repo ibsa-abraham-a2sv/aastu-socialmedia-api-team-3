@@ -66,6 +66,11 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.PostRepo
         {
             return await DbContext.posts.Where(x => x.UserId == userId).ToListAsync();
         }
-     
+
+        public Task<List<Post>> GetPostsByTag(Guid tagId)
+        {
+            var post_ids = DbContext.postTags.Where(x => x.TagId == tagId).Select(x => x.PostId).ToList();
+            return DbContext.posts.Where(x => post_ids.Contains(x.Id)).ToListAsync();
+        }
     }
 }

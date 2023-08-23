@@ -19,5 +19,6 @@ namespace Galacticos.Domain.Entities
         public User user { get; set; } = null!;
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Like> Likes { get; set; }
+        public ICollection<PostTag> PostTags { get; set; }
     }
 }

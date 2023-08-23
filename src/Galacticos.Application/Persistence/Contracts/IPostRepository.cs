@@ -17,5 +17,6 @@ namespace Galacticos.Application.Persistence.Contracts
         Task<bool> Exists(Guid id);
         Task<List<Post>> GetPostsByUserId(Guid userId);
         Task<List<Post>> GetPostsLikedByUser(Guid userId);
+        Task<List<Post>> GetPostsByTag(Guid tagId); 
     }
 }

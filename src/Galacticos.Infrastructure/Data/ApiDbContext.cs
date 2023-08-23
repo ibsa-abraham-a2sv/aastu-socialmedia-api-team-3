@@ -43,6 +43,19 @@ namespace Galacticos.Infrastructure.Data
                     .WithOne(u => u.FollowedUser)
                     .HasForeignKey(u => u.FollowedUserId);
             });
+            
+            modelBuilder.Entity<PostTag>()
+                .HasKey(pt => new { pt.PostId, pt.TagId });
+
+            modelBuilder.Entity<PostTag>()
+                .HasOne(pt => pt.Post)
+                .WithMany(p => p.PostTags)
+                .HasForeignKey(pt => pt.PostId);
+
+            modelBuilder.Entity<PostTag>()
+                .HasOne(pt => pt.Tag)
+                .WithMany(t => t.PostTags)
+                .HasForeignKey(pt => pt.TagId);
         }
         public DbSet<User> users { get; set; }
         public DbSet<Post> posts { get; set; }
@@ -50,5 +63,7 @@ namespace Galacticos.Infrastructure.Data
         public DbSet<Comment> comments { get; set; }
         public DbSet<Follow> relations { get; set; }
         public DbSet<Notification> notifications { get; set; }
+        public DbSet<Tag> tags { get; set; }
+        public DbSet<PostTag> postTags { get; set; }
     }
 }

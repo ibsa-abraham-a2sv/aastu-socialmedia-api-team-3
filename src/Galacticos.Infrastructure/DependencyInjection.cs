@@ -32,6 +32,7 @@ namespace Galacticos.Infrastructure
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IRelationRepository, RelationRepository>();
             services.AddScoped<ILikeRepository, LikeRepository>();
+            services.AddScoped<ITagRepository, TagRepository>();
             services.AddDbContext<ApiDbContext>(opt => opt.UseNpgsql(connectionString));
 
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
