@@ -14,5 +14,6 @@ namespace Galacticos.Application.Features.Posts.Request.Commands
         public string Caption {get; set;} = null!;
         public string Image {get; set;}
         public Guid UserId {get; set;}
+        public List<string> Tags {get; set;} = new List<string>();
     }
 }

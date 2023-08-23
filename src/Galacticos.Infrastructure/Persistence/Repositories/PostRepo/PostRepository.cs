@@ -85,19 +85,11 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.PostRepo
             var posts = _context.posts.Include(x => x.Comments).Where(x => x.Likes.Any(x => x.UserId == userId)).ToList();
             return Task.FromResult(posts);
         }
-<<<<<<< HEAD
-        
-        public async Task<List<Post>> GetPostsByUserId(Guid userId)
-        {
-            return await DbContext.posts.Where(x => x.UserId == userId).ToListAsync();
-        }
 
         public Task<List<Post>> GetPostsByTag(Guid tagId)
         {
-            var post_ids = DbContext.postTags.Where(x => x.TagId == tagId).Select(x => x.PostId).ToList();
-            return DbContext.posts.Where(x => post_ids.Contains(x.Id)).ToListAsync();
+            var post_ids = _context.postTags.Where(x => x.TagId == tagId).Select(x => x.PostId).ToList();
+            return _context.posts.Where(x => post_ids.Contains(x.Id)).ToListAsync();
         }
-=======
->>>>>>> main
     }
 }
