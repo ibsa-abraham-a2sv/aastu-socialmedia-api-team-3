@@ -1,3 +1,4 @@
+using AutoMapper;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
 using Galacticos.Infrastructure.Data;
@@ -13,54 +14,78 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.PostRepo
 {
     public class PostRepository : IPostRepository
     {
-        private readonly ApiDbContext DbContext;
-        public PostRepository(ApiDbContext D)
+        private readonly ApiDbContext _context;
+        private readonly IMapper _mapper;
+
+        public PostRepository(ApiDbContext context, IMapper mapper)
         {
-            DbContext = D;
+            _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<Post> Add(Post entity)
+        public Task<Post> Add(Post entity)
         {
-            await DbContext.AddAsync(entity);
-            await DbContext.SaveChangesAsync();
-
-            return entity;
+            _context.posts.Add(entity);
+            if(_context.SaveChanges() == 0){
+                return Task.FromResult<Post>(null);
+            }
+            return Task.FromResult(entity);
         }
 
-        public async Task Delete(Guid id)
+        public Task<bool> Delete(Guid id)
         {
-            var post = await DbContext.Set<Post>().FindAsync(id);
-            DbContext.Set<Post>().Remove(post);
-            await DbContext.SaveChangesAsync();
+            var post = _context.posts.FirstOrDefault(x => x.Id == id);
+            if(post == null){
+                return Task.FromResult(false);
+            }
+            _context.posts.Remove(post);
+            if(_context.SaveChanges() == 0){
+                return Task.FromResult(false);
+            }
+            return Task.FromResult(true);
         }
 
-        public async Task<Post> GetById(Guid id)
+        public Task<List<Post>> GetAll()
         {
-            return await DbContext.Set<Post>().FindAsync(id);
+            return Task.FromResult(_context.posts.Include(x => x.Comments).ToList());
         }
 
-        public async Task<List<Post>> GetAll()
+        public Task<Post> GetById(Guid id)
         {
-            return await DbContext.Set<Post>().ToListAsync();
+            return Task.FromResult(_context.posts.Include(x => x.Comments).FirstOrDefault(x => x.Id == id));
         }
 
-        public async Task<Post> Update(Post entity)
+        public Task<List<Post>> GetPostsByUserId(Guid userId)
         {
-            DbContext.Entry(entity).State = EntityState.Modified;
-            await DbContext.SaveChangesAsync();
-            return entity;
+            return Task.FromResult(_context.posts.Include(x => x.Comments).Where(x => x.UserId == userId).ToList());
         }
 
-        public async Task<bool> Exists(Guid id)
+        public Task<Post> Update(Post entity)
         {
-            return DbContext.posts.Where(x=>x.Id == id).Any();
+            var postToUpdate = _context.posts.FirstOrDefault(x => x.Id == entity.Id);
+
+            if(postToUpdate == null){
+                return Task.FromResult<Post>(null);
+            }
+
+            postToUpdate.Caption = entity.Caption;
+            postToUpdate.Image = entity.Image;
+            postToUpdate.Likes = entity.Likes;
+            postToUpdate.Comments = entity.Comments;
+
+            if(_context.SaveChanges() == 0){
+                return Task.FromResult<Post>(null);
+            }
+
+            return Task.FromResult(postToUpdate);
         }
 
         public Task<List<Post>> GetPostsLikedByUser(Guid userId)
         {
-            var post_ids = DbContext.likes.Where(x => x.UserId == userId).Select(x => x.PostId).ToList();
-            return DbContext.posts.Where(x => post_ids.Contains(x.Id)).ToListAsync();
+            var posts = _context.posts.Include(x => x.Comments).Where(x => x.Likes.Any(x => x.UserId == userId)).ToList();
+            return Task.FromResult(posts);
         }
+<<<<<<< HEAD
         
         public async Task<List<Post>> GetPostsByUserId(Guid userId)
         {
@@ -72,5 +97,7 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.PostRepo
             var post_ids = DbContext.postTags.Where(x => x.TagId == tagId).Select(x => x.PostId).ToList();
             return DbContext.posts.Where(x => post_ids.Contains(x.Id)).ToListAsync();
         }
+=======
+>>>>>>> main
     }
 }

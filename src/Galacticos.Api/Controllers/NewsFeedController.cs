@@ -16,7 +16,7 @@ namespace Galacticos.Api.Controllers
             _mediator = mediator;
         }
         [HttpGet("{id}/posts/{pageNumber}/{pageSize}")]
-        public async Task<ActionResult<List<GetPostDto>>> GetNewsFeedPosts(Guid id, int pageNumber, int pageSize)
+        public async Task<ActionResult<List<PostResponesDTO>>> GetNewsFeedPosts(Guid id, int pageNumber, int pageSize)
         {
             var result = await _mediator.Send(new GetNewsFeedPostsRequest { Id = id, PageNumber = pageNumber, PageSize = pageSize });
             return Ok(result);
