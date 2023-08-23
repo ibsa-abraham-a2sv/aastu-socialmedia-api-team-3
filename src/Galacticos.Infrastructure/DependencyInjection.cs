@@ -16,6 +16,7 @@ using Galacticos.Application.Common.Interface.Authentication;
 using Galacticos.Infrastructure.Authentication;
 using Galacticos.Application.Common.Interface.Services;
 using Galacticos.Infrastructure.Services;
+using Galacticos.Infrastructure.Persistence.Repositories.CommentRepo;
 
 namespace Galacticos.Infrastructure
 {
@@ -32,6 +33,7 @@ namespace Galacticos.Infrastructure
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IRelationRepository, RelationRepository>();
             services.AddScoped<ILikeRepository, LikeRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddDbContext<ApiDbContext>(opt => opt.UseNpgsql(connectionString));
 
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
