@@ -66,5 +66,6 @@ namespace Galacticos.Api.Controllers
                 error => BadRequest(error)
             );
         }
+
     }
 }

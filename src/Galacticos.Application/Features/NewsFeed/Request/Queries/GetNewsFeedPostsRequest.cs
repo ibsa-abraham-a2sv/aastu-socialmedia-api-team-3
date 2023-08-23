@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Galacticos.Application.Features.NewsFeed.Request.Queries
 {
-    public class GetNewsFeedPostsRequest : IRequest<List<GetPostDto>>
+    public class GetNewsFeedPostsRequest : IRequest<List<PostResponesDTO>>
     {
         public Guid Id { get; set; }
         public int PageNumber { get; set; }

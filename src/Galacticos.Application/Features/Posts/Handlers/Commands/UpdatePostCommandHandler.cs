@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ErrorOr;
+using Galacticos.Application.DTOs.Posts;
 using Galacticos.Application.Features.Posts.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
 using MediatR;
@@ -10,24 +12,34 @@ using System.Threading.Tasks;
 
 namespace Galacticos.Application.Features.Posts.Handlers.Commands
 {
-    public class UpdatePostCommandHandler : IRequestHandler<UpdatePostCommand,Unit>
+    public class UpdatePostCommandHandler : IRequestHandler<UpdatePostCommand, ErrorOr<PostResponesDTO>>
     {
-        private readonly IPostRepository _iRepository;
+        private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
 
-        public UpdatePostCommandHandler(IPostRepository ipost, IMapper map)
+        public UpdatePostCommandHandler(IPostRepository postRepository, IMapper mapper)
         {
-            _iRepository = ipost;
-            _mapper = map;
-
+            _postRepository = postRepository;
+            _mapper = mapper;
         }
-        public async Task<Unit> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<PostResponesDTO>> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
         {
-            var post = await _iRepository.GetById(request.postDto.Id);
-            _mapper.Map(request.postDto, post);
+            var post = await _postRepository.GetById(request.PostId);
 
-            await _iRepository.Update(post);
-            return Unit.Value;
+            if (post == null)
+            {
+                return new ErrorOr<List<PostResponesDTO>>().Errors;
+            }
+
+            var postToUpdate = _mapper.Map(request.UpdatePostRequestDTO, post);
+
+            var updatedPost = await _postRepository.Update(postToUpdate);
+            
+            
+            var postResponseDTO = _mapper.Map<PostResponesDTO>(updatedPost);
+
+            return postResponseDTO;
+
         }
     }
 }
