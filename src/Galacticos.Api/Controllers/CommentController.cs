@@ -41,7 +41,7 @@ namespace Galacticos.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCommentById(Guid Id)
         {
-            var res = await _mediator.Send(new GetCommentByIdRequest {Id = Id});
+            var res = await _mediator.Send(new GetCommentByIdRequest { Id = Id });
 
             return res.Match<IActionResult>(
                 error => BadRequest(error),
@@ -52,9 +52,9 @@ namespace Galacticos.Api.Controllers
         [HttpGet("{PostId}")]
         public async Task<IActionResult> GetCommentsByPostId(Guid PostId)
         {
-            var res = await _mediator.Send(new GetCommentsByPostIdRequest {PostId = PostId});
-            
-            Console.WriteLine("CommentController: "+res.ToString());
+            var res = await _mediator.Send(new GetCommentsByPostIdRequest { PostId = PostId });
+
+            Console.WriteLine("CommentController: " + res.ToString());
             return res.Match<IActionResult>(
                 error => BadRequest(error),
                 comments => Ok(comments)
@@ -77,14 +77,14 @@ namespace Galacticos.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteComment(Guid Id)
         {
-            var res = await _mediator.Send(new DeleteCommentRequest {Id = Id});
+            var res = await _mediator.Send(new DeleteCommentRequest { Id = Id });
 
             return res.Match<IActionResult>(
                 error => BadRequest(error),
                 comment => Ok(comment)
             );
+        }
     }
-}   
 }
 
 // 3fa85f64-5717-4562-b3fc-2c963f66afa5

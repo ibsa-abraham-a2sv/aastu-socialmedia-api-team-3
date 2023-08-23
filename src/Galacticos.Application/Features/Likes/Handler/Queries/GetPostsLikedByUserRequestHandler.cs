@@ -8,7 +8,7 @@ using Galacticos.Application.Persistence.Contracts;
 
 namespace Galacticos.Application.Features.Likes.Handler.Queries
 {
-    public class GetPostsLikedByUserRequestHandler : IRequestHandler<GetPostsLikedByUserRequest, List<GetPostDto>>
+    public class GetPostsLikedByUserRequestHandler : IRequestHandler<GetPostsLikedByUserRequest, List<PostResponesDTO>>
     {
 
         private readonly IPostRepository _postRepository;
@@ -18,10 +18,10 @@ namespace Galacticos.Application.Features.Likes.Handler.Queries
             _postRepository = postRepository;
             _mapper = mapper;
         }
-        public async Task<List<GetPostDto>> Handle(GetPostsLikedByUserRequest request, CancellationToken cancellationToken)
+        public async Task<List<PostResponesDTO>> Handle(GetPostsLikedByUserRequest request, CancellationToken cancellationToken)
         {
             var posts = await _postRepository.GetPostsLikedByUser(request.UserId);
-            var postDtos = _mapper.Map<List<GetPostDto>>(posts);
+            var postDtos = _mapper.Map<List<PostResponesDTO>>(posts);
             return postDtos;
         }
     }

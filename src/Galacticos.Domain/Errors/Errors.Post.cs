@@ -12,6 +12,10 @@ namespace Galacticos.Domain.Errors
         {
             public static Error PostNotFound =>
             Error.Failure(code: "PostNotFound", description: "Post not found");
+
+            public static Error PostNotCreated =>
+            Error.Failure(code:"PostNotCreared", description: "Post not Created");
+
         }
     }
 }

@@ -7,7 +7,7 @@ using Galacticos.Application.DTOs.Posts;
 
 namespace Galacticos.Application.Features.NewsFeed.Handler.Queries
 {
-    public class GetNewsFeedPostsRequestHandler : IRequestHandler<GetNewsFeedPostsRequest, List<GetPostDto>>
+    public class GetNewsFeedPostsRequestHandler : IRequestHandler<GetNewsFeedPostsRequest, List<PostResponesDTO>>
     {
         private readonly IMapper _mapper;
         private readonly INewsFeedRepository _newsFeedRepository;
@@ -16,10 +16,10 @@ namespace Galacticos.Application.Features.NewsFeed.Handler.Queries
             _mapper = mapper;
             _newsFeedRepository = newsFeedRepository;
         }
-        public async Task<List<GetPostDto>> Handle(GetNewsFeedPostsRequest request, CancellationToken cancellationToken)
+        public async Task<List<PostResponesDTO>> Handle(GetNewsFeedPostsRequest request, CancellationToken cancellationToken)
         {
             var newsFeedPosts = await _newsFeedRepository.GetNewsFeedForUser(request.Id, request.PageNumber, request.PageSize);
-            return _mapper.Map<List<GetPostDto>>(newsFeedPosts);
+            return _mapper.Map<List<PostResponesDTO>>(newsFeedPosts);
         }   
     }
 }

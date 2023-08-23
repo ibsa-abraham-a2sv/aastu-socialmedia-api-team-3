@@ -1,4 +1,6 @@
-﻿using Galacticos.Application.DTOs.Posts;
+﻿using AutoMapper;
+using ErrorOr;
+using Galacticos.Application.DTOs.Posts;
 using Galacticos.Application.Features.Posts.Request.Commands;
 using Galacticos.Application.Features.Posts.Request.Queries;
 using MediatR;
@@ -7,65 +9,93 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Galacticos.Api.Controllers
 {
+    
     [Route("api/[controller]")]
-    [ApiController]
-    public class PostController : ControllerBase
+    public class PostController : ApiController
     {
         private readonly IMediator _mediator;
-        public PostController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public PostController(IMediator mediator, IMapper mapper)
         {
-             _mediator = mediator;
-
-        }
-        
-        [HttpGet]
-        public async Task<ActionResult<List<GetPostDto>>> Get()
-        {
-            var posts = await _mediator.Send(new GetPostsRequest());
-            return Ok(posts);
+            _mediator = mediator;
+            _mapper = mapper;
         }
 
-        
-        [HttpGet("{id}")]
-        public async Task<ActionResult<GetPostDetailDto>> Get(Guid id)
+        [HttpPost("/{userId}")]
+        public async Task<IActionResult> CreatePost(Guid userId, CreatePostRequestDTO request)
         {
-            var post = await _mediator.Send(new GetPostDetailRequest { Id = id });
-            return post;
+            var command = _mapper.Map<CreatePostCommand>(request);
+            command.UserId = userId;
+            ErrorOr<PostResponesDTO> result = await _mediator.Send(command);
+
+            return result.Match<IActionResult>(
+                post => Ok(post),
+                errors => BadRequest(errors)
+            );
         }
 
-        [HttpGet("liked/user/{userId}")]
-        public async Task<ActionResult<List<GetPostDto>>> GetPostsLikedByUser(Guid userId)
+        [HttpGet("/{postId}")]
+        public async Task<IActionResult> GetPost(Guid postId)
         {
-            var posts = await _mediator.Send(new GetPostsLikedByUserRequest { UserId = userId });
-            return Ok(posts);
+            var query = new GetPostQuery(postId);
+            ErrorOr<PostResponesDTO> result = await _mediator.Send(query);
+
+            return result.Match<IActionResult>(
+                post => Ok(post),
+                errors => BadRequest(errors)
+            );
         }
 
-        [HttpPost]
-        public async Task<ActionResult>  Post([FromBody] PostDto postDto)
+        [HttpGet("/user/{userId}")]
+        public async Task<IActionResult> GetPostsByUserId(Guid userId)
         {
-            var c = new CreatePostCommand { postDto = postDto };
-            var post = await _mediator.Send(c);
+            var query = new GetPostsByUserIdQuery(userId);
+            ErrorOr<List<PostResponesDTO>> result = await _mediator.Send(query);
 
-            return Ok(post);
+            return result.Match<IActionResult>(
+                posts => Ok(posts),
+                errors => BadRequest(errors)
+            );
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put([FromBody] PostDto postDto)
+        [HttpPut("/{postId}")]
+        public async Task<IActionResult> UpdatePost(Guid postId, UpdatePostRequestDTO updatePostRequestDTO)
         {
-            var c = new UpdatePostCommand { postDto = postDto };
-            var post = await _mediator.Send(c);
+            UpdatePostCommand request = new UpdatePostCommand()
+            {
+                PostId = postId,
+                UpdatePostRequestDTO = updatePostRequestDTO
+            };
+            ErrorOr<PostResponesDTO> result = await _mediator.Send(request);
 
-            return NoContent();
+            return result.Match<IActionResult>(
+                post => Ok(post),
+                errors => BadRequest(errors)
+            );
         }
 
-        
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(Guid id)
+        [HttpGet("/user/{userId}/liked")]
+        public async Task<IActionResult> GetPostsLikedByUser(Guid userId)
         {
-            var c = new DeletePostCommand { Id = id };
-            var post = await _mediator.Send(c);
+            var query = new GetPostsLikedByUserQuery(userId);
+            ErrorOr<List<PostResponesDTO>> result = await _mediator.Send(query);
 
-            return NoContent();
+            return result.Match<IActionResult>(
+                posts => Ok(posts),
+                errors => BadRequest(errors)
+            );
+        }
+
+        [HttpDelete("/{postId}/{userId}")]
+        public async Task<IActionResult> DeletePost(Guid postId, Guid userId)
+        {
+            var command = new DeletePostCommand(postId, userId);
+            ErrorOr<bool> result = await _mediator.Send(command);
+
+            return result.Match<IActionResult>(
+                post => Ok(post),
+                errors => BadRequest(errors)
+            );
         }
     }
 }

@@ -8,26 +8,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ErrorOr;
 
 namespace Galacticos.Application.Features.Posts.Handlers.Commands
 {
-    public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand, Unit>
+    public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand, ErrorOr<bool>>
     {
-        private readonly IPostRepository _repository;
+        private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepository;
 
-        public DeletePostCommandHandler(IPostRepository ipostRepository, IMapper imapper)
+        public DeletePostCommandHandler(IPostRepository postRepository, IMapper mapper, IUserRepository userRepository)
         {
-            _repository = ipostRepository;
-            _mapper = imapper;
+            _postRepository = postRepository;
+            _mapper = mapper;
+            _userRepository = userRepository;
         }
-
-        public async Task<Unit> Handle(DeletePostCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<bool>> Handle(DeletePostCommand request, CancellationToken cancellationToken)
         {
-            var posts = await _repository.GetById(request.Id);
-            _repository.Delete(posts.Id);
+            Post postToDelete = await _postRepository.GetById(request.PostId);
 
-            return Unit.Value;
+            if (postToDelete == null)
+            {
+                return new ErrorOr<bool>().Errors;
+            }
+
+            if (postToDelete.UserId != request.UserId)
+            {
+                return new ErrorOr<bool>().Errors;
+            }
+
+            bool result = await _postRepository.Delete(request.PostId);
+
+            return result;
         }
     }
 }

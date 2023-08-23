@@ -1,4 +1,5 @@
-﻿using Galacticos.Application.DTOs.Posts;
+﻿using ErrorOr;
+using Galacticos.Application.DTOs.Posts;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace Galacticos.Application.Features.Posts.Request.Commands
 {
-    public class UpdatePostCommand : IRequest<Unit>
+    public class UpdatePostCommand : IRequest<ErrorOr<PostResponesDTO>>
     {
-        public PostDto postDto { get; set; }
+        public Guid PostId { get; set; }
+
+        public required UpdatePostRequestDTO UpdatePostRequestDTO { get; set; }
     }
 }

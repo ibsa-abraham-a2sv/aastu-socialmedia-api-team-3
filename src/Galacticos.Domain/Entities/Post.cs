@@ -16,8 +16,8 @@ namespace Galacticos.Domain.Entities
         public Guid UserId { get; set; }
         public string Caption { get; set; } = null!;
         public string Image { get; set; } = "";
-        public User user { get; set; } = null!;
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<Like> Likes { get; set; }
+        public virtual User user { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Like> Likes { get; set; }
     }
 }

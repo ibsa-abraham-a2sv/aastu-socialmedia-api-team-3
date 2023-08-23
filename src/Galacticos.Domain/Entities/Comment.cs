@@ -12,11 +12,5 @@ namespace Galacticos.Domain.Entities
         public required Guid PostId { get; set; }
         public string Content { get; set; } = null!;
         public virtual Post Post { get; set; }
-
-        public Comment()
-        {
-            Post = new Post();
-        }
-
     }
 }
