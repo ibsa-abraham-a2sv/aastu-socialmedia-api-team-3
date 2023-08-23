@@ -1,8 +1,9 @@
+using Galacticos.Application.DTOs.Posts;
 using MediatR;
 
 namespace Galacticos.Application.Features.NewsFeed.Request.Queries
 {
-    public class GetNewsFeedPostsRequest : IRequest<List<object>>
+    public class GetNewsFeedPostsRequest : IRequest<List<GetPostDto>>
     {
         public Guid Id { get; set; }
         public int PageNumber { get; set; }

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using System.Threading.Tasks;
-using Galacticos.Application.DTOs.Like;
+using Galacticos.Application.DTOs.Likes;
 using Galacticos.Application.Features.Likes.Request.Queries;
 
 namespace Galacticos.Api.Controllers

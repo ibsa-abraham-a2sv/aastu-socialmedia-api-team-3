@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Galacticos.Application.DTOs.Like.Validators
+namespace Galacticos.Application.DTOs.Likes.Validators
 {
     public class CreateLikeDtoValidator : AbstractValidator<CreateLikeDto>
     {
