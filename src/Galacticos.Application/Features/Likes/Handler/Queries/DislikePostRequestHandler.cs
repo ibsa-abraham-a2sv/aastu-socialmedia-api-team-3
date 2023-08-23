@@ -2,7 +2,7 @@ using AutoMapper;
 using MediatR;
 using Galacticos.Application.Features.Likes.Request.Queries;
 using Galacticos.Application.Persistence.Contracts;
-using Galacticos.Application.DTOs.Like.Validators;
+using Galacticos.Application.DTOs.Likes.Validators;
 using FluentValidation;
 
 namespace Galacticos.Application.Features.Likes.Handler.Queries

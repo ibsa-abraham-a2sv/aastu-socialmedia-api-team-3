@@ -1,4 +1,4 @@
-using Galacticos.Application.DTOs.Like;
+using Galacticos.Application.DTOs.Likes;
 using MediatR;
 
 

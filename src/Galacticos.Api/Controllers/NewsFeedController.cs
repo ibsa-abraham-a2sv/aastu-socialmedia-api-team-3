@@ -3,6 +3,7 @@ using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
 using Galacticos.Application.Features.NewsFeed.Request.Queries;
+using Galacticos.Application.DTOs.Posts;
 
 namespace Galacticos.Api.Controllers
 {
@@ -14,8 +15,8 @@ namespace Galacticos.Api.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet("{id, pageNumber, pageSize}")]
-        public async Task<ActionResult<List<object>>> GetNewsFeedPosts(Guid id, int pageNumber, int pageSize)
+        [HttpGet("{id}/posts/{pageNumber}/{pageSize}")]
+        public async Task<ActionResult<List<GetPostDto>>> GetNewsFeedPosts(Guid id, int pageNumber, int pageSize)
         {
             var result = await _mediator.Send(new GetNewsFeedPostsRequest { Id = id, PageNumber = pageNumber, PageSize = pageSize });
             return Ok(result);

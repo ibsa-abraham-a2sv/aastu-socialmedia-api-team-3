@@ -1,4 +1,3 @@
-using Galacticos.Application.Persistence.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Galacticos.Application.DTOs.Relations;
 using MediatR;
@@ -31,11 +30,17 @@ namespace Galacticos.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Guid>>> GetFollowedUserIdsByUserId(Guid userId)
+        public async Task<ActionResult<RelationDTO>> Get(RelationDTO relation)
         {
-            var query = new GetFollowedUsersRequest { Id = userId };
-            var followedUserIds = await _mediator.Send(query);
-            return Ok(followedUserIds);
+            var result = await _mediator.Send(new GetRelationRequest { RelationDTO = relation });
+            return Ok(result);
+        }
+
+        [HttpGet("followed")]
+        public async Task<ActionResult<List<Guid>>> GetFollowedIds(Guid id)
+        {
+            var result = await _mediator.Send(new GetFollowedIdsRequest { id = id });
+            return Ok(result);
         }
 
     }
