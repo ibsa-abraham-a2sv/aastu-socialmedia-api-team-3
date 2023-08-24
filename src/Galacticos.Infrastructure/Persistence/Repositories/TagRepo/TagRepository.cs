@@ -27,11 +27,11 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
             return await _dbContext.tags.ToListAsync();
         }
 
-        public async Task<Tag> Add(Tag tag)
+        public async Task<List<Tag>> Add(Tag tag)
         {
             _dbContext.tags.Add(tag);
             await _dbContext.SaveChangesAsync();
-            return tag;
+            return await _dbContext.tags.ToListAsync();
         }
 
         public async Task<Tag> Update(Tag tag)
@@ -70,6 +70,11 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
                 .ToListAsync();
 
             return tags;
+        }
+
+        Task<Tag> ITagRepository.Add(Tag tag)
+        {
+            throw new NotImplementedException();
         }
     }
 }

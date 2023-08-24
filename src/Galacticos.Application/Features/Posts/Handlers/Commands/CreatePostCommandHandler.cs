@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using ErrorOr;
@@ -30,13 +31,15 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
         {
             var post = _mapper.Map<Post>(request);
 
-            var result = await _postRepository.Add(post);
-            if (result == null)
+            var postResult = await _postRepository.Add(post);
+
+            if (postResult == null)
             {
                 return new ErrorOr<PostResponesDTO>().Errors; // Assuming this returns an ErrorOr instance with appropriate error
             }
 
-            var response = _mapper.Map<PostResponesDTO>(result);
+
+            var response = _mapper.Map<PostResponesDTO>(postResult);
             return response;
         }
     }

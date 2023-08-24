@@ -13,6 +13,6 @@ namespace Galacticos.Application.DTOs.Posts
         public string Image {get; set;}
         public Guid UserId {get; set;}
         public List<CommentResponesDTO> Comments {get; set;}
-        public List<string> Tags {get; set;} = new List<string>();
+        public List<TagDto> Tags {get; set;} = new List<TagDto>();
     }
 }
