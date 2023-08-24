@@ -21,7 +21,7 @@ namespace Galacticos.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("/{userId}")]
+        [HttpPost("{userId}")]
         public async Task<IActionResult> CreatePost(Guid userId, CreatePostRequestDTO request)
         {
             var command = _mapper.Map<CreatePostCommand>(request);
@@ -34,7 +34,7 @@ namespace Galacticos.Api.Controllers
             );
         }
 
-        [HttpGet("/{postId}")]
+        [HttpGet("{postId}")]
         public async Task<IActionResult> GetPost(Guid postId)
         {
             var query = new GetPostQuery(postId);
@@ -46,7 +46,7 @@ namespace Galacticos.Api.Controllers
             );
         }
 
-        [HttpGet("/user/{userId}")]
+        [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetPostsByUserId(Guid userId)
         {
             var query = new GetPostsByUserIdQuery(userId);
@@ -58,7 +58,7 @@ namespace Galacticos.Api.Controllers
             );
         }
 
-        [HttpPut("/{postId}")]
+        [HttpPut("{postId}")]
         public async Task<IActionResult> UpdatePost(Guid postId, UpdatePostRequestDTO updatePostRequestDTO)
         {
             UpdatePostCommand request = new UpdatePostCommand()
@@ -74,7 +74,7 @@ namespace Galacticos.Api.Controllers
             );
         }
 
-        [HttpGet("/user/{userId}/liked")]
+        [HttpGet("user/{userId}/liked")]
         public async Task<IActionResult> GetPostsLikedByUser(Guid userId)
         {
             var query = new GetPostsLikedByUserQuery(userId);
@@ -86,7 +86,7 @@ namespace Galacticos.Api.Controllers
             );
         }
 
-        [HttpDelete("/{postId}/{userId}")]
+        [HttpDelete("{postId}/{userId}")]
         public async Task<IActionResult> DeletePost(Guid postId, Guid userId)
         {
             var command = new DeletePostCommand(postId, userId);
