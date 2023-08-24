@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Galacticos.Application.Persistence.Contracts;
 using Moq;
 using Galacticos.Application.UnitTests.Mocks;
 using Galacticos.Application.Features.Likes.Handler.Queries;
 using Galacticos.Application.Features.Likes.Request.Queries;
-using Galacticos.Application.DTOs.Likes;
 using Xunit;
-using MediatR;
 
 namespace Galacticos.Application.UnitTests.Likes.Queries
 {
