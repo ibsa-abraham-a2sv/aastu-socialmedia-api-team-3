@@ -11,26 +11,26 @@ namespace Galacticos.Application.UnitTests.Mocks
 {
     public class MockRepositories
     {
-        // public static Mock<ILikeRepository> LikeRepository()
-        // {
+        public static Mock<ILikeRepository> LikeRepository()
+        {
 
-        //     var Likes = new List<Like>
-        //     {
-        //         new Like
-        //         {
-        //             Id = new Guid("00000000-0000-0000-0000-000000000000"),
-        //             UserId = new Guid("00000000-0000-0000-0000-000000000000"),
-        //             PostId = new Guid("00000000-0000-0000-0000-000000000000"),
-        //         }
-        //     };
+            var Likes = new List<Like>
+            {
+                new Like
+                {
+                    Id = new Guid("00000000-0000-0000-0000-000000000000"),
+                    UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+                    PostId = new Guid("00000000-0000-0000-0000-000000000000"),
+                }
+            };
 
 
-        //     var mockRepo = new Mock<ILikeRepository>();
-        //     mockRepo.Setup(repo => repo.LikePost(It.IsAny<Guid>(), It.IsAny<Guid>()))
-        //            .ReturnsAsync((Guid postId, Guid userId) => new Like { Id = Guid.NewGuid() });
+            var mockRepo = new Mock<ILikeRepository>();
+            mockRepo.Setup(repo => repo.LikePost(It.IsAny<Guid>(), It.IsAny<Guid>()))
+                   .ReturnsAsync((Guid postId, Guid userId) => new Like { Id = Guid.NewGuid() });
 
-        //     return mockRepo;
-        // }
+            return mockRepo;
+        }
 
 
         // public static Mock<IUserRepository> UserRepository()

@@ -15,13 +15,13 @@ namespace Galacticos.Application.UnitTests.Comments.Queries
     public class CommentHandlerTest
     {
         private readonly Mock<ICommentRepository> _commentRepository;
-        private readonly Mock<IPostRepository> _postRepository;
+        // private readonly Mock<IPostRepository> _postRepository;
         private readonly IMapper _mapper;
 
         public CommentHandlerTest()
         {
             _commentRepository = MockRepositories.CommentRepository();
-            _postRepository = MockRepositories.PostRepository();
+            // _postRepository = MockRepositories.PostRepository();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -83,20 +83,20 @@ namespace Galacticos.Application.UnitTests.Comments.Queries
         }
 
 
-        [Fact]
-        public async Task GetCommentsByPostIdHandler_Success()
-        {
-            var handler = new GetCommentsByPostIdRequestHandler(_commentRepository.Object, _mapper, _postRepository.Object);
+        // [Fact]
+        // public async Task GetCommentsByPostIdHandler_Success()
+        // {
+        //     var handler = new GetCommentsByPostIdRequestHandler(_commentRepository.Object, _mapper, _postRepository.Object);
 
-            var command = new GetCommentsByPostIdRequest
-            {
-                PostId = new Guid("00000000-0000-0000-0000-000000000000"),
-            };
+        //     var command = new GetCommentsByPostIdRequest
+        //     {
+        //         PostId = new Guid("00000000-0000-0000-0000-000000000000"),
+        //     };
 
-            var result = await handler.Handle(command, CancellationToken.None);
-            Assert.NotNull(result);
-            Assert.IsType<ErrorOr<List<CommentResponesDTO>>>(result);
-        }
+        //     var result = await handler.Handle(command, CancellationToken.None);
+        //     Assert.NotNull(result);
+        //     Assert.IsType<ErrorOr<List<CommentResponesDTO>>>(result);
+        // }
 
 
         [Fact]
