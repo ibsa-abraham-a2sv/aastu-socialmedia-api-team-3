@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Galacticos.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class migr5 : Migration
+    public partial class newMigration2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,9 +36,11 @@ namespace Galacticos.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Content = table.Column<string>(type: "text", nullable: false),
+                    UserById = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserToId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Content = table.Column<int>(type: "integer", nullable: false),
                     IsRead = table.Column<bool>(type: "boolean", nullable: false),
+                    userId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -46,8 +48,8 @@ namespace Galacticos.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_notifications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_notifications_users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_notifications_users_userId",
+                        column: x => x.userId,
                         principalTable: "users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -167,9 +169,9 @@ namespace Galacticos.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_notifications_UserId",
+                name: "IX_notifications_userId",
                 table: "notifications",
-                column: "UserId");
+                column: "userId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_posts_UserId",
