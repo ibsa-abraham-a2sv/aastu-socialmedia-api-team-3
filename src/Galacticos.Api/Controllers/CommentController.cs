@@ -61,11 +61,12 @@ namespace Galacticos.Api.Controllers
             );
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateComment(Guid Id, [FromBody] UpdateCommentRequestDTO request)
+        [HttpPut("{CommentID}/{UserID}")]
+        public async Task<IActionResult> UpdateComment(Guid CommentId, Guid UserId, [FromBody] UpdateCommentRequestDTO request)
         {
             var command = _mapper.Map<UpdateCommentCommand>(request);
-            command.Id = Id;
+            command.CommentId = CommentId;
+            command.UserId = UserId;
             var res = await _mediator.Send(command);
 
             return res.Match<IActionResult>(

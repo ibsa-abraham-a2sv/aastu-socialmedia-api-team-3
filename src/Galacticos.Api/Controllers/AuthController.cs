@@ -14,9 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Galacticos.Api.Controllers;
 
-[ApiController]
 [Route("api/auth")]
-public class AuthController : ControllerBase{
+public class AuthController : ApiController{
 
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;

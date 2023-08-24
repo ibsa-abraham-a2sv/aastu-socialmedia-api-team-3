@@ -10,10 +10,10 @@ namespace Galacticos.Application.Persistence.Contracts
 {
     public interface ICommentRepository
     {
-        ErrorOr<CommentResponesDTO> CreateComment(Comment comment);
-        Comment? GetCommentById(Guid id);
-        List<CommentResponesDTO> GetCommentsByPostId(Guid postId);
-        CommentResponesDTO UpdateComment(Comment comment);
-        bool DeleteComment(Comment comment);   
+        Task<Comment> CreateComment(Comment comment);
+        Task<Comment>? GetCommentById(Guid id);
+        Task<List<Comment>> GetCommentsByPostId(Guid postId);
+        Task<Comment> UpdateComment(Comment comment);
+        Task<bool> DeleteComment(Guid id);   
     }
 }

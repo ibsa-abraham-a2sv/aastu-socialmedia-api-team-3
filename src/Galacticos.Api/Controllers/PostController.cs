@@ -4,6 +4,7 @@ using Galacticos.Application.DTOs.Posts;
 using Galacticos.Application.Features.Posts.Request.Commands;
 using Galacticos.Application.Features.Posts.Request.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -59,6 +60,7 @@ namespace Galacticos.Api.Controllers
         }
 
         [HttpPut("{postId}")]
+        [Authorize]
         public async Task<IActionResult> UpdatePost(Guid postId, UpdatePostRequestDTO updatePostRequestDTO)
         {
             UpdatePostCommand request = new UpdatePostCommand()
@@ -87,6 +89,7 @@ namespace Galacticos.Api.Controllers
         }
 
         [HttpDelete("{postId}/{userId}")]
+        [Authorize]
         public async Task<IActionResult> DeletePost(Guid postId, Guid userId)
         {
             var command = new DeletePostCommand(postId, userId);

@@ -78,6 +78,11 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
 
             var postToUpdate = _mapper.Map(request.UpdatePostRequestDTO, post);
 
+            if (postToUpdate.UserId != request.UserId)
+            {
+                return new ErrorOr<List<PostResponesDTO>>().Errors;
+            }
+
             var updatedPost = await _postRepository.Update(postToUpdate);
             
             

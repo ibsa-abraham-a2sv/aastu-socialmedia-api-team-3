@@ -9,6 +9,7 @@ using Galacticos.Application.Features.Comments.Request.Queries;
 using Galacticos.Application.Persistence.Contracts;
 using MediatR;
 using Galacticos.Domain.Errors;
+using Galacticos.Domain.Entities;
 
 namespace Galacticos.Application.Features.Comments.Handler.Query
 {
@@ -25,19 +26,18 @@ namespace Galacticos.Application.Features.Comments.Handler.Query
             _postRepository = postRepository;
         }
 
-        public Task<ErrorOr<List<CommentResponesDTO>>> Handle(GetCommentsByPostIdRequest request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<List<CommentResponesDTO>>> Handle(GetCommentsByPostIdRequest request, CancellationToken cancellationToken)
         {
-            Console.WriteLine("GetCommentsByPostIdRequestHandler");
-            var post = _postRepository.GetById(request.PostId);
+            var post = await _postRepository.GetById(request.PostId);
             if (post == null)
             {
-                return Task.FromResult<ErrorOr<List<CommentResponesDTO>>>(Errors.Post.PostNotFound);
+                return new ErrorOr<List<CommentResponesDTO>>().Errors;
             }
 
-            List<CommentResponesDTO> comments = _commentRepository.GetCommentsByPostId(request.PostId);
-            // var commentResponses = _mapper.Map<List<CommentResponesDTO>>(comments);
+            List<Comment> comments = await _commentRepository.GetCommentsByPostId(request.PostId);
+            var commentResponses = _mapper.Map<List<CommentResponesDTO>>(comments);
 
-            return Task.FromResult<ErrorOr<List<CommentResponesDTO>>>(comments);
+            return commentResponses;
         }
     }
 }
