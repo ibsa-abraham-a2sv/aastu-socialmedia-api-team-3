@@ -12,17 +12,17 @@
 
 // namespace Galacticos.Application.UnitTests.Likes.Queries
 // {
-//     public class CreateLikesRequestHandlerTest
+//     public class LikesRequestHandlerTest
 //     {
 //         private readonly Mock<ILikeRepository> _likeRepository;
 //         private readonly Mock<IUserRepository> _userRepository;
 //         private readonly Mock<IPostRepository> _postRepository;
 //         private readonly IMapper _mapper;
 
-//         public CreateLikesRequestHandlerTest()
+//         public LikesRequestHandlerTest()
 //         {
 //             _likeRepository = MockRepositories.LikeRepository();
-//             _userRepository = MockRepositories.UserRepository();
+//             // _userRepository = MockRepositories.UserRepository();
 //             _postRepository = MockRepositories.PostRepository();
 
 //             var mapperConfig = new MapperConfiguration(mc =>

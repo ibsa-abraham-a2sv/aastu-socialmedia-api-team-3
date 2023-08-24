@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ErrorOr;
 using Galacticos.Application.Common.Interface.Authentication;
+using Galacticos.Application.DTOs.Comments;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
 using Moq;
@@ -33,56 +35,53 @@ namespace Galacticos.Application.UnitTests.Mocks
         }
 
 
-        // public static Mock<IUserRepository> UserRepository()
-        // {
-        //     var Users = new List<User>
-        //     {
-        //         new User
-        //         {
-        //             Id = new Guid("00000000-0000-0000-0000-000000000000"),
-        //             FirstName = "John",
-        //             LastName = "Doe",
-        //             UserName = "jhondoe",
-        //             Email = "jhondoe",
-        //             Password = "123456",
-        //             Bio = "I am a software developer",
-        //             Picture = "picture.jpg",
-        //         }
-        //     };
+        public static Mock<IUserRepository> UserRepository()
+        {
+            var Users = new List<User>
+            {
+                new User
+                {
+                    Id = new Guid("00000000-0000-0000-0000-000000000000"),
+                    FirstName = "John",
+                    LastName = "Doe",
+                    UserName = "jhondoe",
+                    Email = "jhondoe",
+                    Password = "123456",
+                    Bio = "I am a software developer",
+                    Picture = "picture.jpg",
+                }
+            };
 
-        //     var mockRepo = new Mock<IUserRepository>();
-        //     mockRepo.Setup(repo => repo.GetUserById(It.IsAny<Guid>()))
-        //             .Returns((Guid id) => Users.FirstOrDefault(x => x.Id == id));
+            var mockRepo = new Mock<IUserRepository>();
+            mockRepo.Setup(repo => repo.GetUserById(It.IsAny<Guid>()))
+                    .Returns((Guid id) => Users.FirstOrDefault(x => x.Id == id));
 
-        //     mockRepo.Setup(repo => repo.GetUserByEmail(It.IsAny<string>()))
-        //             .Returns((string email) => Users.FirstOrDefault(x => x.Email == email));
+            mockRepo.Setup(repo => repo.GetUserByEmail(It.IsAny<string>()))
+                    .Returns((string email) => Users.FirstOrDefault(x => x.Email == email));
 
-        //     mockRepo.Setup(repo => repo.GetUserByUserName(It.IsAny<string>()))
-        //             .Returns((string userName) => Users.FirstOrDefault(x => x.UserName == userName));
+            mockRepo.Setup(repo => repo.GetUserByUserName(It.IsAny<string>()))
+                    .Returns((string userName) => Users.FirstOrDefault(x => x.UserName == userName));
 
-        //     mockRepo.Setup(repo => repo.AddUser(It.IsAny<User>()))
-        //             .Callback((User user) => Users.Add(user));
+            mockRepo.Setup(repo => repo.AddUser(It.IsAny<User>()))
+                    .Callback((User user) => Users.Add(user));
 
-        //     mockRepo.Setup(repo => repo.EditUser(It.IsAny<User>()))
-        //             .Returns((User user) => user);
+            mockRepo.Setup(repo => repo.EditUser(It.IsAny<User>()))
+                    .Returns((User user) => user);
                     
-        //     mockRepo.Setup(repo => repo.GetAllUsers())
-        //             .Returns(() => Users);
+            mockRepo.Setup(repo => repo.GetAllUsers())
+                    .Returns(() => Users);
+            mockRepo.Setup(repo => repo.GetUserByIdentifier(It.IsAny<string>()))
+                    .Returns((string identifier) => Users.FirstOrDefault(x => x.UserName == identifier || x.Email == identifier));
             
-        //     return mockRepo;
-        // }
+            return mockRepo;
+        }
 
 
         public static Mock<IJwtTokenGenerator> GetJwtTokenGenerator()
         {
-            var Token = new List<string>
-            {
-                "your_valid_jwt_token_here"
-            };
+            var Token = new List<string> { "your_valid_jwt_token_here" };
 
             var jwtRepo = new Mock<IJwtTokenGenerator>();
-
-            // vajwtRepo = new Mock<IJwtTokenGenerator>();
             jwtRepo.Setup(generator => generator.GenerateToken(It.IsAny<User>()))
                         .Returns("your_valid_jwt_token_here");
             
@@ -106,10 +105,18 @@ namespace Galacticos.Application.UnitTests.Mocks
             var mockRepo = new Mock<ICommentRepository>();
 
             mockRepo.Setup(repo => repo.CreateComment(It.IsAny<Comment>()))
-                    .Callback((Comment comment) => Comments.Add(comment));
+                .Callback((Comment comment) => Comments.Add(comment))
+                .Returns((Comment comment) => new CommentResponesDTO
+                    {
+                        Id = comment.Id,
+                        UserId = comment.UserId,
+                        PostId = comment.PostId,
+                        Content = comment.Content,
+                    });
+                
 
             mockRepo.Setup(repo => repo.UpdateComment(It.IsAny<Comment>()))
-                    .Returns((Comment comment) => new DTOs.Comments.CommentResponesDTO
+                    .Returns((Comment comment) => new CommentResponesDTO
                     {
                         Id = comment.Id,
                         UserId = comment.UserId,
@@ -125,6 +132,44 @@ namespace Galacticos.Application.UnitTests.Mocks
             
             mockRepo.Setup(repo => repo.GetCommentsByPostId(It.IsAny<Guid>()))
                     .Returns((Guid postId) => Comments.Where(x => x.PostId == postId).ToList());
+
+            return mockRepo;
+        }
+
+        public static Mock<IRelationRepository> RelationRepository()
+        {
+            var Relations = new List<Follow>
+            {
+                new Follow
+                {
+                    FollowerId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    FollowedUserId = new Guid("22222222-2222-2222-2222-222222222222"),
+                }
+            };
+
+            var mockRepo = new Mock<IRelationRepository>();
+
+            mockRepo.Setup(repo => repo.Follow(It.IsAny<Guid>(), It.IsAny<Guid>()))
+                    .ReturnsAsync((Guid followerId, Guid followedUserId) => new Follow
+                    {
+                        FollowerId = followerId,
+                        FollowedUserId = followedUserId,
+                    });
+
+            
+            mockRepo.Setup(repo => repo.UnFollow(It.IsAny<Guid>(), It.IsAny<Guid>()))
+                    .ReturnsAsync((Guid followerId, Guid followedUserId) => new Follow
+                    {
+                        FollowerId = followerId,
+                        FollowedUserId = followedUserId,
+                    });
+            
+            mockRepo.Setup(repo => repo.Get(It.IsAny<Guid>(), It.IsAny<Guid>()))
+                    .ReturnsAsync((Guid followerId, Guid followedUserId) => new Follow
+                    {
+                        FollowerId = followerId,
+                        FollowedUserId = followedUserId,
+                    });
 
             return mockRepo;
         }
