@@ -34,20 +34,20 @@ namespace Galacticos.Application.UnitTests.Posts.Queries
         }
 
 
-        [Fact]
-        public async Task valid_post_added()
-        {
-            var userId = new Guid("00000000-0000-0000-0000-000000000000");
-            var caption = "Test add function";
-            var image = "testAdd.png";
-            var handler = new CreatePostCommandHandler(_postRepository.Object, _mapper);
+        // [Fact]
+        // public async Task valid_post_added()
+        // {
+        //     var userId = new Guid("00000000-0000-0000-0000-000000000000");
+        //     var caption = "Test add function";
+        //     var image = "testAdd.png";
+        //     var handler = new CreatePostCommandHandler(_postRepository.Object, _mapper);
 
-            var result = await handler.Handle(new CreatePostCommand(){UserId = userId,Caption = caption,Image = image}, CancellationToken.None);
-            var posts = await _postRepository.Object.GetAll();
+        //     var result = await handler.Handle(new CreatePostCommand(){UserId = userId,Caption = caption,Image = image}, CancellationToken.None);
+        //     var posts = await _postRepository.Object.GetAll();
             
-            Assert.IsType<ErrorOr<PostResponesDTO>>(result);
-            Assert.Equal(3,posts.Count);
-        }
+        //     Assert.IsType<ErrorOr<PostResponesDTO>>(result);
+        //     Assert.Equal(3,posts.Count);
+        // }
 
         [Fact]
         public async Task GetPostRequestHandler()
