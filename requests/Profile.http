@@ -1,10 +1,19 @@
 @host=http://localhost:5293
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4YzI4NTUxNy00YzQwLTRhZWUtOTRmNC00MmUzMzJiZjUzZDYiLCJnaXZlbl9uYW1lIjoiWW9uYXRhbiIsImZhbWlseV9uYW1lIjoiVGVzZmF5ZSIsImp0aSI6ImJkYWE4ZGM1LTdhY2UtNGNlYS05N2M4LTJmNDM0MzhmMzVlZiIsImV4cCI6MTY5Mjg3OTk4NSwiaXNzIjoiZ2FsYWN0aWNvcyIsImF1ZCI6ImdhbGFjdGljb3MifQ.DVq82TUsKLSAlaTuNv8PyVagQXz8yX_0Io90_sSWpBA
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMGNmNWY0OC05NzJkLTRiNjktYTQzMi01M2YwZmE1NTczNzkiLCJnaXZlbl9uYW1lIjoiWW9uYXRhbiIsImZhbWlseV9uYW1lIjoiVGVzZmF5ZSIsImp0aSI6ImI2MjAyODcwLTE0NDYtNDBmYi1hM2JmLTk2NWU5ZDNjMGE1ZiIsImV4cCI6MTY5Mjk2NjQ1NywiaXNzIjoiZ2FsYWN0aWNvcyIsImF1ZCI6ImdhbGFjdGljb3MifQ.JY3TG2COcVkbB_YpgqYi9l8rXJ1H0vaHxRVcRMphJRE
 
 GET {{host}}/api/Profile/f7ff0565-394e-4c09-af9b-2807e37bd357
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
+###
+POST {{host}}/api/Profile
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "caption": "string",
+  "image": "string"
+}
 
 ###
 
@@ -15,8 +24,17 @@ Content-Type: application/json
   "firstName": "Yonatan",
   "lastName": "Tesfaye",
   "userName": "Yoni",
-  "email": "YonatanTesfaye@gmail.com",
+  "email": "YonatanTesfayes@gmail.com",
   "bio": "Bio",
   "profilePicture": "",
+  "password": "12345678"
+}
+
+###
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "YonatanTesfaye@gmail.com",
   "password": "12345678"
 }

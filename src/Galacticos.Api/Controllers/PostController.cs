@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using AutoMapper;
 using ErrorOr;
 using Galacticos.Application.DTOs.Posts;
 using Galacticos.Application.Features.Posts.Request.Commands;
@@ -10,29 +13,41 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Galacticos.Api.Controllers
 {
-    
+
     [Route("api/[controller]")]
+    [Authorize]
     public class PostController : ApiController
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        public PostController(IMediator mediator, IMapper mapper)
+        public PostController(IMediator mediator, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        [HttpPost("{userId}")]
-        public async Task<IActionResult> CreatePost(Guid userId, CreatePostRequestDTO request)
+        [HttpPost]
+        public async Task<IActionResult> CreatePost(CreatePostRequestDTO request)
         {
-            var command = _mapper.Map<CreatePostCommand>(request);
-            command.UserId = userId;
-            ErrorOr<PostResponesDTO> result = await _mediator.Send(command);
+        var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
 
-            return result.Match<IActionResult>(
-                post => Ok(post),
-                errors => BadRequest(errors)
-            );
+            if (userIdClaim != null)
+            {
+                var command = _mapper.Map<CreatePostCommand>(request);
+                command.UserId = Guid.Parse(userIdClaim);
+                ErrorOr<PostResponesDTO> result = await _mediator.Send(command);
+
+                return result.Match<IActionResult>(
+                    post => Ok(post),
+                    errors => BadRequest(errors)
+                );
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
 
         [HttpGet("{postId}")]
@@ -60,7 +75,6 @@ namespace Galacticos.Api.Controllers
         }
 
         [HttpPut("{postId}")]
-        [Authorize]
         public async Task<IActionResult> UpdatePost(Guid postId, UpdatePostRequestDTO updatePostRequestDTO)
         {
             UpdatePostCommand request = new UpdatePostCommand()

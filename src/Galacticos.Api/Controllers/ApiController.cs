@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Galacticos.Api.Controllers
 {
     [ApiController]
-    [Authorize]
     public class ApiController : ControllerBase
     {
            
