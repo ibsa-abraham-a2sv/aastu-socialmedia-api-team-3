@@ -23,7 +23,7 @@ namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
             _userRepository = userRepository;
             _mapper = mapper;
         }
-        Task<ErrorOr<ProfileResponseDTO>> IRequestHandler<EditProfileRequest, ErrorOr<ProfileResponseDTO>>.Handle(EditProfileRequest request, CancellationToken cancellationToken)
+        public Task<ErrorOr<ProfileResponseDTO>> Handle(EditProfileRequest request, CancellationToken cancellationToken)
         {
             var user =  _userRepository.GetUserById(request.UserId);
             if (user == null)

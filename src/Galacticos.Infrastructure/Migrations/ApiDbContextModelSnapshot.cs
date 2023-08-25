@@ -111,9 +111,8 @@ namespace Galacticos.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Content")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -124,12 +123,18 @@ namespace Galacticos.Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("UserById")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserToId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("userId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("userId");
 
                     b.ToTable("notifications");
                 });
@@ -305,7 +310,7 @@ namespace Galacticos.Infrastructure.Migrations
                 {
                     b.HasOne("Galacticos.Domain.Entities.User", "user")
                         .WithMany("Notifications")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

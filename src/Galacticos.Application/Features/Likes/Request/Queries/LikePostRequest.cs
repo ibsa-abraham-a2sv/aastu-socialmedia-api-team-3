@@ -6,6 +6,6 @@ namespace Galacticos.Application.Features.Likes.Request.Queries
 {
     public class LikePostRequest : IRequest<Guid>
     {
-        public CreateLikeDto createLikeDto { get; set; } = new CreateLikeDto();
+        public CreateLikeDto createLikeDto { get; set; }
     }
 }

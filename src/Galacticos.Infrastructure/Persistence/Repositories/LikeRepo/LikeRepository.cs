@@ -46,34 +46,34 @@ namespace Galacticos.Persistence.Repositories
 
         //     return like;
         // }
-        public Guid Add(Like entity)
-        {
-            _context.likes.Add(entity);
-            if (_context.SaveChanges() == 0)
-            {
-                throw new Exception("Error saving like");
-            }
-            return entity.Id;
-        }
+        // public Guid Add(Like entity)
+        // {
+        //     _context.likes.Add(entity);
+        //     if (_context.SaveChanges() == 0)
+        //     {
+        //         throw new Exception("Error saving like");
+        //     }
+        //     return entity.Id;
+        // }
 
-        public void Delete(Like entity)
-        {
-            _context.likes.Remove(entity);
-            if (_context.SaveChanges() == 0)
-            {
-                throw new Exception("Error deleting like");
-            }
-        }
+        // public void Delete(Like entity)
+        // {
+        //     _context.likes.Remove(entity);
+        //     if (_context.SaveChanges() == 0)
+        //     {
+        //         throw new Exception("Error deleting like");
+        //     }
+        // }
 
-        public Task<List<Like>> GetAll()
-        {
-            return _context.likes.ToListAsync();
-        }
+        // public Task<List<Like>> GetAll()
+        // {
+        //     return _context.likes.ToListAsync();
+        // }
 
-        public Task<Like> GetById(Guid id)
-        {
-            return _context.likes.FirstOrDefaultAsync(l => l.Id == id);
-        }
+        // public Task<Like> GetById(Guid id)
+        // {
+        //     return _context.likes.FirstOrDefaultAsync(l => l.Id == id);
+        // }
 
         public async Task<Like> GetLikeByPostIdAndUserId(Guid postId, Guid userId)
         {
