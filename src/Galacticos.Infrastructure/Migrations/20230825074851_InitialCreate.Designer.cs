@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Galacticos.Infrastructure.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20230824075759_InitialCreate")]
+    [Migration("20230825074851_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
