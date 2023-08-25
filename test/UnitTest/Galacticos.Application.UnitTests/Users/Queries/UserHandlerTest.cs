@@ -9,6 +9,7 @@ using Galacticos.Application.Features.Auth.Requests.Queries;
 using Galacticos.Application.Common.Interface.Authentication;
 using Galacticos.Application.Features.Auth.Requests.Commands;
 using Galacticos.Application.Services.Authentication;
+using Galacticos.Application.Profiles;
 
 namespace Galacticos.Application.UnitTests.Users.Queries
 {
@@ -26,7 +27,7 @@ namespace Galacticos.Application.UnitTests.Users.Queries
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
-                mc.AddProfile(new Profiles.MappingProfile());
+                mc.AddProfile(new MappingProfile());
             });
 
             _mapper = mapperConfig.CreateMapper();

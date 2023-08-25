@@ -13,6 +13,36 @@ namespace Galacticos.Application.UnitTests.Mocks
 {
     public class MockRepositories
     {
+        public static Mock<IPostRepository> PostRepository()
+        {
+            var Posts = new List<Post>
+            {
+                new Post{
+                    Id = new Guid("00000000-0000-0000-0000-000000000000"),
+                    UserId = new Guid("11111111-1111-1111-1111-111111111111"),
+                    Caption = "Test",
+                    Image = "Test.png",
+                },
+                new Post{
+                    Id = new Guid("11111111-0000-0000-0000-000000000000"),
+                    UserId = new Guid( "22222222-2222-2222-2222-222222222222"),
+                    Caption = " Test 2",
+                    Image = "Test2.png"
+                }
+            };
+
+            var mock = new Mock<IPostRepository>(); 
+            
+            mock.Setup(r => r.GetAll()).ReturnsAsync(Posts);
+            
+            mock.Setup(r => r.Add(It.IsAny<Post>()))
+                .Callback((Post post) => Posts.Add(post));
+
+            mock.Setup(r => r.GetById(It.IsAny<Guid>())).ReturnsAsync((Guid postId) => Posts.FirstOrDefault(x => x.Id == postId));
+
+            return mock;
+        }
+        
         public static Mock<ILikeRepository> LikeRepository()
         {
 
@@ -127,12 +157,6 @@ namespace Galacticos.Application.UnitTests.Mocks
             mockRepo.Setup(repo => repo.GetCommentById(It.IsAny<Guid>()))
                     .Returns((Guid id) => Comments.FirstOrDefault(x => x.Id == id));
 
-            mockRepo.Setup(repo => repo.DeleteComment(It.IsAny<Comment>()))
-                    .Returns((Comment comment) => Comments.Remove(comment));
-            
-            mockRepo.Setup(repo => repo.GetCommentsByPostId(It.IsAny<Guid>()))
-                    .Returns((Guid postId) => Comments.Where(x => x.PostId == postId).ToList());
-
             return mockRepo;
         }
 
@@ -170,6 +194,46 @@ namespace Galacticos.Application.UnitTests.Mocks
                         FollowerId = followerId,
                         FollowedUserId = followedUserId,
                     });
+
+            return mockRepo;
+        }
+
+
+        public static Mock<IUserRepository> ProfileRepository()
+        {
+            var Users = new List<User>
+            {
+                new User
+                {
+                    Id = new Guid("22222222-2222-2222-2222-222222222222"),
+                    FirstName = "John",
+                    LastName = "Doe",
+                    UserName = "jhondoe",
+                    Email = "jhondoe",
+                    Password = "123456",
+                    Bio = "I am a software developer",
+                    Picture = "picture.jpg",
+                }
+            };
+
+            var mockRepo = new Mock<IUserRepository>();
+            mockRepo.Setup(repo => repo.GetUserById(It.IsAny<Guid>()))
+                    .Returns((Guid id) => Users.FirstOrDefault(x => x.Id == id));
+
+            mockRepo.Setup(repo => repo.GetUserByEmail(It.IsAny<string>()))
+                    .Returns((string email) => Users.FirstOrDefault(x => x.Email == email));
+
+            mockRepo.Setup(repo => repo.GetUserByUserName(It.IsAny<string>()))
+                    .Returns((string userName) => Users.FirstOrDefault(x => x.UserName == userName));
+
+            mockRepo.Setup(repo => repo.AddUser(It.IsAny<User>()))
+                    .Callback((User user) => Users.Add(user));
+
+            mockRepo.Setup(repo => repo.EditUser(It.IsAny<User>()))
+                    .Returns((User user) => user);
+            
+            mockRepo.Setup(repo => repo.GetAllUsers())
+                    .Returns(() => Users);
 
             return mockRepo;
         }

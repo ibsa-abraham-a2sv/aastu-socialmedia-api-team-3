@@ -1,35 +1,51 @@
-// using Xunit;
-// using Moq;
-// using AutoMapper;
-// using Galacticos.Application.Persistence.Contracts;
-// using Galacticos.Application.UnitTests.Mocks;
-// using Galacticos.Application.Features.Comments.Request.Commands;
-// using Galacticos.Application.Features.Comments.Handler.Command;
-// using Galacticos.Application.DTOs.Comments;
-// using ErrorOr;
-// using Galacticos.Application.Features.Comments.Handler.Query;
-// using Galacticos.Application.Features.Comments.Request.Queries;
+using Xunit;
+using Moq;
+using AutoMapper;
+using Galacticos.Application.Profiles;
+using Galacticos.Application.Persistence.Contracts;
+using Galacticos.Application.UnitTests.Mocks;
+using Galacticos.Application.Features.Comments.Request.Commands;
+using Galacticos.Application.Features.Comments.Handler.Command;
+using Galacticos.Application.DTOs.Comments;
+using ErrorOr;
+using Galacticos.Application.Features.Comments.Handler.Query;
+using Galacticos.Application.Features.Comments.Request.Queries;
 
-// namespace Galacticos.Application.UnitTests.Comments.Queries
-// {
-//     public class CommentHandlerTest
-//     {
-//         private readonly Mock<ICommentRepository> _commentRepository;
-//         // private readonly Mock<IPostRepository> _postRepository;
-//         private readonly IMapper _mapper;
+namespace Galacticos.Application.UnitTests.Comments.Queries
+{
+    public class CommentHandlerTest
+    {
+        private readonly Mock<ICommentRepository> _commentRepository;
+        // private readonly Mock<IPostRepository> _postRepository;
+        private readonly IMapper _mapper;
 
-//         public CommentHandlerTest()
-//         {
-//             _commentRepository = MockRepositories.CommentRepository();
-//             // _postRepository = MockRepositories.PostRepository();
+        public CommentHandlerTest()
+        {
+            _commentRepository = MockRepositories.CommentRepository();
+            // _postRepository = MockRepositories.PostRepository();
 
-//             var mapperConfig = new MapperConfiguration(mc =>
-//             {
-//                 mc.AddProfile(new Profiles.CommentMappingProfile());
-//             });
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new CommentMappingProfile());
+            });
 
-//             _mapper = mapperConfig.CreateMapper();
-//         }
+            _mapper = mapperConfig.CreateMapper();
+        }
+
+        [Fact]
+        public async Task GetCommentByIdHandler_Success()
+        {
+            var handler = new GetCommentByIdRequestHandler(_commentRepository.Object, _mapper);
+
+            var command = new GetCommentByIdRequest
+            {
+                Id = new Guid("00000000-0000-0000-0000-000000000000"),
+            };
+
+            var result = await handler.Handle(command, CancellationToken.None);
+            Assert.NotNull(result);
+            Assert.IsType<ErrorOr<CommentResponesDTO>>(result);
+        }
 
 
 //         [Fact]
@@ -100,19 +116,6 @@
 //         // }
 
 
-//         [Fact]
-//         public async Task GetCommentByIdHandler_Success()
-//         {
-//             var handler = new GetCommentByIdRequestHandler(_commentRepository.Object, _mapper);
-
-//             var command = new GetCommentByIdRequest
-//             {
-//                 Id = new Guid("00000000-0000-0000-0000-000000000000"),
-//             };
-
-//             var result = await handler.Handle(command, CancellationToken.None);
-//             Assert.NotNull(result);
-//             Assert.IsType<ErrorOr<CommentResponesDTO>>(result);
-//         }
-//     }
-// }
+        
+    }
+}
