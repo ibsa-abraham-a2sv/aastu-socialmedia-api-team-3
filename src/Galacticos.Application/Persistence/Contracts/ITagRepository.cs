@@ -12,4 +12,6 @@ public interface ITagRepository
     Task Delete(Guid id);
     Task<bool> Exists(Guid id);
     Task<List<Tag>> SearchTags(string searchTerm);
+    Task<Tag> GetOrCreateTagByName(string hashtag);
+    Task<Tag> GetTagByName(string tagName);
 }

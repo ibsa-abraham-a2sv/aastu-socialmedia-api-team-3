@@ -15,14 +15,12 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
     public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand, ErrorOr<bool>>
     {
         private readonly IPostRepository _postRepository;
-        private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
+        private readonly IPostTagRepository _postTagRepository;
 
-        public DeletePostCommandHandler(IPostRepository postRepository, IMapper mapper, IUserRepository userRepository)
+        public DeletePostCommandHandler(IPostRepository postRepository, IPostTagRepository postTagRepository)
         {
             _postRepository = postRepository;
-            _mapper = mapper;
-            _userRepository = userRepository;
+            _postTagRepository = postTagRepository;
         }
         public async Task<ErrorOr<bool>> Handle(DeletePostCommand request, CancellationToken cancellationToken)
         {
@@ -39,6 +37,14 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
             }
 
             bool result = await _postRepository.Delete(request.PostId);
+
+            var detetePostTags = await _postTagRepository.GetPostTagsByPostId(request.PostId);
+
+            foreach (var postTag in detetePostTags)
+            {
+                await _postTagRepository.Delete(postTag);
+            }
+            
 
             return result;
         }

@@ -10,52 +10,45 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
 {
     public class TagRepository : ITagRepository
     {
-        private readonly ApiDbContext _dbContext;
+        private readonly ApiDbContext _context;
 
         public TagRepository(ApiDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _context = dbContext;
         }
 
         public async Task<Tag> GetById(Guid id)
         {
-            return await _dbContext.tags.FindAsync(id);
+            return await _context.tags.FindAsync(id);
         }
 
         public async Task<List<Tag>> GetAll()
         {
-            return await _dbContext.tags.ToListAsync();
-        }
-
-        public async Task<List<Tag>> Add(Tag tag)
-        {
-            _dbContext.tags.Add(tag);
-            await _dbContext.SaveChangesAsync();
-            return await _dbContext.tags.ToListAsync();
+            return await _context.tags.ToListAsync();
         }
 
         public async Task<Tag> Update(Tag tag)
         {
-            _dbContext.Entry(tag).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
+            _context.Entry(tag).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
             return tag;
         }
 
         public async Task Delete(Guid id)
         {
-            var tag = await _dbContext.tags.FindAsync(id);
-            _dbContext.tags.Remove(tag);
-            await _dbContext.SaveChangesAsync();
+            var tag = await _context.tags.FindAsync(id);
+            _context.tags.Remove(tag);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> Exists(Guid id)
         {
-            return await _dbContext.tags.AnyAsync(tag => tag.Id == id);
+            return await _context.tags.AnyAsync(tag => tag.Id == id);
         }
 
         public async Task<List<Tag>> GetTagsByPost(Guid postId)
         {
-            var tags = await _dbContext.postTags
+            var tags = await _context.postTags
                 .Where(pt => pt.PostId == postId)
                 .Select(pt => pt.Tag)
                 .ToListAsync();
@@ -65,16 +58,38 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
 
         public async Task<List<Tag>> SearchTags(string searchTerm)
         {
-            var tags = await _dbContext.tags
+            var tags = await _context.tags
                 .Where(tag => tag.Name.Contains(searchTerm))
                 .ToListAsync();
 
             return tags;
         }
-
-        Task<Tag> ITagRepository.Add(Tag tag)
+        public async Task<Tag> GetOrCreateTagByName(string tagName)
         {
-            throw new NotImplementedException();
+            var existingTag = await GetTagByName(tagName);
+            if (existingTag != null)
+            {
+                return existingTag;
+            }
+
+            var newTag = new Tag
+            {
+                Name = tagName
+            };
+            await Add(newTag);
+            return newTag;
+        }
+
+        public async Task<Tag> GetTagByName(string tagName)
+        {
+            return await _context.tags.SingleOrDefaultAsync(tag => tag.Name == tagName);
+        }
+
+        public async Task<Tag> Add(Tag tag)
+        {
+            await _context.tags.AddAsync(tag);
+            await _context.SaveChangesAsync();
+            return tag;
         }
     }
 }

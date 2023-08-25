@@ -12,6 +12,5 @@ namespace Galacticos.Application.DTOs.Posts
 
         public string? Caption {get; set;} = "";
         public string? Image {get; set;}= "";
-        public List<EditTagsDto>? Tags {get; set;} = new List<EditTagsDto>();
     }
 }

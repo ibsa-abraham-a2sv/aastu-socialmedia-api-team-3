@@ -9,6 +9,5 @@ namespace Galacticos.Application.DTOs.Posts
     {
         public string Caption { get; set; } = null!;
         public string Image { get; set; } = "";
-        public List<string> Tags { get; set; } = new List<string>();
     }
 }

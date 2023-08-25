@@ -1,8 +1,9 @@
+using Galacticos.Application.DTOs.Common;
+
 namespace Galacticos.Application.DTOs
 {
-    public class TagDto
+    public class TagDto : BaseEntityDto
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
     }
 }
