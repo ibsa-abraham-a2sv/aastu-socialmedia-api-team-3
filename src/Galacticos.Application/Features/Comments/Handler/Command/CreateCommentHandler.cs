@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using ErrorOr;
 using Galacticos.Application.DTOs.Comments;
@@ -9,6 +5,7 @@ using Galacticos.Application.DTOs.Comments.Validators;
 using Galacticos.Application.Features.Comments.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
+using Galacticos.Domain.Errors;
 using MediatR;
 
 namespace Galacticos.Application.Features.Comments.Handler.Command
@@ -20,11 +17,7 @@ namespace Galacticos.Application.Features.Comments.Handler.Command
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public CreateCommentHandler(
-            ICommentRepository commentRepository,
-            IMapper mapper,
-            IPostRepository postRepository,
-            IUserRepository userRepository)
+        public CreateCommentHandler(ICommentRepository commentRepository, IMapper mapper, IPostRepository postRepository, IUserRepository userRepository)
         {
             _commentRepository = commentRepository;
             _mapper = mapper;
@@ -35,29 +28,34 @@ namespace Galacticos.Application.Features.Comments.Handler.Command
         {
             var validator = new CommentCommandValidator();
 
-            var obj = new CreateCommentRequestDTO()
+            var obj = new CreateCommentRequestDTO
             {
-                Content = request.Content
+                Content = request.Content,
             };
+            var validationResult = validator.Validate(obj);
 
-            var result = validator.Validate(obj);
-
-            if (!result.IsValid)
+            if (!validationResult.IsValid)
             {
-                return new ErrorOr<CommentResponesDTO>().Errors;
+                return Errors.Comment.InvalidComment;
             }
 
             var user = await _userRepository.Exists(request.UserId);
-            var post = await _postRepository.GetById(request.PostId);
 
-            if (!user || post == null)
+            if (!user)
             {
-                return new ErrorOr<CommentResponesDTO>().Errors;
+                return Errors.User.UserNotFound;
+            }
+
+            var post = await _postRepository.GetById(request.PostId);
+            if (post == null)
+            {
+                return Errors.Post.PostNotFound;
             }
 
             var comment = _mapper.Map<Comment>(request);
             ErrorOr<CommentResponesDTO> res = _commentRepository.CreateComment(comment);
-            return res;
+            var result = _mapper.Map<CommentResponesDTO>(comment);
+            return result;
         }
     }
 }

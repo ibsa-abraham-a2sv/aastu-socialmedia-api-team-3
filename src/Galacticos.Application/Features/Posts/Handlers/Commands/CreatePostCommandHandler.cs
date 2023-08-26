@@ -55,12 +55,12 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
 
             if (!result.IsValid)
             {
-                return new ErrorOr<PostResponesDTO>().Errors;
+                return Errors.Post.InvalidPost;
             }
 
             if (user == false)
             {
-                return new ErrorOr<PostResponesDTO>().Errors;
+                return Errors.User.UserNotFound;
             }
             
             var post = _mapper.Map<Post>(request);
