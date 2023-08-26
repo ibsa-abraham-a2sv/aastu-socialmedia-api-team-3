@@ -15,6 +15,9 @@ namespace Galacticos.Domain.Errors
 
             public static Error CommentNotFound =>
             Error.Failure(code: "Comment.NotFound", description: "Comment not found");
+
+            public static Error InvalidComment =>
+            Error.Failure(code: "Comment.Invalid", description: "Invalid Comment");
         }
     }
 }

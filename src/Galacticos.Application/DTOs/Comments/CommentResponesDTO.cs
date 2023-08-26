@@ -8,7 +8,7 @@ namespace Galacticos.Application.DTOs.Comments
 {
     public class CommentResponesDTO : BaseEntityDto
     {
-        public string Content {get; set;}
+        public string Content {get; set;} = null!;
         public Guid PostId {get; set;}
         public Guid UserId {get; set;}
         

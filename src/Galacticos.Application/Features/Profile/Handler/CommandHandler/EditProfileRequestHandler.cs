@@ -10,6 +10,7 @@ using MediatR;
 using Galacticos.Domain.Errors;
 using AutoMapper;
 using Galacticos.Domain.Entities;
+using Galacticos.Application.DTOs.Profile.Validators;
 
 namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
 {
@@ -30,6 +31,16 @@ namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
             {
                 return Task.FromResult<ErrorOr<ProfileResponseDTO>>(Errors.User.UserNotFound);
             }
+
+            var validator = new ProfileValidator();
+            var validationResult = validator.Validate(request.EditProfileRequestDTO);
+
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                return Task.FromResult<ErrorOr<ProfileResponseDTO>>(Errors.User.InvalidUser);
+            }
+            
             var userToEdit = _mapper.Map(request.EditProfileRequestDTO, user);
             var editedUser = _userRepository.EditUser(userToEdit);
             var profileResponseDTO = _mapper.Map<ProfileResponseDTO>(editedUser);

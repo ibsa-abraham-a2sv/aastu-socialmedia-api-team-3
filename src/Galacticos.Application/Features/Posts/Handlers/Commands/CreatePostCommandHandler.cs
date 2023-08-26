@@ -8,6 +8,7 @@ using ErrorOr;
 using Galacticos.Application.DTOs;
 using Galacticos.Application.DTOs.Comments;
 using Galacticos.Application.DTOs.Posts;
+using Galacticos.Application.DTOs.Posts.Validator;
 using Galacticos.Application.Features.Comments.Request.Commands;
 using Galacticos.Application.Features.Posts.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
@@ -24,16 +25,44 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
         private readonly ITagRepository _tagRepository;
         private readonly IPostTagRepository _postTagRepository;
 
-        public CreatePostCommandHandler(IPostRepository postRepository, IMapper mapper, ITagRepository tagRepository, IPostTagRepository postTagRepository)
+        private readonly IUserRepository _userRepository;
+
+        public CreatePostCommandHandler(
+            IPostRepository postRepository,
+            IMapper mapper,
+            ITagRepository tagRepository,
+            IPostTagRepository postTagRepository,
+            IUserRepository userRepository)
         {
             _mapper = mapper;
             _postRepository = postRepository;
             _tagRepository = tagRepository;
             _postTagRepository = postTagRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<ErrorOr<PostResponesDTO>> Handle(CreatePostCommand request, CancellationToken cancellationToken)
         {
+            var user = await _userRepository.Exists(request.UserId);
+
+            var validator = new CreatePostDtoValidator();
+            var obj = new CreatePostRequestDTO()
+            {
+                Caption = request.Caption,
+                Image = request.Image
+            };
+            var result = validator.Validate(obj);
+
+            if (!result.IsValid)
+            {
+                return new ErrorOr<PostResponesDTO>().Errors;
+            }
+
+            if (user == false)
+            {
+                return new ErrorOr<PostResponesDTO>().Errors;
+            }
+            
             var post = _mapper.Map<Post>(request);
 
             var postResult = await _postRepository.Add(post);
