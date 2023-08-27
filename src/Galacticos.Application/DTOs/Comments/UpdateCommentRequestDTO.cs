@@ -7,7 +7,7 @@ namespace Galacticos.Application.DTOs.Comments
 {
     public class UpdateCommentRequestDTO 
     {
-        public string Content {get; set;}
+        public string Content {get; set;} = null!;
 
     }
 }

@@ -9,6 +9,7 @@ using Galacticos.Application.Persistence.Contracts;
 using MediatR;
 using Galacticos.Domain.Errors;
 using AutoMapper;
+using Galacticos.Application.DTOs.Comments.Validators;
 
 namespace Galacticos.Application.Features.Comments.Handler.Command
 {
@@ -27,6 +28,19 @@ namespace Galacticos.Application.Features.Comments.Handler.Command
             if (comment == null)
             {
                 return Task.FromResult<ErrorOr<CommentResponesDTO>>(Errors.Comment.CommentNotFound);
+            }
+
+            var validator = new CommentCommandValidator();
+            var obj = new CreateCommentRequestDTO()
+            {
+                Content = request.Content
+            };
+
+            var result = validator.Validate(obj);
+
+            if (!result.IsValid)
+            {
+                return Task.FromResult<ErrorOr<CommentResponesDTO>>(Errors.Comment.InvalidComment);
             }
 
             comment.Content = request.Content;

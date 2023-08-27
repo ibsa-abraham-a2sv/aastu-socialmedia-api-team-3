@@ -21,13 +21,10 @@ namespace Galacticos.Api.Controllers
         {
             var result = await _mediator.Send(new LikePostRequest { createLikeDto = createLikeDto });
             
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            
-            if (result == Guid.Empty)
-                return NotFound(new { Message = "Post or user not found." });
-
-            return Ok(result);
+            return result.Match<ActionResult>(
+                like => Ok(like),
+                error => BadRequest(error)
+            );
         }
 
         [HttpDelete]

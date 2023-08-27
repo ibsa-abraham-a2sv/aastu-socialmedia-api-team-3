@@ -16,6 +16,8 @@ namespace Galacticos.Domain.Errors
             public static Error PostNotCreated =>
             Error.Failure(code:"PostNotCreared", description: "Post not Created");
 
+            public static Error InvalidPost =>
+            Error.Failure(code: "InvalidPost", description: "Invalid Post");
         }
     }
 }

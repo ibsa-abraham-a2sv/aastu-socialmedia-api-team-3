@@ -33,8 +33,8 @@ namespace Galacticos.Api.Controllers
             var res = await _mediator.Send(command);
 
             return res.Match<IActionResult>(
-                error => BadRequest(error),
-                comment => Ok(comment)
+                comment => Ok(comment),
+                error => BadRequest(error)
             );
         }
 
