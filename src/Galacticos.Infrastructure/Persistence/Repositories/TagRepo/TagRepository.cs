@@ -91,5 +91,17 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
             return tag;
         }
+
+        public async Task<List<Tag>> GetTagsByNames(List<string> tagNames)
+        {
+            List<Tag> tags = new();
+            foreach (var tagName in tagNames)
+            {
+                var tag =  await GetTagByName(tagName);
+                tags.Add(tag);
+            }
+            
+            return tags;
+        }
     }
 }
