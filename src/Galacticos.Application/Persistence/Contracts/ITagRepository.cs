@@ -14,4 +14,5 @@ public interface ITagRepository
     Task<List<Tag>> SearchTags(string searchTerm);
     Task<Tag> GetOrCreateTagByName(string hashtag);
     Task<Tag> GetTagByName(string tagName);
+    Task<List<Tag>> GetTagsByNames(List<string> tagNames);
 }
