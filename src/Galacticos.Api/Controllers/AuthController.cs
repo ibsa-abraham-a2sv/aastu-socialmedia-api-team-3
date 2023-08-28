@@ -34,7 +34,7 @@ public class AuthController : ApiController{
 
         var command = _mapper.Map<RegisterCommand>(request);
         
-        ErrorOr<AuthenticationResult> authResult = await _mediator.Send(command);
+        ErrorOr<string> authResult = await _mediator.Send(command);
         
         return authResult.Match(
             result => Ok(result),
@@ -55,5 +55,18 @@ public class AuthController : ApiController{
             error => Problem(error)
         );
     }
+    
+    [HttpGet("verify-email")]
+        public async Task<IActionResult> VerifyEmail(string token)
+        {
+            var command = new VerifyEmailCommand { Token = token }; // Create a command with the token
+            var verificationResult = await _mediator.Send(command);
+
+            return verificationResult.Match<IActionResult>(
+                result => Ok(result),    // Redirect to success page or message
+                error => Problem(error)   // Redirect to error page or display error message
+            );
+        }
+    
 
 }

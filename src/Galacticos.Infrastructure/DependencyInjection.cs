@@ -18,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 using System.Text;
 using Galacticos.Infrastructure.Persistence.Repositories.PostTagRepo;
+using Galacticos.Infrastructure.Mail;
 using Galacticos.Infrastructure.Persistence.Repositories.NotificationRepo;
 using Microsoft.VisualBasic;
 using Galacticos.Application.Cloudinary;
@@ -42,6 +43,11 @@ namespace Galacticos.Infrastructure
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IPostTagRepository, PostTagRepository>();
+
+            services.AddAuth(configuration);
+            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IJwtTokenValidation, JwtTokenValidation>();
             services.AddScoped<INotificationRepository, NotificationRepo>();
             
             services.AddAuth(configuration);
@@ -80,7 +86,6 @@ namespace Galacticos.Infrastructure
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
                 };
             });
-            Console.WriteLine("JwtBearerOptions");
             return services;
         }
     }
