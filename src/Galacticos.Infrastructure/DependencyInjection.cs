@@ -44,8 +44,6 @@ namespace Galacticos.Infrastructure
             services.AddScoped<IPostTagRepository, PostTagRepository>();
             services.AddDbContext<ApiDbContext>(opt => opt.UseNpgsql(connectionString));
 
-            // services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-            // services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
             services.AddAuth(configuration);
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IEmailSender, EmailSender>();
@@ -78,7 +76,6 @@ namespace Galacticos.Infrastructure
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
                 };
             });
-            Console.WriteLine("JwtBearerOptions");
             return services;
         }
     }

@@ -28,12 +28,12 @@ namespace Galacticos.Application.Features.Auth.Handlers.CommandHandlers
         }
         public async Task<ErrorOr<AuthenticationResult>> Handle(VerifyEmailCommand request, CancellationToken cancellationToken)
         {
-            bool isTokenValid = _jwtTokenValidation.ValidateToken(request.Token);
-            Console.WriteLine("This token id: "+ request.Token );
-            if (!isTokenValid)
-            {
-                return Errors.Auth.InvalidToken;
-            }
+            // bool isTokenValid = _jwtTokenValidation.ValidateToken(request.Token);
+            // Console.WriteLine("This token id: "+ request.Token );
+            // if (!isTokenValid)
+            // {
+            //     return Errors.Auth.InvalidToken;
+            // }
 
             Guid UserId = _jwtTokenValidation.ExtractUserIdFromToken(request.Token);
             

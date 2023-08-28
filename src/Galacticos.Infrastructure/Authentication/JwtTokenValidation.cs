@@ -23,9 +23,10 @@ namespace Galacticos.Infrastructure.Authentication
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var jwtToken = tokenHandler.ReadJwtToken(token);
+            Console.WriteLine(jwtToken);
 
             // Find the claim with the user ID
-            var userIdClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "userId");
+            var userIdClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "sub");
 
             if (userIdClaim != null)
             {

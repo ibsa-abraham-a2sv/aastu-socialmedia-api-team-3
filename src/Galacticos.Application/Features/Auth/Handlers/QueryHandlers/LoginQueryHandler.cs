@@ -28,8 +28,12 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<Authenticat
 
         var identifier = (query.UserName ?? query.Email) ?? throw new Exception("Username or Email is required");
 
-        if (_userRepository.GetUserByIdentifier(identifier) is not User user)
+        User user = _userRepository.GetUserByIdentifier(identifier);
+        if (user is null)
             return Errors.Auth.WrongCreadital;
+        
+        if (!user.Verified)
+            return Errors.Auth.EmailNotConfirmed;
 
         if (user.Password != query.Password)
             return Errors.Auth.WrongCreadital;
