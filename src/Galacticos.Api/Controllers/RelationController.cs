@@ -1,8 +1,12 @@
+using Galacticos.Application.Persistence.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Galacticos.Application.DTOs.Relations;
 using MediatR;
 using Galacticos.Application.Features.Relation.Request.Query;
 using Galacticos.Application.Features.Relation.Request.Command;
+using Galacticos.Application.Features.Notifications.Commands;
+using Galacticos.Application.DTOs.Notifications;
+using Galacticos.Application.Features.Profile.Request.Queries;
 
 namespace Galacticos.Api.Controllers
 {
@@ -19,6 +23,18 @@ namespace Galacticos.Api.Controllers
         public async Task<ActionResult<Guid>> Follow(RelationDTO relation)
         {
             var result = await _mediator.Send(new FollowCommand { RelationDTO = relation });
+            var user = await _mediator.Send(new GetProfileRequest { UserId = relation.FollowerId });
+
+            await _mediator.Send(new CreateNotificationCommand
+            {
+                NotificationDTO = new CreateNotificationDTO
+                {
+                    UserById = relation.FollowerId,
+                    UserToId = relation.FollowedUserId,
+                    Content = $"{user.Value.UserName} Start Following You" // Follow
+                }
+            });
+
             return Ok(result);
         }
 
@@ -26,6 +42,19 @@ namespace Galacticos.Api.Controllers
         public async Task<ActionResult<Guid>> UnFollow(RelationDTO relation)
         {
             var result = await _mediator.Send(new UnFollowCommand { RelationDTO = relation });
+            var user = await _mediator.Send(new GetProfileRequest { UserId = relation.FollowerId });
+
+            // Send Notification
+            await _mediator.Send(new CreateNotificationCommand
+            {
+                NotificationDTO = new CreateNotificationDTO
+                {
+                    UserById = relation.FollowerId,
+                    UserToId = relation.FollowedUserId,
+                    Content = $"{user.Value.UserName} Unfollowed You" // Unfollow
+                }
+            });
+
             return Ok(result);
         }
 
