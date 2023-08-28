@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using ErrorOr;
 using Galacticos.Application.Common.Interface.Authentication;
+using Galacticos.Application.DTOs.Users;
 using Galacticos.Application.Features.Auth.Requests.Commands;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Application.Services.Authentication;
@@ -19,12 +21,14 @@ namespace Galacticos.Application.Features.Auth.Handlers.CommandHandlers
         private readonly IUserRepository _userRepository;
         private readonly IJwtTokenValidation _jwtTokenValidation;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
+        private readonly IMapper _mapper;
 
-        public VerifyEmailCommandHandler(IUserRepository userRepository, IJwtTokenValidation jwtTokenValidation, IJwtTokenGenerator jwtTokenGenerator)
+        public VerifyEmailCommandHandler(IUserRepository userRepository, IJwtTokenValidation jwtTokenValidation, IJwtTokenGenerator jwtTokenGenerator, IMapper mapper)
         {
             _userRepository = userRepository;
             _jwtTokenValidation = jwtTokenValidation;
             _jwtTokenGenerator = jwtTokenGenerator;
+            _mapper = mapper;
         }
         public async Task<ErrorOr<AuthenticationResult>> Handle(VerifyEmailCommand request, CancellationToken cancellationToken)
         {
@@ -60,8 +64,9 @@ namespace Galacticos.Application.Features.Auth.Handlers.CommandHandlers
                 return Errors.Auth.EmailNotConfirmed;
             }
 
+
             var Token = _jwtTokenGenerator.GenerateToken(usr);
-            var res = new AuthenticationResult(usr, Token); 
+            var res = new AuthenticationResult(_mapper.Map<UserDto>(user), Token); 
             
             return res;
         }

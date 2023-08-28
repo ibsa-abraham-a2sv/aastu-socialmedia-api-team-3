@@ -19,15 +19,14 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<s
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
     private readonly IEmailSender _emailSender;
-    public RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository, IMapper mapper, IEmailSender emailSender)
     private readonly IPasswordHashService _passwordHashService;
-    public RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository, IMapper mapper, IPasswordHashService passwordHashService)
+    public RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository, IMapper mapper, IPasswordHashService passwordHashService, IEmailSender emailSender)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
         _mapper = mapper;
-        _emailSender = emailSender;
         _passwordHashService = passwordHashService;
+        _emailSender = emailSender;
     }
 
     public async Task<ErrorOr<string>> Handle(RegisterCommand command, CancellationToken cancellationToken)
@@ -69,8 +68,6 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<s
         var token = _jwtTokenGenerator.GenerateToken(user);
 
         UserDto userDto = _mapper.Map<UserDto>(user);
-
-        return Task.FromResult<ErrorOr<AuthenticationResult>>(new AuthenticationResult(userDto, token));
 
         // return some string that says registration successful but verfiy your email
         ErrorOr<string> res = "Registration successful, please verify your email";

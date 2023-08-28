@@ -50,8 +50,6 @@ namespace Galacticos.Infrastructure
             services.AddScoped<IJwtTokenValidation, JwtTokenValidation>();
             services.AddScoped<INotificationRepository, NotificationRepo>();
             
-            services.AddAuth(configuration);
-            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<IPasswordHashService, PasswordHashService>();
 
             // Setup Cloudinary
