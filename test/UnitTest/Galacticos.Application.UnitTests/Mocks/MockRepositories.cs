@@ -38,7 +38,7 @@ namespace Galacticos.Application.UnitTests.Mocks
             mock.Setup(r => r.Add(It.IsAny<Post>()))
                 .Callback((Post post) => Posts.Add(post));
 
-            mock.Setup(r => r.GetById(It.IsAny<Guid>())).ReturnsAsync((Guid postId) => Posts.FirstOrDefault(x => x.Id == postId));
+            mock.Setup(r => r.GetById(It.IsAny<Guid>())).Returns((Guid postId) => Posts.FirstOrDefault(x => x.Id == postId));
 
             return mock;
         }
