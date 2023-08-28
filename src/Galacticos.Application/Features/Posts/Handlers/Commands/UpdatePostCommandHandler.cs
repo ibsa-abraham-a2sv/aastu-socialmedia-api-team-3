@@ -4,6 +4,7 @@ using Galacticos.Application.DTOs.Posts;
 using Galacticos.Application.Features.Posts.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
+using Galacticos.Domain.Errors;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
 
             if (post == null)
             {
-                return new ErrorOr<List<PostResponesDTO>>().Errors;
+                return Errors.Post.PostNotFound;
             }
 
             var caption = post.Caption;
@@ -76,7 +77,12 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
                 }
             }
 
+            if (post.UserId != request.UserId)
+            {
+                return Errors.Post.PostIsNotYours;
+            }
             var postToUpdate = _mapper.Map(request.UpdatePostRequestDTO, post);
+
 
             var updatedPost = await _postRepository.Update(postToUpdate);
             

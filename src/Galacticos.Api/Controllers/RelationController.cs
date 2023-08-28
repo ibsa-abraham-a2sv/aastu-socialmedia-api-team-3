@@ -7,7 +7,7 @@ using Galacticos.Application.Features.Relation.Request.Command;
 namespace Galacticos.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class RelationController : Controller
+    public class RelationController : ApiController
     {
         private readonly IMediator _mediator;
         public RelationController(IMediator mediator)

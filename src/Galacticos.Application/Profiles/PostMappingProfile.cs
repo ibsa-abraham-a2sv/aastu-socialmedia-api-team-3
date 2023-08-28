@@ -15,7 +15,9 @@ namespace Galacticos.Application.Profiles
         {
             CreateMap<CreatePostCommand, Post>(); // CreateMap for CreatePostCommand to Post mapping
             CreateMap<Post, PostResponesDTO>() // CreateMap for Post to PostResponesDTO mapping
-                .ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.Comments));
+                .ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.Comments))
+                .ForMember(dest => dest.Likes, opt => opt.MapFrom(src => src.Likes));
+
             CreateMap<CreatePostCommand, Post>();
             CreateMap<UpdatePostRequestDTO, Post>()
                 .ForAllMembers(x => x.Condition((src, dest, srcMember) =>

@@ -4,13 +4,14 @@ using MediatR;
 
 namespace Galacticos.Application.Features.Auth.Requests.Commands;
 
-public record RegisterCommand
-(
-    string FirstName = "",
-    string LastName = "",
-    string UserName = "",
-    string Email = "",
-    string? Bio = "",
-    string? Picture = "",
-    string Password = ""
-) : IRequest<ErrorOr<AuthenticationResult>>;
+public class RegisterCommand : IRequest<ErrorOr<AuthenticationResult>>
+{
+    public string FirstName { get; set; } = null!;
+    public string LastName { get; set; } = null!;
+    public string UserName { get; set; } = null!;
+    public string Email { get; set; } = null!;
+    public string? Bio { get; set; } = "";
+    public string? Picture { get; set; } = "";
+    public string Password { get; set; } = null!;
+    public string? ConfirmPassword { get; set; } = null!;
+}

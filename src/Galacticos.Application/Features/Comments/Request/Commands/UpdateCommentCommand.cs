@@ -10,7 +10,9 @@ namespace Galacticos.Application.Features.Comments.Request.Commands
 {
     public class UpdateCommentCommand : IRequest<ErrorOr<CommentResponesDTO>>
     {
-        public Guid Id { get; set; }
+        public Guid CommentId { get; set; }
+
+        public Guid UserId {get; set;}
         public string Content { get; set; }
         
     }

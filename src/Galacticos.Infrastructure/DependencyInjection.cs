@@ -17,6 +17,10 @@ using Galacticos.Infrastructure.Authentication;
 using Galacticos.Application.Common.Interface.Services;
 using Galacticos.Infrastructure.Services;
 using Galacticos.Infrastructure.Persistence.Repositories.CommentRepo;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
+using System.Text;
 using Galacticos.Infrastructure.Persistence.Repositories.PostTagRepo;
 
 namespace Galacticos.Infrastructure
@@ -39,10 +43,40 @@ namespace Galacticos.Infrastructure
             services.AddScoped<IPostTagRepository, PostTagRepository>();
             services.AddDbContext<ApiDbContext>(opt => opt.UseNpgsql(connectionString));
 
-            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-            services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+            // services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            // services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+            services.AddAuth(configuration);
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
 
+            return services;
+        }
+
+        public static IServiceCollection AddAuth(
+        this IServiceCollection services,
+        ConfigurationManager configuration
+    )
+        {
+            var jwtSettings = new JwtSettings();
+            configuration.Bind(JwtSettings.SectionName, jwtSettings);
+
+            services.AddSingleton(Options.Create(jwtSettings));
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+
+            services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidAudience = jwtSettings.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
+                };
+            });
+            Console.WriteLine("JwtBearerOptions");
             return services;
         }
     }

@@ -8,6 +8,7 @@ using Galacticos.Application.DTOs.Comments;
 using Galacticos.Application.Features.Comments.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
+using Galacticos.Domain.Errors;
 using MediatR;
 
 namespace Galacticos.Application.Features.Comments.Handler.Command
@@ -22,11 +23,16 @@ namespace Galacticos.Application.Features.Comments.Handler.Command
             _commentRepository = commentRepository;
             _mapper = mapper;
         }
-        public Task<ErrorOr<CommentResponesDTO>> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<CommentResponesDTO>> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
         {
             var comment = _mapper.Map<Comment>(request);
-            ErrorOr<CommentResponesDTO> res = _commentRepository.CreateComment(comment);
-            return Task.FromResult(res);
+            var result = await _commentRepository.CreateComment(comment);
+            if(result == null)
+            {
+                return Errors.Comment.CommentCreationFailed;
+            }
+            var response = _mapper.Map<CommentResponesDTO>(result);
+            return response;
         }
     }
 }

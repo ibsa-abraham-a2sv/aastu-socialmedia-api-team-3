@@ -5,10 +5,12 @@ using Galacticos.Domain.Entities;
 using Galacticos.Application.Common.Interface.Authentication;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Application.Features.Auth.Requests.Queries;
+using Galacticos.Domain.Errors;
 
 namespace Galacticos.Application.Handlers.Queries.Login;
 
-public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>{
+public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
+{
 
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IUserRepository _userRepository;
@@ -21,14 +23,16 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<Authenticat
 
     public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
-        var identifier = (query.UserName ?? query.Email) ?? throw new Exception("Username or Email is required");
-        
-        if(_userRepository.GetUserByIdentifier(identifier) is not User user)
-            throw new Exception("User with given Username or Password does not exist");
-        
-        if(user.Password != query.Password)
-            throw new Exception("User with given Username or Password does not exist" + user.Password);
+        if (query.UserName is null && query.Email is null)
+            return Errors.Auth.UsernameEmailrequired;
 
+        var identifier = (query.UserName ?? query.Email) ?? throw new Exception("Username or Email is required");
+
+        if (_userRepository.GetUserByIdentifier(identifier) is not User user)
+            return Errors.Auth.WrongCreadital;
+
+        if (user.Password != query.Password)
+            return Errors.Auth.WrongCreadital;
 
         var token = _jwtTokenGenerator.GenerateToken(user);
 

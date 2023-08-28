@@ -22,11 +22,23 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<A
         _mapper = mapper;
     }
 
-    public Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
+    public  Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
     {
-        if(_userRepository.GetUserByIdentifier(command.Email) is not null || _userRepository.GetUserByIdentifier(command.UserName) is not null)
+        // if(_userRepository.GetUserByIdentifier(command.Email) is not null || _userRepository.GetUserByIdentifier(command.UserName) is not null)
+        // {
+        //     return Task.FromResult<ErrorOr<AuthenticationResult>>(Errors.User.DuplicateEmail);
+        // }
+        if(_userRepository.GetUserByEmail(command.Email) is not null)
         {
             return Task.FromResult<ErrorOr<AuthenticationResult>>(Errors.User.DuplicateEmail);
+        }
+        if(_userRepository.GetUserByUserName(command.UserName) is not null)
+        {
+            return Task.FromResult<ErrorOr<AuthenticationResult>>(Errors.User.DuplicateUserName);
+        }
+        if(command.Password != command.ConfirmPassword)
+        {
+            return Task.FromResult<ErrorOr<AuthenticationResult>>(Errors.User.PasswordNotMatch);
         }
 
         User user = _mapper.Map<User>(command);

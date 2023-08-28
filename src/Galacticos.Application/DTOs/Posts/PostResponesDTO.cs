@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Galacticos.Application.DTOs.Comments;
 using Galacticos.Application.DTOs.Common;
+using Galacticos.Application.DTOs.Likes;
 
 namespace Galacticos.Application.DTOs.Posts
 {
@@ -13,6 +14,6 @@ namespace Galacticos.Application.DTOs.Posts
         public string Image {get; set;}
         public Guid UserId {get; set;}
         public List<CommentResponesDTO> Comments {get; set;}
-        public List<TagDto> Tags {get; set;} = new List<TagDto>();
+        public List<LikeDto> Likes {get; set;}
     }
 }

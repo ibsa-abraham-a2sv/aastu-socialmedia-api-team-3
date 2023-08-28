@@ -23,17 +23,17 @@ namespace Galacticos.Application.Features.Comments.Handler.Query
             _commentRepository = commentRepository;
             _mapper = mapper;
         }
-        public Task<ErrorOr<CommentResponesDTO>> Handle(GetCommentByIdRequest request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<CommentResponesDTO>> Handle(GetCommentByIdRequest request, CancellationToken cancellationToken)
         {
-            Comment res = _commentRepository.GetCommentById(request.Id);
+            Comment res = await _commentRepository.GetCommentById(request.Id)!;
             
             if (res == null)
             {
-                return Task.FromResult<ErrorOr<CommentResponesDTO>>(Errors.Comment.CommentNotFound);
+                return Errors.Comment.CommentNotFound;
             }
 
             var commentResponse = _mapper.Map<CommentResponesDTO>(res);
-            return Task.FromResult<ErrorOr<CommentResponesDTO>>(commentResponse);
+            return commentResponse;
         }
     }
     
