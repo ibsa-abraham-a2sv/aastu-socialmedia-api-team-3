@@ -7,7 +7,7 @@ using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Application.Features.Auth.Requests.Queries;
 using Galacticos.Domain.Errors;
 using AutoMapper;
-using Galacticos.Application.DTOs.Users;
+// using Galacticos.Application.DTOs.Users;
 
 namespace Galacticos.Application.Handlers.Queries.Login;
 
