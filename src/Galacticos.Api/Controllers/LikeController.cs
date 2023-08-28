@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using System.Threading.Tasks;
-using Galacticos.Application.DTOs.Likes;
 using Galacticos.Application.Features.Likes.Request.Queries;
 using System.Security.Claims;
 using Galacticos.Application.Features.Likes.Command.Queries;
 using ErrorOr;
-using Galacticos.Application.DTOs.Like;
+using Galacticos.Application.DTOs.Likes;
 
 namespace Galacticos.Api.Controllers
 {
@@ -33,7 +32,7 @@ namespace Galacticos.Api.Controllers
             }
 
             var command = new LikePostRequest { PostId = PostId, UserId = Guid.Parse(userIdClaim) };
-            ErrorOr<LikeResponseDTO> result = await _mediator.Send(command);
+            ErrorOr<LikeResponseDto> result = await _mediator.Send(command);
 
             return result.Match<IActionResult>(
                 like => Ok(like),
