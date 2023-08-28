@@ -24,6 +24,8 @@ using Microsoft.VisualBasic;
 using Galacticos.Application.Cloudinary;
 using Galacticos.Application.Services.ImageUpload;
 using Galacticos.Application.Services.Authentication;
+using Galacticos.Infrastructure.Configuration;
+using Galacticos.Application.Services.OpenAI;
 
 namespace Galacticos.Infrastructure
 {
@@ -55,6 +57,10 @@ namespace Galacticos.Infrastructure
             // Setup Cloudinary
             services.Configure<CloudinarySettings>(configuration.GetSection(CloudinarySettings.SectionName));
             services.AddTransient<ICloudinaryService, CloudinaryService>();
+
+            // Setup OpenAI
+            services.Configure<OpenAIConfig>(configuration.GetSection("OpenAI"));
+            services.AddTransient<IOpenAIService, OpenAiService>();
 
             return services;
         }
