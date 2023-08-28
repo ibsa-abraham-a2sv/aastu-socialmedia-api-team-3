@@ -6,7 +6,7 @@ using Galacticos.Application.Persistence.Contracts;
 using AutoMapper;
 using FluentValidation;
 using Galacticos.Domain.Entities;
-using Galacticos.Application.DTOs.Like;
+using Galacticos.Application.DTOs.Likes;
 using ErrorOr;
 using Galacticos.Domain.Errors;
 

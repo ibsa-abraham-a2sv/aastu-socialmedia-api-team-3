@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ErrorOr;
 using Galacticos.Application.DTOs.Posts;
+using Galacticos.Application.DTOs.Posts.Validator;
 using Galacticos.Application.Features.Posts.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
@@ -32,6 +33,20 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
         public async Task<ErrorOr<PostResponesDTO>> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
         {
             var post = await _postRepository.GetById(request.PostId);
+
+            var validator = new UpdatePostDtoValidator();
+            var obj = new UpdatePostRequestDTO()
+            {
+                Caption = request.UpdatePostRequestDTO.Caption,
+                Image = request.UpdatePostRequestDTO.Image
+            };
+
+            var result = validator.Validate(obj);
+
+            if (!result.IsValid)
+            {
+                return new ErrorOr<PostResponesDTO>().Errors;
+            }
 
             if (post == null)
             {

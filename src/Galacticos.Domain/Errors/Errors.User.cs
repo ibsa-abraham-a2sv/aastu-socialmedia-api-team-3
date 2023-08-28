@@ -16,6 +16,7 @@ namespace Galacticos.Domain.Errors
             public static Error PasswordNotMatch => Error.Validation(code: "PasswordNotMatch", description: "Password not match");
             public static Error UserNotFound => Error.Validation(code: "UserNotFound", description: "User not found");
             public static Error DuplicateUserName => Error.Conflict(code: "DuplicateUserName", description: "Username already exists");
+            public static Error InvalidUser => Error.Validation(code: "InvalidUser", description: "Invalid user data");
         }
     }
 }
