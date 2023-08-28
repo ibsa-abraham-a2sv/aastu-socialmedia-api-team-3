@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Galacticos.Application.Features.Auth.Requests.Commands;
 
-public class RegisterCommand : IRequest<ErrorOr<AuthenticationResult>>
+public class RegisterCommand : IRequest<ErrorOr<string>>
 {
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
