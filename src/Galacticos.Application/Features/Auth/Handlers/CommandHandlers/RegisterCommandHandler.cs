@@ -7,6 +7,7 @@ using Galacticos.Domain.Entities;
 using Galacticos.Application.Features.Auth.Requests.Commands;
 using AutoMapper;
 using Galacticos.Domain.Errors;
+using Galacticos.Application.DTOs.Users;
 
 namespace Galacticos.Application.Handlers.Commands.Register;
 
@@ -15,11 +16,13 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<A
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
-    public RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository, IMapper mapper)
+    private readonly IPasswordHashService _passwordHashService;
+    public RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository, IMapper mapper, IPasswordHashService passwordHashService)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
         _mapper = mapper;
+        _passwordHashService = passwordHashService;
     }
 
     public Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
@@ -29,13 +32,19 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<A
             return Task.FromResult<ErrorOr<AuthenticationResult>>(Errors.User.DuplicateEmail);
         }
 
-        User user = _mapper.Map<User>(command);
+        string password = _passwordHashService.HashPassword(command.Password);
+        // copy command and change password and save to vas userdata
+        var userData = command with { Password = password };
+
+        User user = _mapper.Map<User>(userData);
         _userRepository.AddUser(user);
 
         var token = _jwtTokenGenerator.GenerateToken(user);
 
+        UserDto userDto = _mapper.Map<UserDto>(user);
+
        
-        return Task.FromResult<ErrorOr<AuthenticationResult>>(new AuthenticationResult(user, token));
+        return Task.FromResult<ErrorOr<AuthenticationResult>>(new AuthenticationResult(userDto, token));
 
     }
 }

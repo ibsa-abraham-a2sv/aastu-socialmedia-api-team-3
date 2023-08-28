@@ -18,6 +18,7 @@ using Galacticos.Application.Common.Interface.Services;
 using Galacticos.Infrastructure.Services;
 using Galacticos.Infrastructure.Persistence.Repositories.CommentRepo;
 using Galacticos.Infrastructure.Persistence.Repositories.PostTagRepo;
+using Galacticos.Application.Services.Authentication;
 
 namespace Galacticos.Infrastructure
 {
@@ -42,6 +43,7 @@ namespace Galacticos.Infrastructure
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+            services.AddScoped<IPasswordHashService, PasswordHashService>();
 
             return services;
         }
