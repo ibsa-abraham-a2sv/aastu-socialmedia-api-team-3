@@ -1,0 +1,37 @@
+using Galacticos.Application.Services.ImageUpload;
+using Microsoft.AspNetCore.Http;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Galacticos.Application.Cloudinary;
+using Microsoft.Extensions.Options;
+
+namespace Galacticos.Infrastructure.Services;
+
+public class CloudinaryService : ICloudinaryService
+{
+    private CloudinarySettings _cloudinarySettings { get; }
+
+    public CloudinaryService(IOptions<CloudinarySettings> cloudinarySettings)
+    {
+        _cloudinarySettings = cloudinarySettings.Value;
+    }
+
+    public Task<string> UploadImageAsync(IFormFile imageFile)
+    {
+        var client = new Cloudinary(new Account(
+            _cloudinarySettings.CloudName,
+            _cloudinarySettings.ApiKey,
+            _cloudinarySettings.ApiSecret
+        ));
+
+        var uploadParams = new ImageUploadParams()
+        {
+            File = new FileDescription(imageFile.FileName, imageFile.OpenReadStream()),
+            Transformation = new Transformation().Height(500).Width(500).Crop("fill")
+        };
+
+        var uploadResult = client.UploadAsync(uploadParams);
+
+        return Task.FromResult(uploadResult.Result.SecureUrl.AbsoluteUri);
+    }
+}
