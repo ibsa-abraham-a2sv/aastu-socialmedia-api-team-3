@@ -111,8 +111,9 @@ namespace Galacticos.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Content")
-                        .HasColumnType("integer");
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -129,12 +130,11 @@ namespace Galacticos.Infrastructure.Migrations
                     b.Property<Guid>("UserToId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("userId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("UserById");
+
+                    b.HasIndex("UserToId");
 
                     b.ToTable("notifications");
                 });
@@ -311,13 +311,21 @@ namespace Galacticos.Infrastructure.Migrations
 
             modelBuilder.Entity("Galacticos.Domain.Entities.Notification", b =>
                 {
-                    b.HasOne("Galacticos.Domain.Entities.User", "user")
-                        .WithMany("Notifications")
-                        .HasForeignKey("userId")
+                    b.HasOne("Galacticos.Domain.Entities.User", "UserBy")
+                        .WithMany()
+                        .HasForeignKey("UserById")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("user");
+                    b.HasOne("Galacticos.Domain.Entities.User", "UserTo")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserToId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserBy");
+
+                    b.Navigation("UserTo");
                 });
 
             modelBuilder.Entity("Galacticos.Domain.Entities.Post", b =>

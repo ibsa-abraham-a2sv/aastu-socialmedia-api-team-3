@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Galacticos.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,9 +53,8 @@ namespace Galacticos.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserById = table.Column<Guid>(type: "uuid", nullable: false),
                     UserToId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Content = table.Column<int>(type: "integer", nullable: false),
+                    Content = table.Column<string>(type: "text", nullable: false),
                     IsRead = table.Column<bool>(type: "boolean", nullable: false),
-                    userId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -63,8 +62,14 @@ namespace Galacticos.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_notifications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_notifications_users_userId",
-                        column: x => x.userId,
+                        name: "FK_notifications_users_UserById",
+                        column: x => x.UserById,
+                        principalTable: "users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_notifications_users_UserToId",
+                        column: x => x.UserToId,
                         principalTable: "users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -211,9 +216,14 @@ namespace Galacticos.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_notifications_userId",
+                name: "IX_notifications_UserById",
                 table: "notifications",
-                column: "userId");
+                column: "UserById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_notifications_UserToId",
+                table: "notifications",
+                column: "UserToId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_posts_UserId",
