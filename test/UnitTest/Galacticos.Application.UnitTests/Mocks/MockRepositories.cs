@@ -125,7 +125,7 @@ namespace Galacticos.Application.UnitTests.Mocks
             var salt = BCrypt.Net.BCrypt.GenerateSalt();
 
             mockRepo.Setup(repo => repo.HashPassword(It.IsAny<string>()))
-                    .Returns((string password) => BCrypt.Net.BCrypt.HashPassword(password, salt));
+                    .Returns((string password) => BCrypt.Net.BCrypt.HashPassword(password));
             mockRepo.Setup(repo => repo.VerifyPassword(It.IsAny<string>(), It.IsAny<string>()))
                     .Returns((string password, string hashedPassword) => BCrypt.Net.BCrypt.Verify(password, hashedPassword));
 
@@ -250,6 +250,40 @@ namespace Galacticos.Application.UnitTests.Mocks
                     .Returns(() => Users);
 
             return mockRepo;
+        }
+
+
+        public static Mock<ITagRepository> TagRepository()
+        {
+            var Tags = new List<Tag>
+            {
+                new Tag
+                {
+                    Name = "Trending"
+                }
+            };
+
+            var mockRepo = new Mock<ITagRepository>();
+
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>()))
+                    .Returns((Guid id) => Tags.FirstOrDefault(x => x.Id == id));
+            
+            mockRepo.Setup(repo => repo.GetAll())
+                    .Returns(() => Tags);
+            mockRepo.Setup(repo => repo.Update(It.IsAny<Tag>()))
+                    .Returns((Tag tag) => tag);
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Guid>()));
+            mockRepo.Setup(repo => repo.Add(It.IsAny<Tag>()))
+                    .Returns((Tag tag) => Tags.Add(tag));
+            
+            return mockRepo;
+
+        }
+
+
+        public static Mock<IPostTagRepository> PostTagRepository()
+        {
+            
         }
     }
 }
