@@ -13,7 +13,7 @@ namespace Galacticos.Domain.Entities
         public User UserBy { get; set; } = null!;
         public Guid UserToId { get; set; }
         public User UserTo { get; set; } = null!;
-        public string Content { get; set; }
+        public string Content { get; set; } = "";
         public bool IsRead { get; set; } = false;
     }
 }

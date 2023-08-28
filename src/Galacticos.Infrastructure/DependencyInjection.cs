@@ -42,7 +42,6 @@ namespace Galacticos.Infrastructure
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IPostTagRepository, PostTagRepository>();
-            services.AddDbContext<ApiDbContext>(opt => opt.UseNpgsql(connectionString));
             services.AddScoped<INotificationRepository, NotificationRepo>();
             
             services.AddAuth(configuration);
