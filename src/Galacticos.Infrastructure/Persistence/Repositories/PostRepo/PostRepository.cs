@@ -52,8 +52,10 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.PostRepo
 
         public Task<Post> GetById(Guid id)
         {
-            return Task.FromResult(_context.posts.Include(x => x.Comments)
-                .FirstOrDefault(x => x.Id == id));
+            return Task.FromResult(_context.posts
+                .Include(x => x.Comments)
+                .Include(x => x.Likes)
+                .FirstOrDefault(x => x.Id == id)!);
         }
 
         public Task<List<Post>> GetPostsByUserId(Guid userId)
