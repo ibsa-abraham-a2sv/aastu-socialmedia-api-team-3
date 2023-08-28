@@ -122,9 +122,10 @@ namespace Galacticos.Application.UnitTests.Mocks
         public static Mock<IPasswordHashService> PasswordHash()
         {
             var mockRepo = new Mock<IPasswordHashService>();
+            var salt = BCrypt.Net.BCrypt.GenerateSalt();
 
             mockRepo.Setup(repo => repo.HashPassword(It.IsAny<string>()))
-                    .Returns((string password) => BCrypt.Net.BCrypt.HashPassword(password));
+                    .Returns((string password) => BCrypt.Net.BCrypt.HashPassword(password, salt));
             mockRepo.Setup(repo => repo.VerifyPassword(It.IsAny<string>(), It.IsAny<string>()))
                     .Returns((string password, string hashedPassword) => BCrypt.Net.BCrypt.Verify(password, hashedPassword));
 

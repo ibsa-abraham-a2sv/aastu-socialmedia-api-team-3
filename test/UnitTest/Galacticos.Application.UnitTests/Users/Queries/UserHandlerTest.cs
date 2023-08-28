@@ -47,9 +47,10 @@ namespace Galacticos.Application.UnitTests.Users.Queries
                 LastName = "Doe",
                 UserName = "Jhon Smith",
                 Email = "jhondoe@gmail.com",
-                Password = "123456",
                 Bio = "I am a software developer",
                 Picture = "picture.jpg",
+                Password = "123456",
+                ConfirmPassword = "123456"
             };
 
             // Act
