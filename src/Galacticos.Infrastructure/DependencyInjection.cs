@@ -22,6 +22,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 using System.Text;
 using Galacticos.Infrastructure.Persistence.Repositories.PostTagRepo;
+using Microsoft.VisualBasic;
+using Galacticos.Application.Cloudinary;
+using Microsoft.Extensions.Options;
+using Galacticos.Application.Services.ImageUpload;
 using Galacticos.Application.Services.Authentication;
 
 namespace Galacticos.Infrastructure
@@ -49,6 +53,10 @@ namespace Galacticos.Infrastructure
             services.AddAuth(configuration);
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<IPasswordHashService, PasswordHashService>();
+
+            // Setup Cloudinary
+            services.Configure<CloudinarySettings>(configuration.GetSection(CloudinarySettings.SectionName));
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
 
             return services;
         }
