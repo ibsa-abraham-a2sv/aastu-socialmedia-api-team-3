@@ -21,13 +21,12 @@ POST {{host}}/api/auth/register
 Content-Type: application/json
 
 {
-  "firstName": "Yonatan",
-  "lastName": "Tesfaye",
-  "userName": "Yoni",
-  "email": "YonatanTesfayes@gmail.com",
-  "bio": "Bio",
-  "profilePicture": "",
-  "password": "12345678"
+  "firstName": "string",
+  "lastName": "string",
+  "userName": "sstring",
+  "email": "YonatanTesfayee@gmail.com",
+  "password": "12345678",
+  "confirmPassword": "12345678"
 }
 
 ###
@@ -35,6 +34,6 @@ POST {{host}}/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "YonatanTesfaye@gmail.com",
+  "userName": "sstring",
   "password": "12345678"
 }

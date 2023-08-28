@@ -15,7 +15,6 @@ namespace Galacticos.Api.Controllers
 {
 
     [Route("api/[controller]")]
-    [Authorize]
     public class PostController : ApiController
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -31,7 +30,7 @@ namespace Galacticos.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePost(CreatePostRequestDTO request)
         {
-        var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
 
             if (userIdClaim != null)
             {
@@ -41,7 +40,7 @@ namespace Galacticos.Api.Controllers
 
                 return result.Match<IActionResult>(
                     post => Ok(post),
-                    errors => BadRequest(errors)
+                    errors => Problem(errors)
                 );
             }
             else
@@ -58,7 +57,7 @@ namespace Galacticos.Api.Controllers
 
             return result.Match<IActionResult>(
                 post => Ok(post),
-                errors => BadRequest(errors)
+                errors => Problem(errors)
             );
         }
 
@@ -70,23 +69,31 @@ namespace Galacticos.Api.Controllers
 
             return result.Match<IActionResult>(
                 posts => Ok(posts),
-                errors => BadRequest(errors)
+                errors => Problem(errors)
             );
         }
 
         [HttpPut("{postId}")]
         public async Task<IActionResult> UpdatePost(Guid postId, UpdatePostRequestDTO updatePostRequestDTO)
         {
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
             UpdatePostCommand request = new UpdatePostCommand()
             {
                 PostId = postId,
+                UserId = Guid.Parse(userIdClaim),
                 UpdatePostRequestDTO = updatePostRequestDTO
             };
             ErrorOr<PostResponesDTO> result = await _mediator.Send(request);
 
             return result.Match<IActionResult>(
                 post => Ok(post),
-                errors => BadRequest(errors)
+                errors => Problem(errors)
             );
         }
 
@@ -98,20 +105,26 @@ namespace Galacticos.Api.Controllers
 
             return result.Match<IActionResult>(
                 posts => Ok(posts),
-                errors => BadRequest(errors)
+                errors => Problem(errors)
             );
         }
 
-        [HttpDelete("{postId}/{userId}")]
-        [Authorize]
-        public async Task<IActionResult> DeletePost(Guid postId, Guid userId)
+        [HttpDelete("{postId}")]
+        public async Task<IActionResult> DeletePost(Guid postId)
         {
-            var command = new DeletePostCommand(postId, userId);
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            var command = new DeletePostCommand(postId, Guid.Parse(userIdClaim));
             ErrorOr<bool> result = await _mediator.Send(command);
 
             return result.Match<IActionResult>(
                 post => Ok(post),
-                errors => BadRequest(errors)
+                errors => Problem(errors)
             );
         }
     }

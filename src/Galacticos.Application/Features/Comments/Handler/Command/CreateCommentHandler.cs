@@ -8,6 +8,7 @@ using Galacticos.Application.DTOs.Comments;
 using Galacticos.Application.Features.Comments.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
+using Galacticos.Domain.Errors;
 using MediatR;
 
 namespace Galacticos.Application.Features.Comments.Handler.Command
@@ -28,7 +29,7 @@ namespace Galacticos.Application.Features.Comments.Handler.Command
             var result = await _commentRepository.CreateComment(comment);
             if(result == null)
             {
-                return new ErrorOr<CommentResponesDTO>().Errors;
+                return Errors.Comment.CommentCreationFailed;
             }
             var response = _mapper.Map<CommentResponesDTO>(result);
             return response;

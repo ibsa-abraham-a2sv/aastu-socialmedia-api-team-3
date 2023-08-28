@@ -19,6 +19,7 @@ namespace Galacticos.Domain.Entities
         public virtual User user { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
+        public virtual ICollection<PostTag> PostTags { get; set; }
 
         public bool CanBeEditedBy(User currentUser)
         {

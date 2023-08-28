@@ -38,6 +38,7 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.CommentRepo
             {
                 return Task.FromResult(false);
             }
+            _context.comments.Remove(commentToDelete);
             if (_context.SaveChanges() == 0)
             {
                 return Task.FromResult(false);
@@ -68,7 +69,7 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.CommentRepo
                 throw new Exception("User not found");
             }
             commentToEdit.Content = comment.Content;
-            comment.UpdatedAt = DateTime.Now;
+            comment.UpdatedAt = DateTime.UtcNow;
 
             if(_context.SaveChanges() == 0)
             {

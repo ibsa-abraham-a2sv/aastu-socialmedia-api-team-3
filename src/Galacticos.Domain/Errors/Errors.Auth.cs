@@ -12,6 +12,10 @@ namespace Galacticos.Domain.Errors
         {
             public static Error WrongCreadital =>
             Error.Validation(code: "Auth.InvalidCredentials", description: "Invalid Credentials");
+
+            public static Error UsernameEmailrequired =>
+            Error.Validation(code: "Auth.UsernameEmailRequired", description: "Username or Email is required");
+
         }
     }
 }

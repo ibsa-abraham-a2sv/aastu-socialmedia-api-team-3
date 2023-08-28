@@ -23,10 +23,14 @@ namespace Galacticos.Application.Features.Comments.Handler.Command
         }
         public async Task<ErrorOr<CommentResponesDTO>> Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
         {
-            var comment = await _commentRepository.GetCommentById(request.CommentId);
+            var comment = await _commentRepository.GetCommentById(request.CommentId)!;
             if(comment == null)
             {
-                return new ErrorOr<CommentResponesDTO>().Errors;
+                return Errors.Comment.CommentNotFound;
+            }
+            if(comment.UserId != request.UserId)
+            {
+                return Errors.Comment.CommentIsNotYours;
             }
             var commentToUpdate = _mapper.Map(request, comment);
             var updatedComment = await _commentRepository.UpdateComment(commentToUpdate);

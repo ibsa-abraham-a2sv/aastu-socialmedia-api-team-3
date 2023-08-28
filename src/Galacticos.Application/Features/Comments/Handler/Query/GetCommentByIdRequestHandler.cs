@@ -25,11 +25,11 @@ namespace Galacticos.Application.Features.Comments.Handler.Query
         }
         public async Task<ErrorOr<CommentResponesDTO>> Handle(GetCommentByIdRequest request, CancellationToken cancellationToken)
         {
-            Comment res = await _commentRepository.GetCommentById(request.Id);
+            Comment res = await _commentRepository.GetCommentById(request.Id)!;
             
             if (res == null)
             {
-                return new ErrorOr<CommentResponesDTO>().Errors;
+                return Errors.Comment.CommentNotFound;
             }
 
             var commentResponse = _mapper.Map<CommentResponesDTO>(res);

@@ -1,8 +1,9 @@
 using AutoMapper;
-using Galacticos.Application.Contract.Authentication;
+using Galacticos.Application.DTOs.Auth;
 using Galacticos.Application.Features.Auth.Requests.Commands;
 using Galacticos.Application.Features.Auth.Requests.Queries;
 using Galacticos.Domain.Entities;
+using Galacticos.Application.DTOs.Auth;
 
 namespace Galacticos.Application.Profiles;
 

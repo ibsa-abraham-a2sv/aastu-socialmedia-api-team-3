@@ -31,7 +31,7 @@ namespace Galacticos.Application.Features.Comments.Handler.Query
             var post = await _postRepository.GetById(request.PostId);
             if (post == null)
             {
-                return new ErrorOr<List<CommentResponesDTO>>().Errors;
+                return Errors.Post.PostNotFound;
             }
 
             List<Comment> comments = await _commentRepository.GetCommentsByPostId(request.PostId);

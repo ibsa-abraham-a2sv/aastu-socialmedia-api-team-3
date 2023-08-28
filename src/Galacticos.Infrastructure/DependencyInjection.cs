@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 using System.Text;
+using Galacticos.Infrastructure.Persistence.Repositories.PostTagRepo;
 
 namespace Galacticos.Infrastructure
 {
