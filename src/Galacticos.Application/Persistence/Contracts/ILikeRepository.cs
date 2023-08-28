@@ -9,5 +9,7 @@ namespace Galacticos.Application.Persistence.Contracts
         Task<Like> GetLikeByPostIdAndUserId(Guid postId, Guid userId);
         Task<bool> UnlikePost(Guid postId, Guid userId);
 
+        Task<List<Like>> GetAllLikes();
+
     }
 }

@@ -51,5 +51,10 @@ namespace Galacticos.Persistence.Repositories
 
             return true;
         }
+
+        public async Task<List<Like>> GetAllLikes()
+        {
+            return await _context.likes.ToListAsync();
+        }
     }
 }
