@@ -49,7 +49,7 @@ namespace Galacticos.Api.Controllers
 
             var post = await _mediator.Send(new GetPostQuery(PostId));
 
-            var user = await _mediator.Send(new GetProfileRequest { UserId = UserId });
+            var user = await _mediator.Send(new GetProfileRequest { UserId = command.UserId });
 
 
             if (post.Value != null)
@@ -58,25 +58,7 @@ namespace Galacticos.Api.Controllers
                 {
                     NotificationDTO = new CreateNotificationDTO
                     {
-                        UserById = UserId,
-                        UserToId = post.Value.UserId,
-                        Content = $"{user.Value.UserName} Commented On Your Post"
-                    }
-                });
-            }
-
-            var post = await _mediator.Send(new GetPostQuery(PostId));
-
-            var user = await _mediator.Send(new GetProfileRequest { UserId = UserId });
-
-
-            if (post.Value != null)
-            {
-                await _mediator.Send(new CreateNotificationCommand
-                {
-                    NotificationDTO = new CreateNotificationDTO
-                    {
-                        UserById = UserId,
+                        UserById = command.UserId,
                         UserToId = post.Value.UserId,
                         Content = $"{user.Value.UserName} Commented On Your Post"
                     }
