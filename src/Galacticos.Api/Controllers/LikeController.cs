@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using System.Threading.Tasks;
-using Galacticos.Application.Features.Likes.Request.Queries;
 using System.Security.Claims;
 using Galacticos.Application.Features.Likes.Command.Queries;
 using ErrorOr;

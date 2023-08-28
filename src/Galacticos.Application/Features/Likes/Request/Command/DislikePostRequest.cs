@@ -1,6 +1,4 @@
 using ErrorOr;
-using Galacticos.Application.DTOs.Like;
-using Galacticos.Application.DTOs.Likes;
 using MediatR;
 
 namespace Galacticos.Application.Features.Likes.Command.Queries
