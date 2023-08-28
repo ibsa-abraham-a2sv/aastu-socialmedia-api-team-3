@@ -46,6 +46,8 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<A
 
         string password = _passwordHashService.HashPassword(command.Password);
 
+        command.Password = password;
+
         User user = _mapper.Map<User>(command);
         _userRepository.AddUser(user);
 

@@ -37,7 +37,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<Authenticat
         if (_userRepository.GetUserByIdentifier(identifier) is not User user)
             return Errors.Auth.WrongCreadital;
 
-        if (user.Password != query.Password)
+        if (!_passwordHashService.VerifyPassword(query.Password, user.Password))
             return Errors.Auth.WrongCreadital;
 
         var token = _jwtTokenGenerator.GenerateToken(user);
