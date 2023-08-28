@@ -18,6 +18,7 @@ using Galacticos.Application.Common.Interface.Services;
 using Galacticos.Infrastructure.Services;
 using Galacticos.Infrastructure.Persistence.Repositories.CommentRepo;
 using Galacticos.Infrastructure.Persistence.Repositories.PostTagRepo;
+using Galacticos.Infrastructure.Persistence.Repositories.NotificationRepo;
 
 namespace Galacticos.Infrastructure
 {
@@ -38,7 +39,7 @@ namespace Galacticos.Infrastructure
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IPostTagRepository, PostTagRepository>();
             services.AddDbContext<ApiDbContext>(opt => opt.UseNpgsql(connectionString));
-
+            services.AddScoped<INotificationRepository, NotificationRepo>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();

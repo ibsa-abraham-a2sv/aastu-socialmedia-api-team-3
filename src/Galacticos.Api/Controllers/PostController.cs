@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Galacticos.Api.Controllers
 {
-    
+
     [Route("api/[controller]")]
     public class PostController : ApiController
     {
@@ -99,7 +99,8 @@ namespace Galacticos.Api.Controllers
         }
 
         [HttpPost("filter")]
-        public async Task<IActionResult> FilterPostByTag(List<string> tags){
+        public async Task<IActionResult> FilterPostByTag(List<string> tags)
+        {
             var query = new GetFilterdPostQuery(tags);
             List<PostResponesDTO> result = await _mediator.Send(query);
 
