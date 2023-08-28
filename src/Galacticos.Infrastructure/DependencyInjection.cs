@@ -22,6 +22,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 using System.Text;
 using Galacticos.Infrastructure.Persistence.Repositories.PostTagRepo;
+using Galacticos.Application.Services.Authentication;
 
 namespace Galacticos.Infrastructure
 {
@@ -47,6 +48,7 @@ namespace Galacticos.Infrastructure
             // services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
             services.AddAuth(configuration);
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+            services.AddScoped<IPasswordHashService, PasswordHashService>();
 
             return services;
         }

@@ -6,6 +6,8 @@ using Galacticos.Application.Common.Interface.Authentication;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Application.Features.Auth.Requests.Queries;
 using Galacticos.Domain.Errors;
+using AutoMapper;
+using Galacticos.Application.DTOs.Users;
 
 namespace Galacticos.Application.Handlers.Queries.Login;
 
@@ -14,11 +16,15 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<Authenticat
 
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IUserRepository _userRepository;
+    private readonly IPasswordHashService _passwordHashService;
+    private readonly IMapper _mapper;
 
-    public LoginQueryHandler(IUserRepository userRepository, IJwtTokenGenerator jwtTokenGenerator)
+    public LoginQueryHandler(IUserRepository userRepository, IJwtTokenGenerator jwtTokenGenerator, IPasswordHashService passwordHashService, IMapper mapper)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
+        _passwordHashService = passwordHashService;
+        _mapper = mapper;
     }
 
     public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
@@ -36,8 +42,10 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<Authenticat
 
         var token = _jwtTokenGenerator.GenerateToken(user);
 
+        UserDto userDto = _mapper.Map<UserDto>(user);
+
         return new AuthenticationResult(
-            user,
+            userDto,
             token
         );
     }
