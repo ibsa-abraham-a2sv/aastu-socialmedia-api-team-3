@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +19,11 @@ using Microsoft.Extensions.Options;
 using System.Text;
 using Galacticos.Infrastructure.Persistence.Repositories.PostTagRepo;
 using Galacticos.Infrastructure.Mail;
+using Galacticos.Infrastructure.Persistence.Repositories.NotificationRepo;
+using Microsoft.VisualBasic;
+using Galacticos.Application.Cloudinary;
+using Galacticos.Application.Services.ImageUpload;
+using Galacticos.Application.Services.Authentication;
 
 namespace Galacticos.Infrastructure
 {
@@ -42,12 +43,21 @@ namespace Galacticos.Infrastructure
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IPostTagRepository, PostTagRepository>();
-            services.AddDbContext<ApiDbContext>(opt => opt.UseNpgsql(connectionString));
 
             services.AddAuth(configuration);
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IJwtTokenValidation, JwtTokenValidation>();
+            services.AddScoped<INotificationRepository, NotificationRepo>();
+            
+            services.AddAuth(configuration);
+            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+            services.AddScoped<IPasswordHashService, PasswordHashService>();
+
+            // Setup Cloudinary
+            services.Configure<CloudinarySettings>(configuration.GetSection(CloudinarySettings.SectionName));
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
+
             return services;
         }
 

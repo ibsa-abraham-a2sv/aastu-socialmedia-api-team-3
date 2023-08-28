@@ -52,7 +52,10 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.PostRepo
 
         public Task<Post> GetById(Guid id)
         {
-            return Task.FromResult(_context.posts.Include(x => x.Comments).FirstOrDefault(x => x.Id == id));
+            return Task.FromResult(_context.posts
+                .Include(x => x.Comments)
+                .Include(x => x.Likes)
+                .FirstOrDefault(x => x.Id == id)!);
         }
 
         public Task<List<Post>> GetPostsByUserId(Guid userId)
@@ -90,6 +93,11 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.PostRepo
         {
             var post_ids = _context.postTags.Where(x => x.TagId == tagId).Select(x => x.PostId).ToList();
             return _context.posts.Where(x => post_ids.Contains(x.Id)).ToListAsync();
+        }
+
+        public Task<bool> Exists(Guid id)
+        {
+            return Task.FromResult(_context.posts.Any(x => x.Id == id));
         }
     }
 }

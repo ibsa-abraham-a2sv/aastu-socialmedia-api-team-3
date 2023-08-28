@@ -43,7 +43,13 @@ namespace Galacticos.Infrastructure.Data
                     .WithOne(u => u.FollowedUser)
                     .HasForeignKey(u => u.FollowedUserId);
             });
-            
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasMany(n => n.Notifications)
+                .WithOne(u => u.UserTo);
+            });
+
             modelBuilder.Entity<PostTag>()
                 .HasKey(pt => new { pt.PostId, pt.TagId });
 

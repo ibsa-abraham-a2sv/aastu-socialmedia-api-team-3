@@ -24,7 +24,6 @@
 //         {
 //             _userRepository = MockRepositories.UserRepository();
 //             _jwtTokenGenerator = MockRepositories.GetJwtTokenGenerator();
-
 //             var mapperConfig = new MapperConfiguration(mc =>
 //             {
 //                 mc.AddProfile(new MappingProfile());
@@ -58,7 +57,6 @@
 //             Assert.IsType<AuthenticationResult>(result.Value);
                
 //         }
-
 
 //         [Fact]
 //         public async Task LoginUserHandler_Success()

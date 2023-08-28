@@ -21,6 +21,8 @@ namespace Galacticos.Domain.Errors
             
             
 
+            public static Error InvalidPost =>
+            Error.Failure(code: "InvalidPost", description: "Invalid Post");
         }
     }
 }

@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ErrorOr;
 using Galacticos.Application.DTOs.Comments;
+using Galacticos.Application.DTOs.Notifications;
 using Galacticos.Application.Features.Comments.Request.Commands;
 using Galacticos.Application.Features.Comments.Request.Queries;
+using Galacticos.Application.Features.Notifications.Commands;
+using Galacticos.Application.Features.Posts.Request.Queries;
+using Galacticos.Application.Features.Profile.Request.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -42,6 +46,24 @@ namespace Galacticos.Api.Controllers
             command.PostId = PostId;
             command.UserId = Guid.Parse(userIdClaim);
             ErrorOr<CommentResponesDTO> res = await _mediator.Send(command);
+
+            var post = await _mediator.Send(new GetPostQuery(PostId));
+
+            var user = await _mediator.Send(new GetProfileRequest { UserId = command.UserId });
+
+
+            if (post.Value != null)
+            {
+                await _mediator.Send(new CreateNotificationCommand
+                {
+                    NotificationDTO = new CreateNotificationDTO
+                    {
+                        UserById = command.UserId,
+                        UserToId = post.Value.UserId,
+                        Content = $"{user.Value.UserName} Commented On Your Post"
+                    }
+                });
+            }
 
             return res.Match<IActionResult>(
                 comment => Ok(comment),

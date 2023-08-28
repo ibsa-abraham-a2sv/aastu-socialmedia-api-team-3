@@ -1,18 +1,16 @@
 using Galacticos.Application.DTOs.Likes;
-// using Galacticos.Application.DTOs.Likes.Validators;
 using MediatR;
 using Galacticos.Application.Features.Likes.Command.Queries;
 using Galacticos.Application.Persistence.Contracts;
 using AutoMapper;
 using FluentValidation;
 using Galacticos.Domain.Entities;
-using Galacticos.Application.DTOs.Like;
 using ErrorOr;
 using Galacticos.Domain.Errors;
 
 namespace Galacticos.Application.Features.Likes.Handler.Queries
 {
-    public class LikePostRequestHandler : IRequestHandler<LikePostRequest, ErrorOr<LikeResponseDTO>>
+    public class LikePostRequestHandler : IRequestHandler<LikePostRequest, ErrorOr<LikeResponseDto>>
     {
         private readonly ILikeRepository _likeRepository;
         private readonly IUserRepository _userRepository;
@@ -27,7 +25,7 @@ namespace Galacticos.Application.Features.Likes.Handler.Queries
             _postRepository = postRepository;
         }
 
-        public async Task<ErrorOr<LikeResponseDTO>> Handle(LikePostRequest request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<LikeResponseDto>> Handle(LikePostRequest request, CancellationToken cancellationToken)
         {
 
             var user = _userRepository.GetUserById(request.UserId);
@@ -52,7 +50,7 @@ namespace Galacticos.Application.Features.Likes.Handler.Queries
                 return Errors.Like.LikeCreationFailed;
             }
 
-            LikeResponseDTO response = _mapper.Map<LikeResponseDTO>(like);
+            LikeResponseDto response = _mapper.Map<LikeResponseDto>(like);
             return response;
         }
     }

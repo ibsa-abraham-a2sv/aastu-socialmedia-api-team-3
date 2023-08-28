@@ -25,7 +25,7 @@ namespace Galacticos.Application.Features.Profile.Handler.QueryHandler
         }
         public Task<ErrorOr<ProfileResponseDTO>> Handle(GetProfileRequest request, CancellationToken cancellationToken)
         {
-            User user = _userRepository.GetUserById(request.UserId);
+            User user = _userRepository.GetUserById(request.UserId)!;
             if (user == null)
             {
                 return Task.FromResult<ErrorOr<ProfileResponseDTO>>(Errors.User.UserNotFound);

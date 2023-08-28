@@ -67,4 +67,9 @@ public class UserRepository : IUserRepository
     {
         return _context.users.ToList();
     }
+
+    public async Task<bool> Exists(Guid id)
+    {
+        return await _context.users.FindAsync(id) != null;
+    }
 }

@@ -9,6 +9,7 @@ using Galacticos.Application.Persistence.Contracts;
 using MediatR;
 using Galacticos.Domain.Errors;
 using AutoMapper;
+using Galacticos.Application.DTOs.Comments.Validators;
 
 namespace Galacticos.Application.Features.Comments.Handler.Command
 {
@@ -32,6 +33,20 @@ namespace Galacticos.Application.Features.Comments.Handler.Command
             {
                 return Errors.Comment.CommentIsNotYours;
             }
+
+            var validator = new CommentCommandValidator();
+            var obj = new CreateCommentRequestDTO()
+            {
+                Content = request.Content
+            };
+
+            var result = validator.Validate(obj);
+
+            if (!result.IsValid)
+            {
+                return Errors.Comment.InvalidComment;
+            }
+
             var commentToUpdate = _mapper.Map(request, comment);
             var updatedComment = await _commentRepository.UpdateComment(commentToUpdate);
             return _mapper.Map<CommentResponesDTO>(updatedComment);   

@@ -9,7 +9,7 @@ using AutoMapper;
 using Galacticos.Domain.Errors;
 using Galacticos.Application.Common.Interface.Services;
 using Microsoft.AspNetCore.Http;
-
+using Galacticos.Application.DTOs.Users;
 
 namespace Galacticos.Application.Handlers.Commands.Register;
 
@@ -20,11 +20,14 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<s
     private readonly IMapper _mapper;
     private readonly IEmailSender _emailSender;
     public RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository, IMapper mapper, IEmailSender emailSender)
+    private readonly IPasswordHashService _passwordHashService;
+    public RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository, IMapper mapper, IPasswordHashService passwordHashService)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
         _mapper = mapper;
         _emailSender = emailSender;
+        _passwordHashService = passwordHashService;
     }
 
     public async Task<ErrorOr<string>> Handle(RegisterCommand command, CancellationToken cancellationToken)
@@ -46,6 +49,10 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<s
             return Errors.User.PasswordNotMatch;
         }
 
+        string password = _passwordHashService.HashPassword(command.Password);
+
+        command.Password = password;
+
         User user = _mapper.Map<User>(command);
         _userRepository.AddUser(user);
 
@@ -59,6 +66,11 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<s
             Subject = "Social Media App Verification",
             Body = $"Please verify your account by clicking the link below: <br/> <a href='{scheme}://{host}/Users/verify?email={user.Email.Replace("@", "%40")}&token={verificationToken}'>Verify Email</a>"
         });
+        var token = _jwtTokenGenerator.GenerateToken(user);
+
+        UserDto userDto = _mapper.Map<UserDto>(user);
+
+        return Task.FromResult<ErrorOr<AuthenticationResult>>(new AuthenticationResult(userDto, token));
 
         // return some string that says registration successful but verfiy your email
         ErrorOr<string> res = "Registration successful, please verify your email";

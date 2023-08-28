@@ -17,6 +17,9 @@ namespace Galacticos.Domain.Errors
             Error.Failure(code: "Comment.NotFound", description: "Comment not found");
             public static Error CommentIsNotYours =>
             Error.Validation(code: "PostIsNotYours", description: "Post is not yours");
+
+            public static Error InvalidComment =>
+            Error.Failure(code: "Comment.Invalid", description: "Invalid Comment");
         }
     }
 }

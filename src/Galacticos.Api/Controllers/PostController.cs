@@ -127,5 +127,14 @@ namespace Galacticos.Api.Controllers
                 errors => Problem(errors)
             );
         }
+
+        [HttpPost("filter")]
+        public async Task<IActionResult> FilterPostByTag(List<string> tags)
+        {
+            var query = new GetFilterdPostQuery(tags);
+            List<PostResponesDTO> result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
     }
 }

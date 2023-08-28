@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using System.Threading.Tasks;
-using Galacticos.Application.DTOs.Likes;
-using Galacticos.Application.Features.Likes.Request.Queries;
 using System.Security.Claims;
 using Galacticos.Application.Features.Likes.Command.Queries;
 using ErrorOr;
-using Galacticos.Application.DTOs.Like;
+using Galacticos.Application.DTOs.Likes;
+using Galacticos.Application.Features.Posts.Request.Queries;
+using Galacticos.Application.Features.Notifications.Commands;
+using Galacticos.Application.Features.Profile.Request.Queries;
+using Galacticos.Application.DTOs.Notifications;
 
 namespace Galacticos.Api.Controllers
 {
@@ -33,7 +34,22 @@ namespace Galacticos.Api.Controllers
             }
 
             var command = new LikePostRequest { PostId = PostId, UserId = Guid.Parse(userIdClaim) };
-            ErrorOr<LikeResponseDTO> result = await _mediator.Send(command);
+            ErrorOr<LikeResponseDto> result = await _mediator.Send(command);
+
+            var post = await _mediator.Send(new GetPostQuery(PostId));
+            var user = await _mediator.Send(new GetProfileRequest { UserId = Guid.Parse(userIdClaim) });
+            if (post.Value != null)
+            {
+                await _mediator.Send(new CreateNotificationCommand
+                {
+                    NotificationDTO = new CreateNotificationDTO
+                    {
+                        UserById = command.UserId,
+                        UserToId = post.Value.UserId,
+                        Content = $"{user.Value.UserName} Liked Your Post" // Like Post
+                    }
+                });
+            }
 
             return result.Match<IActionResult>(
                 like => Ok(like),
