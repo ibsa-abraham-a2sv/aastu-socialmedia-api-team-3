@@ -29,12 +29,14 @@ namespace Galacticos.Application.UnitTests.Mocks
 
             var mock = new Mock<IPostRepository>(); 
             
-            mock.Setup(r => r.GetAll()).ReturnsAsync(Posts);
+            mock.Setup(r => r.GetAll())
+                .ReturnsAsync(() => Posts);
             
             mock.Setup(r => r.Add(It.IsAny<Post>()))
                 .Callback((Post post) => Posts.Add(post));
 
-            mock.Setup(r => r.GetById(It.IsAny<Guid>())).Returns((Guid postId) => Posts.FirstOrDefault(x => x.Id == postId));
+            mock.Setup(r => r.GetById(It.IsAny<Guid>()))
+                .ReturnsAsync((Guid postId) => Posts.FirstOrDefault(x => x.Id == postId));
 
             return mock;
         }
@@ -46,8 +48,8 @@ namespace Galacticos.Application.UnitTests.Mocks
             {
                 new Like
                 {
-                    Id = new Guid("00000000-0000-0000-0000-000000000000"),
-                    UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+                    Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                    UserId = new Guid("22222222-2222-2222-2222-222222222222"),
                     PostId = new Guid("00000000-0000-0000-0000-000000000000"),
                 }
             };
@@ -55,7 +57,20 @@ namespace Galacticos.Application.UnitTests.Mocks
 
             var mockRepo = new Mock<ILikeRepository>();
             mockRepo.Setup(repo => repo.LikePost(It.IsAny<Guid>(), It.IsAny<Guid>()))
-                   .ReturnsAsync((Guid postId, Guid userId) => new Like { Id = Guid.NewGuid() });
+                   .Callback((Guid postId, Guid userId) => Likes.Add(new Like
+                   {
+                       UserId = userId,
+                       PostId = postId,
+                   }));
+            
+            mockRepo.Setup(repo => repo.GetLikeByPostIdAndUserId(It.IsAny<Guid>(), It.IsAny<Guid>()))
+                    .ReturnsAsync((Guid postId, Guid userId) => Likes.FirstOrDefault(x => x.PostId == postId && x.UserId == userId));
+            
+            mockRepo.Setup(repo => repo.UnlikePost(It.IsAny<Guid>(), It.IsAny<Guid>()))
+                    .ReturnsAsync((Guid postId, Guid userId) => Likes.Remove(Likes.FirstOrDefault(x => x.PostId == postId && x.UserId == userId)));
+
+            mockRepo.Setup(repo => repo.GetAllLikes())
+                    .ReturnsAsync(() => Likes);
 
             return mockRepo;
         }
@@ -72,7 +87,7 @@ namespace Galacticos.Application.UnitTests.Mocks
                     LastName = "Doe",
                     UserName = "jhondoe",
                     Email = "jhondoe",
-                    Password = "123456",
+                    Password = PasswordHash().Object.HashPassword("123456"),
                     Bio = "I am a software developer",
                     Picture = "picture.jpg",
                 }
@@ -96,8 +111,12 @@ namespace Galacticos.Application.UnitTests.Mocks
                     
             mockRepo.Setup(repo => repo.GetAllUsers())
                     .Returns(() => Users);
+
             mockRepo.Setup(repo => repo.GetUserByIdentifier(It.IsAny<string>()))
                     .Returns((string identifier) => Users.FirstOrDefault(x => x.UserName == identifier || x.Email == identifier));
+            
+            mockRepo.Setup(repo => repo.Exists(It.IsAny<Guid>()))
+                    .ReturnsAsync((Guid id) => Users.Any(x => x.Id == id));
             
             return mockRepo;
         }
@@ -117,10 +136,10 @@ namespace Galacticos.Application.UnitTests.Mocks
         public static Mock<IPasswordHashService> PasswordHash()
         {
             var mockRepo = new Mock<IPasswordHashService>();
-            var salt = BCrypt.Net.BCrypt.GenerateSalt();
 
             mockRepo.Setup(repo => repo.HashPassword(It.IsAny<string>()))
                     .Returns((string password) => BCrypt.Net.BCrypt.HashPassword(password));
+
             mockRepo.Setup(repo => repo.VerifyPassword(It.IsAny<string>(), It.IsAny<string>()))
                     .Returns((string password, string hashedPassword) => BCrypt.Net.BCrypt.Verify(password, hashedPassword));
 
@@ -144,27 +163,16 @@ namespace Galacticos.Application.UnitTests.Mocks
             var mockRepo = new Mock<ICommentRepository>();
 
             mockRepo.Setup(repo => repo.CreateComment(It.IsAny<Comment>()))
-                .Callback((Comment comment) => Comments.Add(comment))
-                .Returns((Comment comment) => new CommentResponesDTO
-                    {
-                        Id = comment.Id,
-                        UserId = comment.UserId,
-                        PostId = comment.PostId,
-                        Content = comment.Content,
-                    });
+                .Callback((Comment comment) => Comments.Add(comment));
                 
-
             mockRepo.Setup(repo => repo.UpdateComment(It.IsAny<Comment>()))
-                    .Returns((Comment comment) => new CommentResponesDTO
-                    {
-                        Id = comment.Id,
-                        UserId = comment.UserId,
-                        PostId = comment.PostId,
-                        Content = comment.Content,
-                    });
+                    .ReturnsAsync((Comment comment) => comment);
 
             mockRepo.Setup(repo => repo.GetCommentById(It.IsAny<Guid>()))
-                    .Returns((Guid id) => Comments.FirstOrDefault(x => x.Id == id));
+                    .ReturnsAsync((Guid id) => Comments.FirstOrDefault(x => x.Id == id));
+            
+            mockRepo.Setup(repo => repo.DeleteComment(It.IsAny<Guid>()))
+                    .Callback((Guid id) => Comments.Remove(Comments.FirstOrDefault(x => x.Id == id)));
 
             return mockRepo;
         }
@@ -267,13 +275,13 @@ namespace Galacticos.Application.UnitTests.Mocks
             var mockRepo = new Mock<ITagRepository>();
 
             mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>()))
-                    .Returns((Guid id) => Tags.FirstOrDefault(x => x.Id == id));
+                    .ReturnsAsync((Guid id) => Tags.FirstOrDefault(x => x.Id == id));
             
             mockRepo.Setup(repo => repo.GetAll())
-                    .Returns(() => Tags);
+                    .ReturnsAsync(() => Tags);
 
             mockRepo.Setup(repo => repo.Update(It.IsAny<Tag>()))
-                    .Returns((Tag tag) => tag);
+                    .ReturnsAsync((Tag tag) => tag);
 
             mockRepo.Setup(repo => repo.Delete(It.IsAny<Guid>()))
                     .Callback((Guid id) => Tags.Remove(Tags.FirstOrDefault(x => x.Id == id)));
@@ -283,37 +291,6 @@ namespace Galacticos.Application.UnitTests.Mocks
             
             return mockRepo;
 
-        }
-
-
-        public static Mock<IPostTagRepository> PostTagRepository()
-        {
-            var PostTags = new List<PostTag>
-            {
-                new PostTag
-                {
-                    PostId = new Guid("00000000-0000-0000-0000-000000000000"),
-                    TagId = new Guid("00000000-0000-0000-0000-000000000000"),
-                }
-            };
-
-            var mockRepo = new Mock<IPostTagRepository>();
-
-            mockRepo.Setup(repo => repo.Add(It.IsAny<PostTag>()))
-                    .Callback((PostTag postTag) => PostTags.Add(postTag));
-            
-            mockRepo.Setup(repo => repo.Delete(It.IsAny<PostTag>()))
-                    .Callback((PostTag postTag) => PostTags.Remove(postTag));
-            
-            mockRepo.Setup(repo => repo.Update(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>()))
-                    .Returns((Guid tagId, Guid newTagId, Guid postId) => new PostTag
-                    {
-                        PostId = postId,
-                        TagId = newTagId,
-                    });
-            
-            return mockRepo;
-            
         }
     }
 }

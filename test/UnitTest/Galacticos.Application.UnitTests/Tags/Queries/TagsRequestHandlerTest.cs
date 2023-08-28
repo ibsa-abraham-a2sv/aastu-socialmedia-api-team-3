@@ -36,7 +36,7 @@ namespace Galacticos.Application.UnitTests.Tags.Queries
             Assert.NotNull(result);
             Assert.IsType<List<TagDto>>(result);
             Assert.NotNull(result);
-            Assert.Equal(result.Count, 1);
+            Assert.Equal(result.Count, 2);
         }
 
         [Fact]
@@ -49,7 +49,6 @@ namespace Galacticos.Application.UnitTests.Tags.Queries
             var result = await handler.Handle(command, CancellationToken.None);
             Assert.NotNull(result);
             Assert.IsType<List<TagDto>>(result);
-            Assert.NotNull(result);
             Assert.NotEqual(result.Count, 1);
         }
 

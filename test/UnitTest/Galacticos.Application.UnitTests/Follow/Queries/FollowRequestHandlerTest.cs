@@ -5,7 +5,6 @@ using Galacticos.Application.Features.Relation.Handler.Command;
 using Galacticos.Application.Features.Relation.Request.Command;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Application.Profiles;
-// using Galacticos.Application.UnitTests.Mocks;
 using Galacticos.Application.DTOs.Relations;
 using Galacticos.Application.UnitTests.Mocks;
 using MediatR;
@@ -49,7 +48,6 @@ namespace Galacticos.Application.UnitTests.Follows.Queries
             // Assert
             Assert.NotNull(result);
             Assert.IsType<Guid>(result);
-
         }
 
 
