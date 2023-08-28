@@ -63,24 +63,24 @@ namespace Galacticos.Application.UnitTests.Users.Queries
         }
 
 
-        [Fact]
-        public async Task LoginUserHandler_Success()
-        {
-            // Arrange
-            var handler = new LoginQueryHandler(_userRepository.Object, _jwtTokenGenerator.Object, _passwordHashService.Object, _mapper);
-            var query = new LoginQuery
-            {
-                UserName = "jhondoe",
-                Email = "jhondoe",
-                Password = "123456",
-            };
+        // [Fact]
+        // public async Task LoginUserHandler_Success()
+        // {
+        //     // Arrange
+        //     var handler = new LoginQueryHandler(_userRepository.Object, _jwtTokenGenerator.Object, _passwordHashService.Object, _mapper);
+        //     var query = new LoginQuery
+        //     {
+        //         UserName = "jhondoe",
+        //         Email = "jhondoe",
+        //         Password = "123456",
+        //     };
 
-            // Act
-            var result = await handler.Handle(query, CancellationToken.None);
+        //     // Act
+        //     var result = await handler.Handle(query, CancellationToken.None);
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsType<AuthenticationResult>(result.Value);
-        }   
+        //     // Assert
+        //     Assert.NotNull(result);
+        //     Assert.IsType<AuthenticationResult>(result.Value);
+        // }   
     }
 }

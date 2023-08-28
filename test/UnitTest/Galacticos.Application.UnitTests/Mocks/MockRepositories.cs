@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ErrorOr;
 using Galacticos.Application.Common.Interface.Authentication;
 using Galacticos.Application.DTOs.Comments;
 using Galacticos.Application.Persistence.Contracts;
@@ -259,7 +254,13 @@ namespace Galacticos.Application.UnitTests.Mocks
             {
                 new Tag
                 {
+                    Id = new Guid("00000000-0000-0000-0000-000000000000"),
                     Name = "Trending"
+                },
+                new Tag
+                {
+                    Id = new Guid("d9b6c0b7-9b9a-4e5a-8b3a-3b9b6c0b7a9a"),
+                    Name = "Popular"
                 }
             };
 
@@ -270,11 +271,15 @@ namespace Galacticos.Application.UnitTests.Mocks
             
             mockRepo.Setup(repo => repo.GetAll())
                     .Returns(() => Tags);
+
             mockRepo.Setup(repo => repo.Update(It.IsAny<Tag>()))
                     .Returns((Tag tag) => tag);
-            mockRepo.Setup(repo => repo.Delete(It.IsAny<Guid>()));
+
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Guid>()))
+                    .Callback((Guid id) => Tags.Remove(Tags.FirstOrDefault(x => x.Id == id)));
+
             mockRepo.Setup(repo => repo.Add(It.IsAny<Tag>()))
-                    .Returns((Tag tag) => Tags.Add(tag));
+                    .Callback((Tag tag) => Tags.Add(tag));
             
             return mockRepo;
 
@@ -283,6 +288,31 @@ namespace Galacticos.Application.UnitTests.Mocks
 
         public static Mock<IPostTagRepository> PostTagRepository()
         {
+            var PostTags = new List<PostTag>
+            {
+                new PostTag
+                {
+                    PostId = new Guid("00000000-0000-0000-0000-000000000000"),
+                    TagId = new Guid("00000000-0000-0000-0000-000000000000"),
+                }
+            };
+
+            var mockRepo = new Mock<IPostTagRepository>();
+
+            mockRepo.Setup(repo => repo.Add(It.IsAny<PostTag>()))
+                    .Callback((PostTag postTag) => PostTags.Add(postTag));
+            
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<PostTag>()))
+                    .Callback((PostTag postTag) => PostTags.Remove(postTag));
+            
+            mockRepo.Setup(repo => repo.Update(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>()))
+                    .Returns((Guid tagId, Guid newTagId, Guid postId) => new PostTag
+                    {
+                        PostId = postId,
+                        TagId = newTagId,
+                    });
+            
+            return mockRepo;
             
         }
     }

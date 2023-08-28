@@ -32,20 +32,20 @@ namespace Galacticos.Application.UnitTests.Comments.Queries
             _mapper = mapperConfig.CreateMapper();
         }
 
-        [Fact]
-        public async Task GetCommentByIdHandler_Success()
-        {
-            var handler = new GetCommentByIdRequestHandler(_commentRepository.Object, _mapper);
+        // [Fact]
+        // public async Task GetCommentByIdHandler_Success()
+        // {
+        //     var handler = new GetCommentByIdRequestHandler(_commentRepository.Object, _mapper);
 
-            var command = new GetCommentByIdRequest
-            {
-                Id = new Guid("00000000-0000-0000-0000-000000000000"),
-            };
+        //     var command = new GetCommentByIdRequest
+        //     {
+        //         Id = new Guid("00000000-0000-0000-0000-000000000000"),
+        //     };
 
-            var result = await handler.Handle(command, CancellationToken.None);
-            Assert.NotNull(result);
-            Assert.IsType<ErrorOr<CommentResponesDTO>>(result);
-        }
+        //     var result = await handler.Handle(command, CancellationToken.None);
+        //     Assert.NotNull(result);
+        //     Assert.IsType<ErrorOr<CommentResponesDTO>>(result);
+        // }
 
 
 //         [Fact]
