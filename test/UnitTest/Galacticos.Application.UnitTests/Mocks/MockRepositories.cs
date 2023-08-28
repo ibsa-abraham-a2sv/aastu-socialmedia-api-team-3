@@ -90,6 +90,7 @@ namespace Galacticos.Application.UnitTests.Mocks
                     Password = PasswordHash().Object.HashPassword("123456"),
                     Bio = "I am a software developer",
                     Picture = "picture.jpg",
+                    Verified = true,
                 }
             };
 

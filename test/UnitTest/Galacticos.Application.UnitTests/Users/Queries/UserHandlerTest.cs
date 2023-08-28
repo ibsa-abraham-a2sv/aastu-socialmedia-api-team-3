@@ -54,7 +54,7 @@ namespace Galacticos.Application.UnitTests.Users.Queries
                 Bio = "I am a software developer",
                 Picture = "picture.jpg",
                 Password = "123456",
-                ConfirmPassword = "123456"
+                ConfirmPassword = "123456",
             };
 
             // Act
@@ -62,7 +62,7 @@ namespace Galacticos.Application.UnitTests.Users.Queries
 
             // Assert
             Assert.NotNull(result);
-            Assert.IsType<AuthenticationResult>(result.Value);
+            Assert.IsType<ErrorOr<string>>(result);
                
         }
 
