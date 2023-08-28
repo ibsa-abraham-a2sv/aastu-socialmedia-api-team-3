@@ -22,12 +22,16 @@ namespace Galacticos.Application.Features.Comments.Handler.Command
             _commentRepository = commentRepository;
             _mapper = mapper;
         }
-        public Task<ErrorOr<CommentResponesDTO>> Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<CommentResponesDTO>> Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
         {
-            var comment = _commentRepository.GetCommentById(request.Id);
-            if (comment == null)
+            var comment = await _commentRepository.GetCommentById(request.CommentId)!;
+            if(comment == null)
             {
-                return Task.FromResult<ErrorOr<CommentResponesDTO>>(Errors.Comment.CommentNotFound);
+                return Errors.Comment.CommentNotFound;
+            }
+            if(comment.UserId != request.UserId)
+            {
+                return Errors.Comment.CommentIsNotYours;
             }
 
             var validator = new CommentCommandValidator();
@@ -40,13 +44,12 @@ namespace Galacticos.Application.Features.Comments.Handler.Command
 
             if (!result.IsValid)
             {
-                return Task.FromResult<ErrorOr<CommentResponesDTO>>(Errors.Comment.InvalidComment);
+                return Errors.Comment.InvalidComment;
             }
 
-            comment.Content = request.Content;
-            var updatedComment = _commentRepository.UpdateComment(comment);
-            var commentResponse = _mapper.Map<CommentResponesDTO>(updatedComment);
-            return Task.FromResult<ErrorOr<CommentResponesDTO>>(commentResponse);
+            var commentToUpdate = _mapper.Map(request, comment);
+            var updatedComment = await _commentRepository.UpdateComment(commentToUpdate);
+            return _mapper.Map<CommentResponesDTO>(updatedComment);   
         }
     }
 }

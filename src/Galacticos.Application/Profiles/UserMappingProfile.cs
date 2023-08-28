@@ -1,5 +1,7 @@
 using AutoMapper;
+using Galacticos.Application.DTOs.Auth;
 using Galacticos.Application.Contract.Authentication;
+using Galacticos.Application.DTOs.Users;
 using Galacticos.Application.Features.Auth.Requests.Commands;
 using Galacticos.Application.Features.Auth.Requests.Queries;
 using Galacticos.Domain.Entities;
@@ -13,5 +15,6 @@ public class MappingProfile : Profile
         CreateMap<RegisterRequest, RegisterCommand>();
         CreateMap<RegisterCommand, User>();
         CreateMap<LoginRequest, LoginQuery>();
+        CreateMap<User, UserDto>().ReverseMap();
     }
 }

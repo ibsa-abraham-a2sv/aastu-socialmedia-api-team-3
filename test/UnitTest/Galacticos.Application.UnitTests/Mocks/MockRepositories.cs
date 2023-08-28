@@ -6,6 +6,7 @@ using ErrorOr;
 using Galacticos.Application.Common.Interface.Authentication;
 using Galacticos.Application.DTOs.Comments;
 using Galacticos.Application.Persistence.Contracts;
+using Galacticos.Application.Services.Authentication;
 using Galacticos.Domain.Entities;
 using Moq;
 
@@ -38,7 +39,7 @@ namespace Galacticos.Application.UnitTests.Mocks
             mock.Setup(r => r.Add(It.IsAny<Post>()))
                 .Callback((Post post) => Posts.Add(post));
 
-            mock.Setup(r => r.GetById(It.IsAny<Guid>())).ReturnsAsync((Guid postId) => Posts.FirstOrDefault(x => x.Id == postId));
+            mock.Setup(r => r.GetById(It.IsAny<Guid>())).Returns((Guid postId) => Posts.FirstOrDefault(x => x.Id == postId));
 
             return mock;
         }
@@ -116,6 +117,18 @@ namespace Galacticos.Application.UnitTests.Mocks
                         .Returns("your_valid_jwt_token_here");
             
             return jwtRepo;
+        }
+
+        public static Mock<IPasswordHashService> PasswordHash()
+        {
+            var mockRepo = new Mock<IPasswordHashService>();
+
+            mockRepo.Setup(repo => repo.HashPassword(It.IsAny<string>()))
+                    .Returns((string password) => BCrypt.Net.BCrypt.HashPassword(password));
+            mockRepo.Setup(repo => repo.VerifyPassword(It.IsAny<string>(), It.IsAny<string>()))
+                    .Returns((string password, string hashedPassword) => BCrypt.Net.BCrypt.Verify(password, hashedPassword));
+
+            return mockRepo;
         }
 
 

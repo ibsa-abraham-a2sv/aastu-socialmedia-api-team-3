@@ -1,8 +1,8 @@
-using Galacticos.Domain.Entities;
+using Galacticos.Application.DTOs.Users;
 
 namespace Galacticos.Application.Services.Authentication;
 
 public record AuthenticationResult(
-    User User,
+    UserDto UserDto,
     string Token
 );

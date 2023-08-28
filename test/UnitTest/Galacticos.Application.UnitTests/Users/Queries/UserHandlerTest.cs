@@ -17,6 +17,7 @@ namespace Galacticos.Application.UnitTests.Users.Queries
     {
         private readonly Mock<IUserRepository> _userRepository;
         private readonly Mock<IJwtTokenGenerator> _jwtTokenGenerator;
+        private readonly Mock<IPasswordHashService> _passwordHashService;
         private readonly IMapper _mapper;
         
 
@@ -24,6 +25,7 @@ namespace Galacticos.Application.UnitTests.Users.Queries
         {
             _userRepository = MockRepositories.UserRepository();
             _jwtTokenGenerator = MockRepositories.GetJwtTokenGenerator();
+            _passwordHashService = MockRepositories.PasswordHash();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -38,7 +40,7 @@ namespace Galacticos.Application.UnitTests.Users.Queries
         public async Task RegisterUserHandler_Success()
         {
             // Arrange
-            var handler = new RegisterCommandHandler(_jwtTokenGenerator.Object, _userRepository.Object, _mapper);
+            var handler = new RegisterCommandHandler(_jwtTokenGenerator.Object, _userRepository.Object, _mapper, _passwordHashService.Object);
             var command = new RegisterCommand
             {
                 FirstName = "John",
@@ -64,7 +66,7 @@ namespace Galacticos.Application.UnitTests.Users.Queries
         public async Task LoginUserHandler_Success()
         {
             // Arrange
-            var handler = new LoginQueryHandler(_userRepository.Object, _jwtTokenGenerator.Object);
+            var handler = new LoginQueryHandler(_userRepository.Object, _jwtTokenGenerator.Object, _passwordHashService.Object, _mapper);
             var query = new LoginQuery
             {
                 UserName = "jhondoe",

@@ -11,6 +11,7 @@ using Galacticos.Domain.Errors;
 using AutoMapper;
 using Galacticos.Domain.Entities;
 using Galacticos.Application.DTOs.Profile.Validators;
+using Galacticos.Application.Services.ImageUpload;
 
 namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
 {
@@ -18,11 +19,12 @@ namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        
-        public EditProfileRequestHandler(IUserRepository userRepository, IMapper mapper)
+        private readonly ICloudinaryService _cloudinaryService;
+        public EditProfileRequestHandler(IUserRepository userRepository, IMapper mapper, ICloudinaryService cloudinaryService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _cloudinaryService = cloudinaryService;
         }
         public Task<ErrorOr<ProfileResponseDTO>> Handle(EditProfileRequest request, CancellationToken cancellationToken)
         {
@@ -41,6 +43,7 @@ namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
                 return Task.FromResult<ErrorOr<ProfileResponseDTO>>(Errors.User.InvalidUser);
             }
             
+            var picture = _cloudinaryService.UploadImageAsync(request.EditProfileRequestDTO.Picture!).Result;
             var userToEdit = _mapper.Map(request.EditProfileRequestDTO, user);
             var editedUser = _userRepository.EditUser(userToEdit);
             var profileResponseDTO = _mapper.Map<ProfileResponseDTO>(editedUser);

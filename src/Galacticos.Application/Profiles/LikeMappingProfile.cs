@@ -1,7 +1,7 @@
 using AutoMapper;
 using Galacticos.Domain.Entities;
 using Galacticos.Application.DTOs.Likes;
-using Galacticos.Application.DTOs.Like;
+using Galacticos.Application.Features.Likes.Command.Queries;
 
 namespace Galacticos.Application.Profiles
 {
@@ -9,7 +9,7 @@ namespace Galacticos.Application.Profiles
     {
         public LikeMappingProfile()
         {
-            CreateMap<CreateLikeDto, Like>().ReverseMap();
+            CreateMap<LikePostRequest, Like>().ReverseMap();
             CreateMap<Like, LikeDto>().ReverseMap();  
             CreateMap<Like, LikeResponseDto>().ReverseMap();          
         }

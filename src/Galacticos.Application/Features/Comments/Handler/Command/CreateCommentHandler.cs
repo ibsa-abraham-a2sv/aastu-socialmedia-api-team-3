@@ -53,9 +53,13 @@ namespace Galacticos.Application.Features.Comments.Handler.Command
             }
 
             var comment = _mapper.Map<Comment>(request);
-            ErrorOr<CommentResponesDTO> res = _commentRepository.CreateComment(comment);
-            var result = _mapper.Map<CommentResponesDTO>(comment);
-            return result;
+            var result = await _commentRepository.CreateComment(comment);
+            if(result == null)
+            {
+                return Errors.Comment.CommentCreationFailed;
+            }
+            var response = _mapper.Map<CommentResponesDTO>(result);
+            return response;
         }
     }
 }

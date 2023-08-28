@@ -26,9 +26,6 @@ namespace Galacticos.Application.DTOs.Profile.Validators
                 .MaximumLength(500)
                 .WithMessage("Bio cannot be longer than 500 characters");
 
-            RuleFor(x => x.Picture)
-                .MaximumLength(500)
-                .WithMessage("Picture cannot be longer than 500 characters");
         }
         
     }

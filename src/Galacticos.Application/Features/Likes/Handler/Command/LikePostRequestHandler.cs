@@ -1,12 +1,10 @@
 using Galacticos.Application.DTOs.Likes;
-using Galacticos.Application.DTOs.Likes.Validators;
 using MediatR;
-using Galacticos.Application.Features.Likes.Request.Queries;
+using Galacticos.Application.Features.Likes.Command.Queries;
 using Galacticos.Application.Persistence.Contracts;
 using AutoMapper;
 using FluentValidation;
 using Galacticos.Domain.Entities;
-using Galacticos.Application.DTOs.Like;
 using ErrorOr;
 using Galacticos.Domain.Errors;
 
@@ -29,33 +27,31 @@ namespace Galacticos.Application.Features.Likes.Handler.Queries
 
         public async Task<ErrorOr<LikeResponseDto>> Handle(LikePostRequest request, CancellationToken cancellationToken)
         {
-            var Validators = new CreateLikeDtoValidator();
-            var validation = await Validators.ValidateAsync(request.createLikeDto);
 
-            if (!validation.IsValid)
-            {
-                throw new ValidationException(validation.Errors);
-            }
-
-            var user = _userRepository.GetUserById(request.createLikeDto.UserId);
+            var user = _userRepository.GetUserById(request.UserId);
 
             if (user == null)
             {
                 return Errors.User.UserNotFound;
             }
 
-            var post = await _postRepository.GetById(request.createLikeDto.PostId);
+            var post = _postRepository.GetById(request.PostId);
 
             if (post == null)
             {
                 return Errors.Post.PostNotFound;
             }
 
-            var likes = _mapper.Map<Like>(request.createLikeDto);
+            var likes = _mapper.Map<Like>(request);
             var like = await _likeRepository.LikePost(likes.PostId, likes.UserId);
-            
-            var result = _mapper.Map<LikeResponseDto>(like);
-            return result;
+
+            if (like == null)
+            {
+                return Errors.Like.LikeCreationFailed;
+            }
+
+            LikeResponseDto response = _mapper.Map<LikeResponseDto>(like);
+            return response;
         }
     }
 }

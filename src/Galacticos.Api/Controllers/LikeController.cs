@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using System.Threading.Tasks;
+using System.Security.Claims;
+using Galacticos.Application.Features.Likes.Command.Queries;
+using ErrorOr;
 using Galacticos.Application.DTOs.Likes;
-using Galacticos.Application.Features.Likes.Request.Queries;
 using Galacticos.Application.Features.Posts.Request.Queries;
 using Galacticos.Application.Features.Notifications.Commands;
-using Galacticos.Application.DTOs.Notifications;
 using Galacticos.Application.Features.Profile.Request.Queries;
+using Galacticos.Application.DTOs.Notifications;
 
 namespace Galacticos.Api.Controllers
 {
@@ -14,52 +15,66 @@ namespace Galacticos.Api.Controllers
     public class LikeController : ApiController
     {
         private readonly IMediator _mediator;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LikeController(IMediator mediator)
+        public LikeController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             _mediator = mediator;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Guid>> LikePost(CreateLikeDto createLikeDto)
+        [HttpPost("{PostId}")]
+        public async Task<IActionResult> LikePost(Guid PostId)
         {
-            var result = await _mediator.Send(new LikePostRequest { createLikeDto = createLikeDto });
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
 
-            var post = await _mediator.Send(new GetPostQuery(createLikeDto.PostId));
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
 
-            var user = await _mediator.Send(new GetProfileRequest { UserId = createLikeDto.UserId });
+            var command = new LikePostRequest { PostId = PostId, UserId = Guid.Parse(userIdClaim) };
+            ErrorOr<LikeResponseDto> result = await _mediator.Send(command);
 
+            var post = await _mediator.Send(new GetPostQuery(PostId));
+            var user = await _mediator.Send(new GetProfileRequest { UserId = Guid.Parse(userIdClaim) });
             if (post.Value != null)
             {
                 await _mediator.Send(new CreateNotificationCommand
                 {
                     NotificationDTO = new CreateNotificationDTO
                     {
-                        UserById = createLikeDto.UserId,
+                        UserById = command.UserId,
                         UserToId = post.Value.UserId,
                         Content = $"{user.Value.UserName} Liked Your Post" // Like Post
                     }
                 });
             }
 
-            return result.Match<ActionResult>(
+            return result.Match<IActionResult>(
                 like => Ok(like),
-                error => BadRequest(error)
+                errors => Problem(errors)
             );
+
         }
 
-        [HttpDelete]
-        public async Task<ActionResult<Unit>> UnlikePost(LikeDto likeDto)
+        [HttpDelete("{PostId}")]
+        public async Task<IActionResult> UnlikePost(Guid PostId)
         {
-            var result = await _mediator.Send(new DislikePostRequest { likeDto = likeDto });
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
 
-            if (result.Equals(Unit.Value))
-                return Unit.Value;
+            var command = new DislikePostRequest { PostId = PostId, UserId = Guid.Parse(userIdClaim) };
+            ErrorOr<bool> result = await _mediator.Send(command);
 
-            return NotFound(new { Message = "Like not found." });
+            return result.Match<IActionResult>(
+                like => Ok(like),
+                errors => Problem(errors)
+            );
         }
     }
 }

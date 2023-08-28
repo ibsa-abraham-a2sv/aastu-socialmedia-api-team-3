@@ -69,7 +69,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
 
             if (postResult == null)
             {
-                return new ErrorOr<PostResponesDTO>().Errors; // Assuming this returns an ErrorOr instance with appropriate error
+                return Errors.Post.PostNotCreated;// Assuming this returns an ErrorOr instance with appropriate error
             }
 
             var caption = request.Caption;

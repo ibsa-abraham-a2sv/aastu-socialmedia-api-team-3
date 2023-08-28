@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Galacticos.Application.DTOs.Common;
 
-namespace Galacticos.Application.DTOs.Like
+namespace Galacticos.Application.DTOs.Likes
 {
     public class LikeResponseDto : BaseEntityDto
     {

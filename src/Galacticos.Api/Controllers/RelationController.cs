@@ -11,7 +11,7 @@ using Galacticos.Application.Features.Profile.Request.Queries;
 namespace Galacticos.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class RelationController : Controller
+    public class RelationController : ApiController
     {
         private readonly IMediator _mediator;
         public RelationController(IMediator mediator)

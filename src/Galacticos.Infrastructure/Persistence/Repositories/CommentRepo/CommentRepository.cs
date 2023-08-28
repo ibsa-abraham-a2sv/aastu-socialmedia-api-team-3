@@ -21,50 +21,62 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.CommentRepo
             _context = context;
             _mapper = mapper;
         }
-        public ErrorOr<CommentResponesDTO> CreateComment(Comment comment)
+        public Task<Comment> CreateComment(Comment comment)
         {
-            Console.WriteLine("CommentRepo: "+comment.ToString());
             _context.comments.Add(comment);
+            if(_context.SaveChanges() == 0)
+            {
+                return Task.FromResult<Comment>(null);
+            }
+            return Task.FromResult(comment);
+        }
 
+        public Task<bool> DeleteComment(Guid id)
+        {
+            var commentToDelete =_context.comments.FirstOrDefault(x=>x.Id == id);
+            if (commentToDelete == null)
+            {
+                return Task.FromResult(false);
+            }
+            _context.comments.Remove(commentToDelete);
             if (_context.SaveChanges() == 0)
             {
-                return Errors.Comment.CommentCreationFailed;
+                return Task.FromResult(false);
             }
-            _context.SaveChanges();
-            return _mapper.Map<CommentResponesDTO>(comment);
+            return Task.FromResult(true);
         }
 
-        public bool DeleteComment(Comment comment)
+        public Task<Comment>? GetCommentById(Guid id)
         {
-            _context.comments.Remove(comment);
-            if (_context.SaveChanges() == 0)
+            return Task.FromResult(_context.comments.FirstOrDefault(x => x.Id == id));
+        }
+
+        public Task<List<Comment>> GetCommentsByPostId(Guid postId)
+        {
+            var post = _context.posts.FirstOrDefault(x => x.Id == postId);
+            if(post == null)
             {
-                return false;
+                throw new Exception("Post not found");
             }
-            return true;
+            return Task.FromResult(_context.comments.Where(x => x.PostId == postId).ToList());
         }
 
-        public Comment? GetCommentById(Guid id)
+        public Task<Comment> UpdateComment(Comment comment)
         {
-            var com = _context.comments.FirstOrDefault(x=>x.Id == id);
-            if(com == null)
+            Comment commentToEdit = _context.comments.FirstOrDefault(c=>c.Id == comment.Id);
+            if(commentToEdit == null)
             {
-                return null;
+                throw new Exception("User not found");
             }
-            return com;
-        }
+            commentToEdit.Content = comment.Content;
+            comment.UpdatedAt = DateTime.UtcNow;
 
-        public List<CommentResponesDTO> GetCommentsByPostId(Guid postId)
-        {
-            var comments = _context.comments.Where(x=>x.PostId == postId);
-            return _mapper.Map<List<CommentResponesDTO>>(comments);
-        }
+            if(_context.SaveChanges() == 0)
+            {
+                throw new Exception("Comment not edited");
+            }
 
-        public CommentResponesDTO UpdateComment(Comment comment)
-        {
-            _context.comments.Update(comment);
-            _context.SaveChanges();
-            return _mapper.Map<CommentResponesDTO>(comment);
+            return Task.FromResult(comment);
         }
 
     }
