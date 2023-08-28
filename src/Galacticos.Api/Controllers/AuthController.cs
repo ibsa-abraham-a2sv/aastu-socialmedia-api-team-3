@@ -36,7 +36,7 @@ public class AuthController : ApiController{
         
         ErrorOr<AuthenticationResult> authResult = await _mediator.Send(command);
         
-        return authResult.Match<IActionResult>(
+        return authResult.Match(
             result => Ok(result),
             error => Problem(error)
         );

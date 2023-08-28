@@ -45,10 +45,8 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<A
         }
 
         string password = _passwordHashService.HashPassword(command.Password);
-        // copy command and change password and save to vas userdata
-        var userData = command with { Password = password };
 
-        User user = _mapper.Map<User>(userData);
+        User user = _mapper.Map<User>(command);
         _userRepository.AddUser(user);
 
         var token = _jwtTokenGenerator.GenerateToken(user);

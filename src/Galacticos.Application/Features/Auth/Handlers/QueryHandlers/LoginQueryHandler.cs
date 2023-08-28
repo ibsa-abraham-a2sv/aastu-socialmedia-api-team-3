@@ -1,5 +1,4 @@
 using ErrorOr;
-using Galacticos.Application.Services.Authentication;
 using MediatR;
 using Galacticos.Domain.Entities;
 using Galacticos.Application.Common.Interface.Authentication;
@@ -7,7 +6,8 @@ using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Application.Features.Auth.Requests.Queries;
 using Galacticos.Domain.Errors;
 using AutoMapper;
-// using Galacticos.Application.DTOs.Users;
+using Galacticos.Application.Services.Authentication;
+using Galacticos.Application.DTOs.Users;
 
 namespace Galacticos.Application.Handlers.Queries.Login;
 
