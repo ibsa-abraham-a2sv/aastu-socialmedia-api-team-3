@@ -9,6 +9,10 @@ using ErrorOr;
 using Galacticos.Application.DTOs.Profile;
 using Galacticos.Application.Features.Profile.Request.Queries;
 using Galacticos.Application.Features.Profile.Request.Commands;
+using System.Security.Claims;
+using Galacticos.Application.Common.Interface.Authentication;
+using Galacticos.Domain.Errors;
+using Galacticos.Application.Persistence.Contracts;
 
 namespace Galacticos.Api.Controllers
 {
@@ -16,12 +20,15 @@ namespace Galacticos.Api.Controllers
     public class ProfileController : ApiController
     {
         private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ProfileController(IMediator mediator, IMapper mapper)
+        public ProfileController(
+            IMediator mediator,
+            IHttpContextAccessor httpContextAccessor
+            )
         {
             _mediator = mediator;
-            _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet("{id}")]
@@ -55,6 +62,31 @@ namespace Galacticos.Api.Controllers
             );
         }
 
+        [HttpPut("update-password")]
+        public async Task<ActionResult> UpdatePassword([FromBody] UpdatePasswordRequestDTO updatePasswordRequestDTO)
+        {
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            UpdatePasswordRequest request = new UpdatePasswordRequest()
+            {
+                UpdatePasswordRequestDTO = updatePasswordRequestDTO,
+                UserId = Guid.Parse(userIdClaim)
+            };
+
+            ErrorOr<string> result = await _mediator.Send(request);
+
+            return result.Match<ActionResult>(
+                message => Ok(message),
+                error => BadRequest(error)
+            );
+        }
+      
+
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
@@ -66,6 +98,5 @@ namespace Galacticos.Api.Controllers
                 error => BadRequest(error)
             );
         }
-
     }
 }

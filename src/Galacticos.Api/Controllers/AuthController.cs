@@ -72,8 +72,7 @@ public class AuthController : ApiController{
     [HttpPost("forgot-password")]
     public async Task<IActionResult> ForgotPassword(ForgotPasswordRequest request)
     {
-        var command = _mapper.Map<ForgotPasswordCommand>(request);
-        var forgotPasswordResult = await _mediator.Send(command);
+        var forgotPasswordResult = await _mediator.Send(request);
 
         return forgotPasswordResult.Match<IActionResult>(
             result => Ok(result),    // Redirect to success page or message

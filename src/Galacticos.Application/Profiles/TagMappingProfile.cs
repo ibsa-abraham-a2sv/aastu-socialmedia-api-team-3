@@ -9,7 +9,6 @@ namespace Galacticos.Application.Profiles
         public TagMappingProfile()
         {
             CreateMap<Tag, TagDto>().ReverseMap();
-        }
-        
+        }    
     }
 }

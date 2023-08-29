@@ -9,5 +9,6 @@ namespace Galacticos.Application.Common.Interface.Authentication
     {
         bool ValidateToken(string token);
         Guid ExtractUserIdFromToken(string token);
+        string ExtractEmailFromToken(string token);
     }
 }

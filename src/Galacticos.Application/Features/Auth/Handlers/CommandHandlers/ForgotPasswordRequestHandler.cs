@@ -15,13 +15,11 @@ namespace Galacticos.Application.Features.Auth.Handlers.CommandHandlers
         private readonly IEmailSender _emailSender;
         private readonly IUserRepository _userRepository;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly IMapper _mapper;
-        public ForgotPasswordRequestHandler(IEmailSender emailSender, IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository, IMapper mapper)
+        public ForgotPasswordRequestHandler(IEmailSender emailSender, IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
         {
             _emailSender = emailSender;
             _jwtTokenGenerator = jwtTokenGenerator;
             _userRepository = userRepository;
-            _mapper = mapper;
         }
         
         public async Task<ErrorOr<string>> Handle(ForgotPasswordRequest request, CancellationToken cancellationToken)
@@ -33,16 +31,19 @@ namespace Galacticos.Application.Features.Auth.Handlers.CommandHandlers
                 return Errors.User.UserNotFound;
             }
 
-            var resetToken = _jwtTokenGenerator.GenerateToken(user);
+            var resetToken = _jwtTokenGenerator.GenerateRecoveryToken(user.Email);
 
             await _emailSender.SendEmail(
                 new Email()
                 {
                     To = user.Email,
                     Subject = "Reset Password",
-                    Body = $"Please click the link to reset your password: https://localhost:5001/api/auth/reset-password?token={resetToken}"
+                    Body = $"Please copy this token to reset your password: {resetToken}"
                 }
-            )
+            );
+
+            ErrorOr<string> res = "Please check your email to reset your password";
+            return res;
         }
     }
 }

@@ -19,6 +19,24 @@ namespace Galacticos.Infrastructure.Authentication
             _jwtSettings = jwtOptions.Value;
         }
 
+        public string ExtractEmailFromToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadJwtToken(token);
+            Console.WriteLine(jwtToken);
+
+            // Find the claim with the user ID
+            var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "sub");
+
+            if (emailClaim != null)
+            {
+                return emailClaim.Value;
+            }
+
+            // Return null if the user ID claim is not found
+            return null;
+        }
+
         public Guid ExtractUserIdFromToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
