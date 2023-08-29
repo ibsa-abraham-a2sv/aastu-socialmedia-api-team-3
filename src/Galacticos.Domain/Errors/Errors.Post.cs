@@ -23,6 +23,9 @@ namespace Galacticos.Domain.Errors
 
             public static Error InvalidPost =>
             Error.Failure(code: "InvalidPost", description: "Invalid Post");
+
+            public static Error InappropriateContent =>
+            Error.Failure(code: "InappropriateContent", description: "Your post contains inappropriate content and has been removed. Please review our community guidelines and policies for more information.");
         }
     }
 }
