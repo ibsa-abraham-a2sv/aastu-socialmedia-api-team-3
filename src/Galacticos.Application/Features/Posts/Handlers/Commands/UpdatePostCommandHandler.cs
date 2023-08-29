@@ -4,6 +4,7 @@ using Galacticos.Application.DTOs.Posts;
 using Galacticos.Application.DTOs.Posts.Validator;
 using Galacticos.Application.Features.Posts.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
+using Galacticos.Application.Services.ImageUpload;
 using Galacticos.Domain.Entities;
 using Galacticos.Domain.Errors;
 using MediatR;
@@ -22,23 +23,28 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
         private readonly IMapper _mapper;
         private readonly ITagRepository _tagRepository;
         private readonly IPostTagRepository _postTagRepository;
+        private readonly ICloudinaryService _cloudinaryService;
 
-        public UpdatePostCommandHandler(IPostRepository postRepository, IMapper mapper, ITagRepository tagRepository, IPostTagRepository postTagRepository)
+        public UpdatePostCommandHandler(IPostRepository postRepository, IMapper mapper, ITagRepository tagRepository, IPostTagRepository postTagRepository, ICloudinaryService cloudinaryService)
         {
             _postRepository = postRepository;
             _mapper = mapper;
             _tagRepository = tagRepository;
             _postTagRepository = postTagRepository;
+            _cloudinaryService = cloudinaryService;
         }
         public async Task<ErrorOr<PostResponesDTO>> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
         {
             var post = await _postRepository.GetById(request.PostId);
+            string picture = "";
+            if (request.UpdatePostRequestDTO.Image != null)
+                picture = _cloudinaryService.UploadImageAsync(request.UpdatePostRequestDTO.Image!).Result;
 
             var validator = new UpdatePostDtoValidator();
-            var obj = new UpdatePostRequestDTO()
+            var obj = new PostDto()
             {
                 Caption = request.UpdatePostRequestDTO.Caption,
-                Image = request.UpdatePostRequestDTO.Image
+                Image = picture
             };
 
             var result = validator.Validate(obj);
@@ -96,11 +102,11 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
             {
                 return Errors.Post.PostIsNotYours;
             }
-            var postToUpdate = _mapper.Map(request.UpdatePostRequestDTO, post);
-
+            var postToUpdate = _mapper.Map<Post>(obj);
+            postToUpdate.Id = request.PostId;
+            postToUpdate.UserId = request.UserId;
 
             var updatedPost = await _postRepository.Update(postToUpdate);
-            
             
             var postResponseDTO = _mapper.Map<PostResponesDTO>(updatedPost);
 

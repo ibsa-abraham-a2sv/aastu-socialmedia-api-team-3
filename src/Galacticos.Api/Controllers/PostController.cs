@@ -28,14 +28,17 @@ namespace Galacticos.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePost(CreatePostRequestDTO request)
+        public async Task<IActionResult> CreatePost([FromForm] CreatePostRequestDTO request)
         {
             var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
 
             if (userIdClaim != null)
             {
-                var command = _mapper.Map<CreatePostCommand>(request);
-                command.UserId = Guid.Parse(userIdClaim);
+                var command = new CreatePostCommand()
+                {
+                    UserId = Guid.Parse(userIdClaim),
+                    CreatePostRequestDTO = request
+                };
                 ErrorOr<PostResponesDTO> result = await _mediator.Send(command);
 
                 return result.Match<IActionResult>(
@@ -74,7 +77,7 @@ namespace Galacticos.Api.Controllers
         }
 
         [HttpPut("{postId}")]
-        public async Task<IActionResult> UpdatePost(Guid postId, UpdatePostRequestDTO updatePostRequestDTO)
+        public async Task<IActionResult> UpdatePost(Guid postId,[FromForm] UpdatePostRequestDTO updatePostRequestDTO)
         {
             var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
 

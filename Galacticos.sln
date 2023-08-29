@@ -13,12 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galacticos.Domain", "src\Ga
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galacticos.Infrastructure", "src\Galacticos.Infrastructure\Galacticos.Infrastructure.csproj", "{7103CA6C-1056-4200-9998-2C6BB4CF4131}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{21169CFB-75B2-485C-A3A9-5DE24497D12D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{6B86E224-6398-4B7A-B8BF-03748750037C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galacticos.Application.UnitTests", "test\UnitTest\Galacticos.Application.UnitTests\Galacticos.Application.UnitTests.csproj", "{D3B594B0-4F4F-49A5-B9EB-633C0BBC633B}"
-EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

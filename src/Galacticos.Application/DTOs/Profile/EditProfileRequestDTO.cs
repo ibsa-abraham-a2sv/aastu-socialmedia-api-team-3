@@ -11,6 +11,6 @@ namespace Galacticos.Application.DTOs.Profile
         public string? FirstName { get; set; } = "";
         public string? LastName { get; set; } = "";
         public string? Bio { get; init; } = "";
-        public IFormFile? Picture { get; init; }
+        public IFormFile? Picture { get; set; }
     }
 }

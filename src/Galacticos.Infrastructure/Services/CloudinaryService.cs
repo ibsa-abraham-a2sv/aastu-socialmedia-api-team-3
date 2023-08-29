@@ -18,10 +18,17 @@ public class CloudinaryService : ICloudinaryService
 
     public Task<string> UploadImageAsync(IFormFile imageFile)
     {
+        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+    var extension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
+    
+    if (!allowedExtensions.Contains(extension))
+    {
+        throw new ArgumentException("Invalid file type. Only JPG and PNG files are allowed.");
+    }
         var client = new Cloudinary(new Account(
-            _cloudinarySettings.CloudName,
-            _cloudinarySettings.ApiKey,
-            _cloudinarySettings.ApiSecret
+            _cloudinarySettings.CloudName = "dsyi5xipw",
+            _cloudinarySettings.ApiKey = "954213167565616",
+            _cloudinarySettings.ApiSecret = "0Mo5_8OwrtF667fAKJ938qCjmxI"
         ));
 
         var uploadParams = new ImageUploadParams()
