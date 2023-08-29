@@ -59,7 +59,7 @@ public class UserRepository : IUserRepository
 
         if (_context.SaveChanges() == 0)
             throw new Exception("User not edited");
-        
+
         return userToEdit;
     }
 
@@ -71,5 +71,10 @@ public class UserRepository : IUserRepository
     public async Task<bool> Exists(Guid id)
     {
         return await _context.users.FindAsync(id) != null;
+    }
+
+    public async Task<User>? GetUserByIdAsync(Guid id)
+    {
+        return _context.users.FirstOrDefault(u => u.Id == id);
     }
 }

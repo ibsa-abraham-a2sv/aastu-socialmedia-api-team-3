@@ -125,6 +125,27 @@ namespace Galacticos.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "userConnections",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    userId = table.Column<Guid>(type: "uuid", nullable: false),
+                    connectionId = table.Column<string>(type: "text", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_userConnections", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_userConnections_users_userId",
+                        column: x => x.userId,
+                        principalTable: "users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "comments",
                 columns: table => new
                 {
@@ -244,6 +265,11 @@ namespace Galacticos.Infrastructure.Migrations
                 name: "IX_relations_FollowerId",
                 table: "relations",
                 column: "FollowerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_userConnections_userId",
+                table: "userConnections",
+                column: "userId");
         }
 
         /// <inheritdoc />
@@ -263,6 +289,9 @@ namespace Galacticos.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "relations");
+
+            migrationBuilder.DropTable(
+                name: "userConnections");
 
             migrationBuilder.DropTable(
                 name: "posts");

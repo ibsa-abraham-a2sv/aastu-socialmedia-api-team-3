@@ -9,6 +9,7 @@ using Galacticos.Application.DTOs.Notifications;
 using Galacticos.Application.Features.Profile.Request.Queries;
 using System.Security.Claims;
 using Galacticos.Domain.Errors;
+using Galacticos.Api.Services.NotificationService;
 
 namespace Galacticos.Api.Controllers
 {
@@ -17,16 +18,19 @@ namespace Galacticos.Api.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public RelationController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
+        private readonly INotificationService _notificationService;
+        public RelationController(IMediator mediator, IHttpContextAccessor httpContextAccessor, INotificationService notificationService)
         {
             _mediator = mediator;
             _httpContextAccessor = httpContextAccessor;
+            _notificationService = notificationService;
         }
 
         [HttpPost("Follow/{UserId}")]
         public async Task<ActionResult<Guid>> Follow(Guid UserId)
         {
             var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+            var currentUserId = Guid.Parse(userIdClaim);
 
             if (userIdClaim != null)
             {
@@ -37,20 +41,11 @@ namespace Galacticos.Api.Controllers
                 };
 
                 var result = await _mediator.Send(new FollowCommand { RelationDTO = relation });
-                var user = await _mediator.Send(new GetProfileRequest { UserId = relation.FollowerId });
 
                 if (result != Guid.Empty)
                 {
-                    await _mediator.Send(new CreateNotificationCommand
-                    {
-                        NotificationDTO = new CreateNotificationDTO
-                        {
-                            UserById = relation.FollowerId,
-                            UserToId = relation.FollowedUserId,
-                            Content = $"{user.Value.UserName} Start Following You" // Follow
-                        }
-                    });
-
+                    // Send Notification
+                    await _notificationService.UserIsFollowed(currentUserId, UserId);
                     return Ok(result);
                 }
 
@@ -66,6 +61,7 @@ namespace Galacticos.Api.Controllers
         public async Task<ActionResult<Guid>> UnFollow(Guid UserId)
         {
             var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+            var currentUserId = Guid.Parse(userIdClaim);
 
             if (userIdClaim != null)
             {
@@ -76,24 +72,14 @@ namespace Galacticos.Api.Controllers
                 };
 
                 var result = await _mediator.Send(new UnFollowCommand { RelationDTO = relation });
-                var user = await _mediator.Send(new GetProfileRequest { UserId = relation.FollowerId });
 
                 if (result != Guid.Empty)
                 {
                     // Send Notification
-                    await _mediator.Send(new CreateNotificationCommand
-                    {
-                        NotificationDTO = new CreateNotificationDTO
-                        {
-                            UserById = relation.FollowerId,
-                            UserToId = relation.FollowedUserId,
-                            Content = $"{user.Value.UserName} Unfollowed You" // Unfollow
-                        }
-                    });
-
+                    await _notificationService.UserIsFollowed(currentUserId, UserId);
                     return Ok(result);
                 }
-                
+
                 return Guid.Empty;
             }
             else

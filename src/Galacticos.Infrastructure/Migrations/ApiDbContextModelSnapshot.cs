@@ -260,6 +260,31 @@ namespace Galacticos.Infrastructure.Migrations
                     b.ToTable("users");
                 });
 
+            modelBuilder.Entity("Galacticos.Domain.Entities.UserConnection", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("connectionId")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("userId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("userConnections");
+                });
+
             modelBuilder.Entity("Galacticos.Domain.Entities.Comment", b =>
                 {
                     b.HasOne("Galacticos.Domain.Entities.Post", "Post")
@@ -356,6 +381,17 @@ namespace Galacticos.Infrastructure.Migrations
                     b.Navigation("Post");
 
                     b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("Galacticos.Domain.Entities.UserConnection", b =>
+                {
+                    b.HasOne("Galacticos.Domain.Entities.User", "user")
+                        .WithMany()
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Galacticos.Domain.Entities.Post", b =>

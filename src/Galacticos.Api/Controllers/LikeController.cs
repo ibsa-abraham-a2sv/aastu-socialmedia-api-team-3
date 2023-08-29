@@ -8,6 +8,7 @@ using Galacticos.Application.Features.Posts.Request.Queries;
 using Galacticos.Application.Features.Notifications.Commands;
 using Galacticos.Application.Features.Profile.Request.Queries;
 using Galacticos.Application.DTOs.Notifications;
+using Galacticos.Api.Services.NotificationService;
 
 namespace Galacticos.Api.Controllers
 {
@@ -16,41 +17,30 @@ namespace Galacticos.Api.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly INotificationService _notificationService;
 
-        public LikeController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
+        public LikeController(IMediator mediator, IHttpContextAccessor httpContextAccessor, INotificationService notificationService)
         {
             _mediator = mediator;
             _httpContextAccessor = httpContextAccessor;
+            _notificationService = notificationService;
         }
 
         [HttpPost("{PostId}")]
         public async Task<IActionResult> LikePost(Guid PostId)
         {
             var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+            var userId = Guid.Parse(userIdClaim);
 
             if (userIdClaim == null)
             {
                 return Unauthorized();
             }
 
-            var command = new LikePostRequest { PostId = PostId, UserId = Guid.Parse(userIdClaim) };
+            var command = new LikePostRequest { PostId = PostId, UserId = userId };
             ErrorOr<LikeResponseDto> result = await _mediator.Send(command);
 
-            var post = await _mediator.Send(new GetPostQuery(PostId));
-            var user = await _mediator.Send(new GetProfileRequest { UserId = Guid.Parse(userIdClaim) });
-            if (post.Value != null)
-            {
-                await _mediator.Send(new CreateNotificationCommand
-                {
-                    NotificationDTO = new CreateNotificationDTO
-                    {
-                        UserById = command.UserId,
-                        UserToId = post.Value.UserId,
-                        Content = $"{user.Value.UserName} Liked Your Post" // Like Post
-                    }
-                });
-            }
-
+            await _notificationService.PostIsLiked(PostId, userId);
             return result.Match<IActionResult>(
                 like => Ok(like),
                 errors => Problem(errors)

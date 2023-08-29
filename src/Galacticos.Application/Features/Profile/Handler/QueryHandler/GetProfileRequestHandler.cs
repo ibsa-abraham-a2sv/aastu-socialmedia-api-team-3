@@ -16,7 +16,7 @@ namespace Galacticos.Application.Features.Profile.Handler.QueryHandler
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
-        
+
         public GetProfileRequestHandler(IMapper mapper, IUserRepository userRepository)
         {
             _mapper = mapper;

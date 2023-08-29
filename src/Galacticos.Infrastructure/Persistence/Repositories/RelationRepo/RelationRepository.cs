@@ -2,6 +2,7 @@ using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
 using Galacticos.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Npgsql.Replication;
 
 namespace Galacticos.Infrastructure.Repositories.RelationRepo
 {

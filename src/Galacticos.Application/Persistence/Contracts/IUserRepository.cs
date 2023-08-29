@@ -8,8 +8,9 @@ using Galacticos.Domain.Entities;
 namespace Galacticos.Application.Persistence.Contracts;
 public interface IUserRepository
 {
-    User? GetUserByIdentifier(string identifier);   
-    User? GetUserById(Guid id);
+    User? GetUserByIdentifier(string identifier);
+    User GetUserById(Guid id);
+    Task<User>? GetUserByIdAsync(Guid id);
     User? GetUserByEmail(string email);
     User? GetUserByUserName(string userName);
     void AddUser(User user);

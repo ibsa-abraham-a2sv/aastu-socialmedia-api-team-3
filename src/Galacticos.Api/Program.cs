@@ -1,8 +1,12 @@
+using Galacticos.Api.Services.NotificationService;
 using Galacticos.Application;
 using Galacticos.Infrastructure;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSignalR();
+
 AddSwaggerDoc(builder.Services);
 // Add services to the container.
 
@@ -32,6 +36,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<NotificationHub>("/notificationHub");
 
 app.Run();
 

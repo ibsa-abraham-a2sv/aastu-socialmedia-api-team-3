@@ -40,34 +40,34 @@ namespace Galacticos.Application.Features.Auth.Handlers.CommandHandlers
             // }
 
             Guid UserId = _jwtTokenValidation.ExtractUserIdFromToken(request.Token);
-            
-            if(UserId == Guid.Empty)
+
+            if (UserId == Guid.Empty)
             {
                 return Errors.Auth.InvalidToken;
             }
 
             User user = _userRepository.GetUserById(UserId);
-            if(user == null)
+            if (user == null)
             {
                 return Errors.Auth.InvalidToken;
             }
 
-            if(user.Verified)
+            if (user.Verified)
             {
                 return Errors.Auth.EmailAlreadyConfirmed;
             }
 
             user.Verified = true;
-            User usr =_userRepository.EditUser(user);
-            if(usr == null)
+            User usr = _userRepository.EditUser(user);
+            if (usr == null)
             {
                 return Errors.Auth.EmailNotConfirmed;
             }
 
 
             var Token = _jwtTokenGenerator.GenerateToken(usr);
-            var res = new AuthenticationResult(_mapper.Map<UserDto>(user), Token); 
-            
+            var res = new AuthenticationResult(_mapper.Map<UserDto>(user), Token);
+
             return res;
         }
 

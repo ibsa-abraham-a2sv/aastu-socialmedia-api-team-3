@@ -28,7 +28,7 @@ namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
         }
         public Task<ErrorOr<ProfileResponseDTO>> Handle(EditProfileRequest request, CancellationToken cancellationToken)
         {
-            var user =  _userRepository.GetUserById(request.UserId);
+            var user = _userRepository.GetUserById(request.UserId);
             if (user == null)
             {
                 return Task.FromResult<ErrorOr<ProfileResponseDTO>>(Errors.User.UserNotFound);
@@ -42,7 +42,7 @@ namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
                 var errors = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
                 return Task.FromResult<ErrorOr<ProfileResponseDTO>>(Errors.User.InvalidUser);
             }
-            
+
             var picture = _cloudinaryService.UploadImageAsync(request.EditProfileRequestDTO.Picture!).Result;
             var userToEdit = _mapper.Map(request.EditProfileRequestDTO, user);
             var editedUser = _userRepository.EditUser(userToEdit);

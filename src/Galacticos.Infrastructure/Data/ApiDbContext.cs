@@ -71,5 +71,6 @@ namespace Galacticos.Infrastructure.Data
         public DbSet<Notification> notifications { get; set; }
         public DbSet<Tag> tags { get; set; }
         public DbSet<PostTag> postTags { get; set; }
+        public DbSet<UserConnection> userConnections { get; set; }
     }
 }
