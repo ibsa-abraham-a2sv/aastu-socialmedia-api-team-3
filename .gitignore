@@ -16,3 +16,4 @@ test/UnitTest/Galacticos.Infrastructure.UnitTests/bin
 test/UnitTest/Galacticos.Infrastructure.UnitTests/obj
 test/UnitTest/Galacticos.Test.Api.UnitTests/bin
 test/UnitTest/Galacticos.Test.Api.UnitTests/obj
+delete_gone_branches.sh
