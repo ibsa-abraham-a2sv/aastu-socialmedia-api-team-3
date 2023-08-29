@@ -7,7 +7,7 @@ using Galacticos.Application.DTOs.Relations.Validators;
 
 namespace Galacticos.Application.Features.Relation.Handler.Command
 {
-    public class UnFollowCommandHandler : IRequestHandler<UnFollowCommand, Unit>
+    public class UnFollowCommandHandler : IRequestHandler<UnFollowCommand, Guid>
     {
         private readonly IMapper _mapper;
         private readonly IRelationRepository _relationRepository;
@@ -18,7 +18,7 @@ namespace Galacticos.Application.Features.Relation.Handler.Command
             _relationRepository = relationRepository;
         }
 
-        public async Task<Unit> Handle(UnFollowCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(UnFollowCommand request, CancellationToken cancellationToken)
         {
             var validator = new RelationDTOValidator();
             var validation = await validator.ValidateAsync(request.RelationDTO);
@@ -28,9 +28,14 @@ namespace Galacticos.Application.Features.Relation.Handler.Command
             }
 
             var relation = await _relationRepository.Get(request.RelationDTO.FollowerId, request.RelationDTO.FollowedUserId);
-            await _relationRepository.UnFollow(relation.FollowerId, relation.FollowedUserId);
+            var result = await _relationRepository.UnFollow(relation.FollowerId, relation.FollowedUserId);
 
-            return Unit.Value;
+            if (result == null)
+            {
+                return Guid.Empty;
+            }
+
+            return result.Id;
         }
     }
 }

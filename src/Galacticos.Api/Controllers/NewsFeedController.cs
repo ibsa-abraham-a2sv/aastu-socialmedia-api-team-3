@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using System.Threading.Tasks;
-using System.Threading;
+using System.Security.Claims;
 using Galacticos.Application.Features.NewsFeed.Request.Queries;
 using Galacticos.Application.DTOs.Posts;
+using AutoMapper;
 
 namespace Galacticos.Api.Controllers
 {
@@ -11,15 +11,29 @@ namespace Galacticos.Api.Controllers
     public class NewsFeedController : ApiController
     {
         private readonly IMediator _mediator;
-        public NewsFeedController(IMediator mediator)
+        private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public NewsFeedController(IMediator mediator, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _mediator = mediator;
+            _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
-        [HttpGet("{id}/posts/{pageNumber}/{pageSize}")]
-        public async Task<ActionResult<List<PostResponesDTO>>> GetNewsFeedPosts(Guid id, int pageNumber, int pageSize)
+        [HttpGet("posts/{pageNumber}/{pageSize}")]
+        public async Task<ActionResult<List<PostResponesDTO>>> GetNewsFeedPosts(int pageNumber, int pageSize)
         {
-            var result = await _mediator.Send(new GetNewsFeedPostsRequest { Id = id, PageNumber = pageNumber, PageSize = pageSize });
-            return Ok(result);
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+
+            if (userIdClaim != null)
+            {
+                var id = Guid.Parse(userIdClaim);
+                var result = await _mediator.Send(new GetNewsFeedPostsRequest { Id = id, PageNumber = pageNumber, PageSize = pageSize });
+                return Ok(result);
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
     }
 }

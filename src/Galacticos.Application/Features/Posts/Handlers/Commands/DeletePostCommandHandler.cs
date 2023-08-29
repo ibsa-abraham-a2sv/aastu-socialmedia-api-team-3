@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ErrorOr;
+using Galacticos.Domain.Errors;
 
 namespace Galacticos.Application.Features.Posts.Handlers.Commands
 {
@@ -28,12 +29,12 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
 
             if (postToDelete == null)
             {
-                return new ErrorOr<bool>().Errors;
+                return Errors.Post.PostNotFound;
             }
 
             if (postToDelete.UserId != request.UserId)
             {
-                return new ErrorOr<bool>().Errors;
+                return Errors.Post.PostIsNotYours;
             }
 
             bool result = await _postRepository.Delete(request.PostId);
@@ -45,7 +46,6 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
                 await _postTagRepository.Delete(postTag);
             }
             
-
             return result;
         }
     }

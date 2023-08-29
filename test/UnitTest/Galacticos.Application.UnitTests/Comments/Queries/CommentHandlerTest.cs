@@ -16,13 +16,15 @@ namespace Galacticos.Application.UnitTests.Comments.Queries
     public class CommentHandlerTest
     {
         private readonly Mock<ICommentRepository> _commentRepository;
-        // private readonly Mock<IPostRepository> _postRepository;
+        private readonly Mock<IPostRepository> _postRepository;
+        private readonly Mock<IUserRepository> _userRepository;
         private readonly IMapper _mapper;
 
         public CommentHandlerTest()
         {
             _commentRepository = MockRepositories.CommentRepository();
-            // _postRepository = MockRepositories.PostRepository();
+            _postRepository = MockRepositories.PostRepository();
+            _userRepository = MockRepositories.UserRepository();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -48,74 +50,74 @@ namespace Galacticos.Application.UnitTests.Comments.Queries
         }
 
 
-//         [Fact]
-//         public async Task CreateCommentHandler_Success()
-//         {
-//             var handler = new CreateCommentHandler(_commentRepository.Object, _mapper);
+        [Fact]
+        public async Task CreateCommentHandler_Success()
+        {
+            var handler = new CreateCommentHandler(_commentRepository.Object, _mapper, _postRepository.Object, _userRepository.Object);
 
-//             var command = new CreateCommentCommand
-//             {
-//                 Content = "This is a comment",
-//                 PostId = new Guid("00000000-0000-0000-0000-000000000000"),
-//                 UserId = new Guid("00000000-0000-0000-0000-000000000000"),
-//             };
+            var command = new CreateCommentCommand
+            {
+                Content = "This is a comment",
+                PostId = new Guid("00000000-0000-0000-0000-000000000000"),
+                UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+            };
 
-//             var result = await handler.Handle(command, CancellationToken.None);
+            var result = await handler.Handle(command, CancellationToken.None);
 
-//             Assert.NotNull(result);
-//             Assert.IsType<CommentResponesDTO>(result);
-//         }
-
-
-//         [Fact]
-//         public async Task UpdateCommentHandler_Success()
-//         {
-//             var handler = new UpdateCommentHandler(_commentRepository.Object, _mapper);
-
-//             var command = new UpdateCommentCommand
-//             {
-//                 Id = new Guid("00000000-0000-0000-0000-000000000000"),
-//                 Content = "This is a new comment",
-//             };
-
-//             var result = await handler.Handle(command, CancellationToken.None);
-//             Assert.NotNull(result);
-//             Assert.IsType<ErrorOr<CommentResponesDTO>>(result);
-//         }
+            Assert.NotNull(result);
+            Assert.IsType<ErrorOr<CommentResponesDTO>>(result);
+        }
 
 
-//         [Fact]
-//         public async Task DeleteCommentHandler_Success()
-//         {
-//             var handler = new DeleteCommentHandler(_commentRepository.Object, _mapper);
+        [Fact]
+        public async Task UpdateCommentHandler_Success()
+        {
+            var handler = new UpdateCommentHandler(_commentRepository.Object, _mapper);
 
-//             var command = new DeleteCommentRequest
-//             {
-//                 Id = new Guid("00000000-0000-0000-0000-000000000000"),
-//             };
+            var command = new UpdateCommentCommand
+            {
+                CommentId = new Guid("00000000-0000-0000-0000-000000000000"),
+                UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+                Content = "This is a new comment",
+            };
 
-//             var result = await handler.Handle(command, CancellationToken.None);
-//             Assert.NotNull(result);
-//             Assert.IsType<ErrorOr<CommentResponesDTO>>(result);
-//         }
-
-
-//         // [Fact]
-//         // public async Task GetCommentsByPostIdHandler_Success()
-//         // {
-//         //     var handler = new GetCommentsByPostIdRequestHandler(_commentRepository.Object, _mapper, _postRepository.Object);
-
-//         //     var command = new GetCommentsByPostIdRequest
-//         //     {
-//         //         PostId = new Guid("00000000-0000-0000-0000-000000000000"),
-//         //     };
-
-//         //     var result = await handler.Handle(command, CancellationToken.None);
-//         //     Assert.NotNull(result);
-//         //     Assert.IsType<ErrorOr<List<CommentResponesDTO>>>(result);
-//         // }
+            var result = await handler.Handle(command, CancellationToken.None);
+            Assert.NotNull(result);
+            Assert.IsType<ErrorOr<CommentResponesDTO>>(result);
+            Assert.Equal("This is a new comment", result.Value.Content);
+        }
 
 
-        
+        [Fact]
+        public async Task DeleteCommentHandler_Success()
+        {
+            var handler = new DeleteCommentHandler(_commentRepository.Object, _mapper);
+
+            var command = new DeleteCommentRequest
+            {
+                Id = new Guid("00000000-0000-0000-0000-000000000000"),
+                UserId = new Guid("00000000-0000-0000-0000-000000000000"),
+            };
+
+            var result = await handler.Handle(command, CancellationToken.None);
+            Assert.NotNull(result);
+            Assert.IsType<ErrorOr<bool>>(result);
+        }
+
+
+        [Fact]
+        public async Task GetCommentsByPostIdHandler_Success()
+        {
+            var handler = new GetCommentsByPostIdRequestHandler(_commentRepository.Object, _mapper, _postRepository.Object);
+
+            var command = new GetCommentsByPostIdRequest
+            {
+                PostId = new Guid("00000000-0000-0000-0000-000000000000"),
+            };
+
+            var result = await handler.Handle(command, CancellationToken.None);
+            Assert.NotNull(result);
+            Assert.IsType<ErrorOr<List<CommentResponesDTO>>>(result);
+        }
     }
 }

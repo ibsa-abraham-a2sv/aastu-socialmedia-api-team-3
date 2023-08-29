@@ -6,6 +6,7 @@ using Galacticos.Application.Common.Interface.Services;
 using Galacticos.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Galacticos.Infrastructure.Authentication;
 
@@ -30,10 +31,13 @@ public class JwtTokenGenerator : IJwtTokenGenerator{
 
         var claims = new List<Claim>
         {
+
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim("uid", user.Id.ToString())
+
         };
 
         var securityToken = new JwtSecurityToken(

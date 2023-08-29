@@ -23,7 +23,8 @@ namespace Galacticos.Domain.Entities
         public string Password { set; get; }
         public string? Bio { set; get; } = "";
         public string? Picture  { set; get; } = "";
-
+        public bool Verified { set; get; } = false;
+ 
         public ICollection<Post> Posts { get; set; }
         public ICollection<Notification> Notifications { get; set; }
         public ICollection<Follow> Followers { get; set; }

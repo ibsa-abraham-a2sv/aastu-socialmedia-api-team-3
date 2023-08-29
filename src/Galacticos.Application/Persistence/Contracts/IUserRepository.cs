@@ -15,4 +15,5 @@ public interface IUserRepository
     void AddUser(User user);
     User EditUser(User user);
     List<User> GetAllUsers();
+    Task<bool> Exists(Guid id);
 }

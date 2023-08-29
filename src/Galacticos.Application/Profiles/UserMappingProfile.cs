@@ -1,4 +1,5 @@
 using AutoMapper;
+using Galacticos.Application.DTOs.Auth;
 using Galacticos.Application.Contract.Authentication;
 using Galacticos.Application.DTOs.Users;
 using Galacticos.Application.Features.Auth.Requests.Commands;

@@ -4,19 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ErrorOr;
-using Galacticos.Application.Contract.Authentication;
 using Galacticos.Application.Features.Auth.Requests.Commands;
 using Galacticos.Application.Features.Auth.Requests.Queries;
 using Galacticos.Application.Handlers.Queries.Login;
 using Galacticos.Application.Services.Authentication;
+using Galacticos.Application.DTOs.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Galacticos.Api.Controllers;
 
-[ApiController]
 [Route("api/auth")]
-public class AuthController : ControllerBase{
+[AllowAnonymous]
+public class AuthController : ApiController{
 
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;
@@ -29,14 +30,15 @@ public class AuthController : ControllerBase{
 
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
-    {
+    {   
+
         var command = _mapper.Map<RegisterCommand>(request);
         
-        ErrorOr<AuthenticationResult> authResult = await _mediator.Send(command);
+        ErrorOr<string> authResult = await _mediator.Send(command);
         
-        return authResult.Match<IActionResult>(
+        return authResult.Match(
             result => Ok(result),
-            error => BadRequest(error)
+            error => Problem(error)
         );
     }
 
@@ -50,8 +52,21 @@ public class AuthController : ControllerBase{
         
         return authResult.Match<IActionResult>(
             result => Ok(result),
-            error => BadRequest(error)
+            error => Problem(error)
         );
     }
+    
+    [HttpGet("verify-email")]
+        public async Task<IActionResult> VerifyEmail(string token)
+        {
+            var command = new VerifyEmailCommand { Token = token }; // Create a command with the token
+            var verificationResult = await _mediator.Send(command);
+
+            return verificationResult.Match<IActionResult>(
+                result => Ok(result),    // Redirect to success page or message
+                error => Problem(error)   // Redirect to error page or display error message
+            );
+        }
+    
 
 }

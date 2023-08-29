@@ -8,6 +8,7 @@ using Galacticos.Application.DTOs.Posts;
 using Galacticos.Application.Features.Posts.Request.Queries;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
+using Galacticos.Domain.Errors;
 using MediatR;
 
 namespace Galacticos.Application.Features.Posts.Handlers.Queries
@@ -28,7 +29,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Queries
             Post post = await _postRepository.GetById(request.PostId);
             if (post == null)
             {
-                return new ErrorOr<PostResponesDTO>().Errors;
+                return Errors.Post.PostNotFound;
             }
 
             var response = _mapper.Map<PostResponesDTO>(post);

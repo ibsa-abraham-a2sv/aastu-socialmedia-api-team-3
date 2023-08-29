@@ -7,12 +7,13 @@ using ErrorOr;
 using Galacticos.Application.DTOs.Comments;
 using Galacticos.Application.Features.Comments.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
+using Galacticos.Domain.Entities;
 using Galacticos.Domain.Errors;
 using MediatR;
 
 namespace Galacticos.Application.Features.Comments.Handler.Command
 {
-    public class DeleteCommentHandler : IRequestHandler<DeleteCommentRequest, ErrorOr<CommentResponesDTO>>
+    public class DeleteCommentHandler : IRequestHandler<DeleteCommentRequest, ErrorOr<bool>>
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
@@ -21,16 +22,22 @@ namespace Galacticos.Application.Features.Comments.Handler.Command
             _commentRepository = commentRepository;
             _mapper = mapper;
         }
-        public Task<ErrorOr<CommentResponesDTO>> Handle(DeleteCommentRequest request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<bool>> Handle(DeleteCommentRequest request, CancellationToken cancellationToken)
         {
-            var comment = _commentRepository.GetCommentById(request.Id);
-            if (comment == null)
+            Comment commentToDelete = await _commentRepository.GetCommentById(request.Id)!;
+
+            if (commentToDelete == null)
             {
-                return Task.FromResult<ErrorOr<CommentResponesDTO>>(Errors.Comment.CommentNotFound);
+                return Errors.Comment.CommentNotFound;
             }
-            _commentRepository.DeleteComment(comment);
-            var commentResponse = _mapper.Map<CommentResponesDTO>(comment);
-            return Task.FromResult<ErrorOr<CommentResponesDTO>>(commentResponse);
+
+            if (commentToDelete.UserId != request.UserId)
+            {
+                return Errors.Comment.CommentIsNotYours;
+            }
+
+            bool result = await _commentRepository.DeleteComment(request.Id);
+            return result;
         }
     }
 }

@@ -10,6 +10,7 @@ using MediatR;
 using Galacticos.Domain.Errors;
 using AutoMapper;
 using Galacticos.Domain.Entities;
+using Galacticos.Application.DTOs.Profile.Validators;
 using Galacticos.Application.Services.ImageUpload;
 
 namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
@@ -36,6 +37,15 @@ namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
                 return Task.FromResult<ErrorOr<ProfileResponseDTO>>(Errors.User.UserNotFound);
             }
 
+            var validator = new ProfileValidator();
+            var validationResult = validator.Validate(request.EditProfileRequestDTO);
+
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                return Task.FromResult<ErrorOr<ProfileResponseDTO>>(Errors.User.InvalidUser);
+            }
+            
             var picture = _cloudinaryService.UploadImageAsync(request.EditProfileRequestDTO.Picture!).Result;
             
             var userToEdit = _mapper.Map(request.EditProfileRequestDTO, user);

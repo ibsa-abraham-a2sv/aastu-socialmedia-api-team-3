@@ -20,10 +20,17 @@ namespace Galacticos.Infrastructure.Repositories.RelationRepo
                 FollowedUserId = followingId
             };
 
-            await _context.relations.AddAsync(follow);
-            await _context.SaveChangesAsync();
+            var relation = await _context.relations.FirstOrDefaultAsync(f => f.FollowerId == followerId && f.FollowedUserId == followingId);
 
-            return follow;
+            if (relation == null)
+            {
+                await _context.relations.AddAsync(follow);
+                await _context.SaveChangesAsync();
+
+                return follow;
+            }
+
+            return null;
         }
 
         public async Task<Follow> UnFollow(Guid followerId, Guid followingId)
@@ -34,15 +41,17 @@ namespace Galacticos.Infrastructure.Repositories.RelationRepo
             {
                 _context.relations.Remove(unfollow);
                 await _context.SaveChangesAsync();
+
+                return unfollow;
             }
 
-            return unfollow!;
+            return null;
         }
 
         public async Task<Follow> Get(Guid followerId, Guid followingId)
         {
             var res = await _context.relations.FirstOrDefaultAsync(f => f.FollowerId == followerId && f.FollowedUserId == followingId);
-            return res!;
+            return res;
         }
 
         public async Task<List<Guid>> GetAllFollowedIdsByUserId(Guid id)
@@ -53,6 +62,16 @@ namespace Galacticos.Infrastructure.Repositories.RelationRepo
                 .ToListAsync();
 
             return followedIds;
+        }
+
+        public async Task<List<Guid>> GetAllFollowersId(Guid id)
+        {
+            var followersIds = await _context.relations
+                .Where(f => f.FollowedUserId == id)
+                .Select(f => f.FollowerId)
+                .ToListAsync();
+
+            return followersIds;
         }
 
     }

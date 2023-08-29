@@ -17,13 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{21169CFB-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{6B86E224-6398-4B7A-B8BF-03748750037C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galacticos.Api.UnitTests", "test\UnitTest\Galacticos.Api.UnitTests\Galacticos.Api.UnitTests.csproj", "{30803CC6-D27B-4856-9F9F-74DDC0F39B37}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galacticos.Application.UnitTests", "test\UnitTest\Galacticos.Application.UnitTests\Galacticos.Application.UnitTests.csproj", "{D3B594B0-4F4F-49A5-B9EB-633C0BBC633B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galacticos.Domain.UnitTests", "test\UnitTest\Galacticos.Domain.UnitTests\Galacticos.Domain.UnitTests.csproj", "{60E2EA0D-81CF-4968-B168-2C993A055D30}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galacticos.Infrastructure.UnitTests", "test\UnitTest\Galacticos.Infrastructure.UnitTests\Galacticos.Infrastructure.UnitTests.csproj", "{75A582D3-C6E0-49AB-8CBD-37E302CCCC8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

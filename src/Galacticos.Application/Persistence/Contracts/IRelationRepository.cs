@@ -12,6 +12,6 @@ namespace Galacticos.Application.Persistence.Contracts
         Task<Follow> UnFollow(Guid followerId, Guid followingId); // Unfollow
         Task<Follow> Get(Guid followerId, Guid followingId); // Get Relation
         Task<List<Guid>> GetAllFollowedIdsByUserId(Guid id);
-
+        Task<List<Guid>> GetAllFollowersId(Guid id);
     }
 }

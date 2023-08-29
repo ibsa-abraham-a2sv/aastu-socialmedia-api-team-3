@@ -26,6 +26,7 @@ public class UserRepository : IUserRepository
 
     public User? GetUserByIdentifier(string identifier)
     {
+        Console.WriteLine(identifier);
         return _context.users.FirstOrDefault(u => u.Email == identifier || u.UserName == identifier);
     }
 
@@ -65,5 +66,10 @@ public class UserRepository : IUserRepository
     public List<User> GetAllUsers()
     {
         return _context.users.ToList();
+    }
+
+    public async Task<bool> Exists(Guid id)
+    {
+        return await _context.users.FindAsync(id) != null;
     }
 }

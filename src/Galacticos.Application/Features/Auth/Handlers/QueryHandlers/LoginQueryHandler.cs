@@ -1,5 +1,4 @@
 using ErrorOr;
-using Galacticos.Application.Services.Authentication;
 using MediatR;
 using Galacticos.Domain.Entities;
 using Galacticos.Application.Common.Interface.Authentication;
@@ -7,11 +6,13 @@ using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Application.Features.Auth.Requests.Queries;
 using Galacticos.Domain.Errors;
 using AutoMapper;
+using Galacticos.Application.Services.Authentication;
 using Galacticos.Application.DTOs.Users;
 
 namespace Galacticos.Application.Handlers.Queries.Login;
 
-public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>{
+public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
+{
 
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IUserRepository _userRepository;
@@ -28,14 +29,20 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<Authenticat
 
     public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
-        var identifier = (query.UserName ?? query.Email) ?? throw new Exception("Username or Email is required");
-        
-        if(_userRepository.GetUserByIdentifier(identifier) is not User user)
-            throw new Exception("User with given Username or Password does not exist");
-        
-        if(!_passwordHashService.VerifyPassword(query.Password, user.Password))
-            return Errors.Auth.WrongCreadital;
+        if (query.UserName is null && query.Email is null)
+            return Errors.Auth.UsernameEmailrequired;
 
+        var identifier = (query.UserName ?? query.Email) ?? throw new Exception("Username or Email is required");
+
+        User user = _userRepository.GetUserByIdentifier(identifier);
+        if (user is null)
+            return Errors.Auth.WrongCreadital;
+        
+        if (!user.Verified)
+            return Errors.Auth.EmailNotConfirmed;
+
+        if (!_passwordHashService.VerifyPassword(query.Password, user.Password))
+            return Errors.Auth.WrongCreadital;
 
         var token = _jwtTokenGenerator.GenerateToken(user);
 
