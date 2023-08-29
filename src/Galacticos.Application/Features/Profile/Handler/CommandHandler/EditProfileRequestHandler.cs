@@ -36,8 +36,11 @@ namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
                 return Task.FromResult<ErrorOr<ProfileResponseDTO>>(Errors.User.UserNotFound);
             }
 
-            // var picture = _cloudinaryService.UploadImageAsync(request.EditProfileRequestDTO.Picture!).Result;
+            var picture = _cloudinaryService.UploadImageAsync(request.EditProfileRequestDTO.Picture!).Result;
+            
             var userToEdit = _mapper.Map(request.EditProfileRequestDTO, user);
+            userToEdit.Picture = picture;
+
             var editedUser = _userRepository.EditUser(userToEdit);
             var profileResponseDTO = _mapper.Map<ProfileResponseDTO>(editedUser);
             return Task.FromResult<ErrorOr<ProfileResponseDTO>>(profileResponseDTO);
