@@ -53,7 +53,6 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
         {
             var user = await _userRepository.Exists(request.UserId);
 
-            Console.WriteLine(request.UserId);
             string picture = "";
             if(request.CreatePostRequestDTO.Image != null)
                 picture = _cloudinaryService.UploadImageAsync(request.CreatePostRequestDTO.Image !).Result;
