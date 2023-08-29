@@ -66,6 +66,11 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
             {
                 return Errors.User.UserNotFound;
             }
+
+            if(await _openAIService.ContentModeration(request.Caption) == false)
+            {
+                return Errors.Post.InappropriateContent;
+            }
             
             var post = _mapper.Map<Post>(request);
 
