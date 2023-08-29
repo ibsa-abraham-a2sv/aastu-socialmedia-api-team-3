@@ -28,7 +28,6 @@ namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
         }
         public Task<ErrorOr<ProfileResponseDTO>> Handle(EditProfileRequest request, CancellationToken cancellationToken)
         {
-            
             var user =  _userRepository.GetUserById(request.UserId);
             
             if (user == null)
@@ -37,14 +36,14 @@ namespace Galacticos.Application.Features.Profile.Handler.CommandHandler
                 return Task.FromResult<ErrorOr<ProfileResponseDTO>>(Errors.User.UserNotFound);
             }
 
-            var validator = new ProfileValidator();
-            var validationResult = validator.Validate(request.EditProfileRequestDTO);
+            // var validator = new ProfileValidator();
+            // var validationResult = validator.Validate(request);
 
-            if (!validationResult.IsValid)
-            {
-                var errors = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
-                return Task.FromResult<ErrorOr<ProfileResponseDTO>>(Errors.User.InvalidUser);
-            }
+            // if (!validationResult.IsValid)
+            // {
+            //     var errors = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
+            //     return Task.FromResult<ErrorOr<ProfileResponseDTO>>(Errors.User.InvalidUser);
+            // }
             
             var picture = _cloudinaryService.UploadImageAsync(request.EditProfileRequestDTO.Picture!).Result;
             

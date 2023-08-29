@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
+using Galacticos.Application.Features.Profile.Request.Commands;
 
 namespace Galacticos.Application.DTOs.Profile.Validators
 {
-    public class ProfileValidator : AbstractValidator<EditProfileRequestDTO>
+    public class ProfileValidator : AbstractValidator<EditProfileRequest>
     {
         public ProfileValidator()
         {
-            RuleFor(x => x.FirstName)
+            RuleFor(x => x.EditProfileRequestDTO.FirstName)
                 .NotEmpty()
                 .WithMessage("First name is required")
                 .MaximumLength(50)
                 .WithMessage("First name cannot be longer than 50 characters");
 
-            RuleFor(x => x.LastName)
+            RuleFor(x => x.EditProfileRequestDTO.LastName)
                 .NotEmpty()
                 .WithMessage("Last name is required")
                 .MaximumLength(50)
                 .WithMessage("Last name cannot be longer than 50 characters");
 
-            RuleFor(x => x.Bio)
+            RuleFor(x => x.EditProfileRequestDTO.Bio)
                 .MaximumLength(500)
                 .WithMessage("Bio cannot be longer than 500 characters");
 
