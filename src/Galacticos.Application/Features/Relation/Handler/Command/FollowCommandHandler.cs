@@ -30,6 +30,10 @@ namespace Galacticos.Application.Features.Relation.Handler.Command
 
             var relation = _mapper.Map<Follow>(request.RelationDTO);
             relation = await _relationRepository.Follow(relation.FollowerId, relation.FollowedUserId);
+            if (relation == null)
+            {
+                return Guid.Empty;
+            }
             return relation.Id;
         }
     }

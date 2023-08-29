@@ -7,6 +7,8 @@ using Galacticos.Application.Features.Relation.Request.Command;
 using Galacticos.Application.Features.Notifications.Commands;
 using Galacticos.Application.DTOs.Notifications;
 using Galacticos.Application.Features.Profile.Request.Queries;
+using System.Security.Claims;
+using Galacticos.Domain.Errors;
 
 namespace Galacticos.Api.Controllers
 {
@@ -14,63 +16,145 @@ namespace Galacticos.Api.Controllers
     public class RelationController : ApiController
     {
         private readonly IMediator _mediator;
-        public RelationController(IMediator mediator)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public RelationController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             _mediator = mediator;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Guid>> Follow(RelationDTO relation)
+        [HttpPost("Follow/{UserId}")]
+        public async Task<ActionResult<Guid>> Follow(Guid UserId)
         {
-            var result = await _mediator.Send(new FollowCommand { RelationDTO = relation });
-            var user = await _mediator.Send(new GetProfileRequest { UserId = relation.FollowerId });
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
 
-            await _mediator.Send(new CreateNotificationCommand
+            if (userIdClaim != null)
             {
-                NotificationDTO = new CreateNotificationDTO
+                var relation = new RelationDTO
                 {
-                    UserById = relation.FollowerId,
-                    UserToId = relation.FollowedUserId,
-                    Content = $"{user.Value.UserName} Start Following You" // Follow
+                    FollowerId = Guid.Parse(userIdClaim),
+                    FollowedUserId = UserId
+                };
+
+                var result = await _mediator.Send(new FollowCommand { RelationDTO = relation });
+                var user = await _mediator.Send(new GetProfileRequest { UserId = relation.FollowerId });
+
+                if (result != Guid.Empty)
+                {
+                    await _mediator.Send(new CreateNotificationCommand
+                    {
+                        NotificationDTO = new CreateNotificationDTO
+                        {
+                            UserById = relation.FollowerId,
+                            UserToId = relation.FollowedUserId,
+                            Content = $"{user.Value.UserName} Start Following You" // Follow
+                        }
+                    });
+
+                    return Ok(result);
                 }
-            });
 
-            return Ok(result);
-        }
-
-        [HttpDelete]
-        public async Task<ActionResult<Guid>> UnFollow(RelationDTO relation)
-        {
-            var result = await _mediator.Send(new UnFollowCommand { RelationDTO = relation });
-            var user = await _mediator.Send(new GetProfileRequest { UserId = relation.FollowerId });
-
-            // Send Notification
-            await _mediator.Send(new CreateNotificationCommand
+                return Guid.Empty;
+            }
+            else
             {
-                NotificationDTO = new CreateNotificationDTO
+                return Unauthorized();
+            }
+        }
+
+        [HttpDelete("UnFollow/{UserId}")]
+        public async Task<ActionResult<Guid>> UnFollow(Guid UserId)
+        {
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+
+            if (userIdClaim != null)
+            {
+                var relation = new RelationDTO
                 {
-                    UserById = relation.FollowerId,
-                    UserToId = relation.FollowedUserId,
-                    Content = $"{user.Value.UserName} Unfollowed You" // Unfollow
+                    FollowerId = Guid.Parse(userIdClaim),
+                    FollowedUserId = UserId
+                };
+
+                var result = await _mediator.Send(new UnFollowCommand { RelationDTO = relation });
+                var user = await _mediator.Send(new GetProfileRequest { UserId = relation.FollowerId });
+
+                if (result != Guid.Empty)
+                {
+                    // Send Notification
+                    await _mediator.Send(new CreateNotificationCommand
+                    {
+                        NotificationDTO = new CreateNotificationDTO
+                        {
+                            UserById = relation.FollowerId,
+                            UserToId = relation.FollowedUserId,
+                            Content = $"{user.Value.UserName} Unfollowed You" // Unfollow
+                        }
+                    });
+
+                    return Ok(result);
                 }
-            });
-
-            return Ok(result);
+                
+                return Guid.Empty;
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
 
-        [HttpGet]
-        public async Task<ActionResult<RelationDTO>> Get(RelationDTO relation)
+        [HttpGet("{followedId}")]
+        public async Task<ActionResult<RelationDTO>> Get(Guid followedId)
         {
-            var result = await _mediator.Send(new GetRelationRequest { RelationDTO = relation });
-            return Ok(result);
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+
+            if (userIdClaim != null)
+            {
+                var relation = new RelationDTO
+                {
+                    FollowerId = Guid.Parse(userIdClaim),
+                    FollowedUserId = followedId
+                };
+                var result = await _mediator.Send(new GetRelationRequest { RelationDTO = relation });
+                return Ok(result);
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
 
-        [HttpGet("followed")]
-        public async Task<ActionResult<List<Guid>>> GetFollowedIds(Guid id)
+        [HttpGet("Allfollowers")]
+        public async Task<ActionResult<List<Guid>>> GetFollowersIds()
         {
-            var result = await _mediator.Send(new GetFollowedIdsRequest { id = id });
-            return Ok(result);
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+
+            if (userIdClaim != null)
+            {
+                var id = Guid.Parse(userIdClaim);
+                var result = await _mediator.Send(new GetFollowersIdRequest { id = id });
+                return Ok(result);
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
 
+        [HttpGet("Allfollowed")]
+        public async Task<ActionResult<List<Guid>>> GetFollowedIds()
+        {
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+
+            if (userIdClaim != null)
+            {
+                var id = Guid.Parse(userIdClaim);
+                var result = await _mediator.Send(new GetFollowedIdsRequest { id = id });
+                return Ok(result);
+            }
+            else
+            {
+                return Unauthorized();
+            }
+        }
     }
 }
