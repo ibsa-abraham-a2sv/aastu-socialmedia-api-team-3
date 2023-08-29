@@ -26,7 +26,7 @@ namespace Galacticos.Api.Controllers
 
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(Guid id)
-        {   
+        {
             GetProfileRequest request = new GetProfileRequest()
             {
                 UserId = id
@@ -40,7 +40,7 @@ namespace Galacticos.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(Guid id, [FromBody] EditProfileRequestDTO editProfileRequestDTO)
+        public async Task<ActionResult> Put(Guid id, [FromForm] EditProfileRequestDTO editProfileRequestDTO)
         {
             EditProfileRequest request = new EditProfileRequest()
             {
