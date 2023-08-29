@@ -47,13 +47,10 @@ namespace Galacticos.Api.Controllers
         public async Task<ActionResult> Put([FromForm] EditProfileRequestDTO editProfileRequestDTO)
         {
             var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
-            Console.WriteLine(Guid.Parse(userIdClaim));
             if (userIdClaim == null)
             {
-                Console.WriteLine("User not found!!!!");
                 return Unauthorized();
             }
-            Console.WriteLine("User found!!!!");
             EditProfileRequest request = new EditProfileRequest()
             {
                 UserId = Guid.Parse(userIdClaim),

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Galacticos.Application.DTOs.Posts.Validator
 {
-    public class CreatePostDtoValidator : AbstractValidator<CreatePostRequestDTO>
+    public class CreatePostDtoValidator : AbstractValidator<PostDto>
     {
         public CreatePostDtoValidator()
         {
             RuleFor(p => p.Caption)
                 .NotEmpty()
-                .When(p => string.IsNullOrEmpty(p.Image));
+                .When(p => p.Image == null);
 
             RuleFor(p => p.Image)
                 .NotEmpty()
