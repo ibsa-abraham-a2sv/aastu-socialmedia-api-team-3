@@ -12,6 +12,7 @@ using Galacticos.Application.DTOs.Posts.Validator;
 using Galacticos.Application.Features.Comments.Request.Commands;
 using Galacticos.Application.Features.Posts.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
+using Galacticos.Application.Services.OpenAI;
 using Galacticos.Domain.Entities;
 using Galacticos.Domain.Errors;
 using MediatR;
@@ -26,19 +27,22 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
         private readonly IPostTagRepository _postTagRepository;
 
         private readonly IUserRepository _userRepository;
+        private readonly IOpenAIService _openAIService;
 
         public CreatePostCommandHandler(
             IPostRepository postRepository,
             IMapper mapper,
             ITagRepository tagRepository,
             IPostTagRepository postTagRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IOpenAIService openAIService)
         {
             _mapper = mapper;
             _postRepository = postRepository;
             _tagRepository = tagRepository;
             _postTagRepository = postTagRepository;
             _userRepository = userRepository;
+            _openAIService = openAIService;
         }
 
         public async Task<ErrorOr<PostResponesDTO>> Handle(CreatePostCommand request, CancellationToken cancellationToken)
@@ -80,6 +84,22 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
             
 
             var tags = new List<Tag>();
+            
+            List<string> generatedTags = _openAIService.GenerateTags(caption, 60).Result;
+            foreach (var tag in generatedTags)
+            {
+                var tagResult = await _tagRepository.GetTagByName(tag);
+                if (tagResult == null)
+                {
+                    var newTag = new Tag { Name = tag };
+                    await _tagRepository.Add(newTag);
+                    tags.Add(newTag);
+                }
+                else
+                {
+                    tags.Add(tagResult);
+                }
+            }
 
             foreach (var hashtag in hashtags)
             {
