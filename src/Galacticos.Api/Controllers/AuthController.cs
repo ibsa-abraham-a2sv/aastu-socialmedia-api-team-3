@@ -12,6 +12,7 @@ using Galacticos.Application.DTOs.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Galacticos.Application.Features.Auth.Handlers.CommandHandlers;
 
 namespace Galacticos.Api.Controllers;
 
@@ -57,16 +58,28 @@ public class AuthController : ApiController{
     }
     
     [HttpGet("verify-email")]
-        public async Task<IActionResult> VerifyEmail(string token)
-        {
-            var command = new VerifyEmailCommand { Token = token }; // Create a command with the token
-            var verificationResult = await _mediator.Send(command);
+    public async Task<IActionResult> VerifyEmail(string token)
+    {
+        var command = new VerifyEmailCommand { Token = token }; // Create a command with the token
+        var verificationResult = await _mediator.Send(command);
 
-            return verificationResult.Match<IActionResult>(
-                result => Ok(result),    // Redirect to success page or message
-                error => Problem(error)   // Redirect to error page or display error message
-            );
-        }
+        return verificationResult.Match<IActionResult>(
+            result => Ok(result),    // Redirect to success page or message
+            error => Problem(error)   // Redirect to error page or display error message
+        );
+    }
+
+    [HttpPost("forgot-password")]
+    public async Task<IActionResult> ForgotPassword(ForgotPasswordRequest request)
+    {
+        var command = _mapper.Map<ForgotPasswordCommand>(request);
+        var forgotPasswordResult = await _mediator.Send(command);
+
+        return forgotPasswordResult.Match<IActionResult>(
+            result => Ok(result),    // Redirect to success page or message
+            error => Problem(error)   // Redirect to error page or display error message
+        );
+    }
     
 
 }
