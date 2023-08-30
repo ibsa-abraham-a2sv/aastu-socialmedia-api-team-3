@@ -88,7 +88,7 @@ namespace Galacticos.Application.UnitTests.Follows.Queries
 
             // Assert
             Assert.NotNull(result);
-            Assert.IsType<Unit>(result);
+            Assert.IsType<Guid>(result);
 
         }
 
