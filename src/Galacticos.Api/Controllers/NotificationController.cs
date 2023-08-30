@@ -1,6 +1,6 @@
+using System.Security.Claims;
 using Galacticos.Application.DTOs.Notifications;
 using Galacticos.Application.Features.Notifications.Commands;
-// using Galacticos.Application.Features.Notifications.Request.Request;
 using Galacticos.Application.Features.Notifications.Requests;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Domain.Entities;
@@ -13,18 +13,12 @@ namespace Galacticos.Api.Controllers
     public class NotificationController : Controller
     {
         private readonly IMediator _mediator;
-        public NotificationController(IMediator mediator, INotificationRepository notificationRepository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public NotificationController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             _mediator = mediator;
+            _httpContextAccessor = httpContextAccessor;
         }
-
-        [HttpPost]
-        public async Task<ActionResult<CreateNotificationDTO>> CreateNotification(CreateNotificationDTO notification)
-        {
-            var createdNotification = await _mediator.Send(new CreateNotificationCommand { NotificationDTO = notification });
-            return createdNotification;
-        }
-
 
         [HttpGet("{notificationId}")]
         public async Task<ActionResult<GetNotificationDTO>> GetNotificationById(Guid notificationId)
@@ -40,9 +34,17 @@ namespace Galacticos.Api.Controllers
         }
 
 
-        [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetNotificationsByUserId(Guid userId)
+        [HttpGet("user")]
+        public async Task<IActionResult> GetNotificationsByUserId()
         {
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+            
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            var userId = Guid.Parse(userIdClaim);
             var request = new GetNotificationByUserIdRequest { UserToId = userId };
             var notifications = await _mediator.Send(request);
 
@@ -57,6 +59,5 @@ namespace Galacticos.Api.Controllers
 
             return Ok(notifications);
         }
-
     }
 }
