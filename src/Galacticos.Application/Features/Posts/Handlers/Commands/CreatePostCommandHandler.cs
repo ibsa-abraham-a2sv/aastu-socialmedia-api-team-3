@@ -12,6 +12,7 @@ using Galacticos.Application.DTOs.Posts.Validator;
 using Galacticos.Application.Features.Comments.Request.Commands;
 using Galacticos.Application.Features.Posts.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
+using Galacticos.Application.Services.ImageUpload;
 using Galacticos.Application.Services.OpenAI;
 using Galacticos.Domain.Entities;
 using Galacticos.Domain.Errors;
@@ -28,6 +29,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
 
         private readonly IUserRepository _userRepository;
         private readonly IOpenAIService _openAIService;
+        private readonly ICloudinaryService _cloudinaryService;
 
         public CreatePostCommandHandler(
             IPostRepository postRepository,
@@ -35,7 +37,8 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
             ITagRepository tagRepository,
             IPostTagRepository postTagRepository,
             IUserRepository userRepository,
-            IOpenAIService openAIService)
+            IOpenAIService openAIService,
+            ICloudinaryService cloudinaryService)
         {
             _mapper = mapper;
             _postRepository = postRepository;
@@ -43,17 +46,22 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
             _postTagRepository = postTagRepository;
             _userRepository = userRepository;
             _openAIService = openAIService;
+            _cloudinaryService = cloudinaryService;
         }
 
         public async Task<ErrorOr<PostResponesDTO>> Handle(CreatePostCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.Exists(request.UserId);
 
+            string picture = "";
+            if(request.CreatePostRequestDTO.Image != null)
+                picture = _cloudinaryService.UploadImageAsync(request.CreatePostRequestDTO.Image !).Result;
+
             var validator = new CreatePostDtoValidator();
-            var obj = new CreatePostRequestDTO()
+            var obj = new PostDto()
             {
-                Caption = request.Caption,
-                Image = request.Image
+                Caption = request.CreatePostRequestDTO.Caption,
+                Image = picture
             };
             var result = validator.Validate(obj);
 
@@ -72,8 +80,8 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
                 return Errors.Post.InappropriateContent;
             }
             
-            var post = _mapper.Map<Post>(request);
-
+            var post = _mapper.Map<Post>(obj);
+            post.UserId = request.UserId;
             var postResult = await _postRepository.Add(post);
 
             if (postResult == null)
@@ -81,7 +89,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
                 return Errors.Post.PostNotCreated;// Assuming this returns an ErrorOr instance with appropriate error
             }
 
-            var caption = request.Caption;
+            var caption = request.CreatePostRequestDTO.Caption;
             var regex = new Regex(@"#\w+");
 
             var hashtags = regex.Matches(caption).Select(x => x.Value).ToList();
@@ -90,21 +98,21 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
 
             var tags = new List<Tag>();
             
-            List<string> generatedTags = _openAIService.GenerateTags(caption, 60).Result;
-            foreach (var tag in generatedTags)
-            {
-                var tagResult = await _tagRepository.GetTagByName(tag);
-                if (tagResult == null)
-                {
-                    var newTag = new Tag { Name = tag };
-                    await _tagRepository.Add(newTag);
-                    tags.Add(newTag);
-                }
-                else
-                {
-                    tags.Add(tagResult);
-                }
-            }
+            // List<string> generatedTags = _openAIService.GenerateTags(caption, 60).Result;
+            // foreach (var tag in generatedTags)
+            // {
+            //     var tagResult = await _tagRepository.GetTagByName(tag);
+            //     if (tagResult == null)
+            //     {
+            //         var newTag = new Tag { Name = tag };
+            //         await _tagRepository.Add(newTag);
+            //         tags.Add(newTag);
+            //     }
+            //     else
+            //     {
+            //         tags.Add(tagResult);
+            //     }
+            // }
 
             foreach (var hashtag in hashtags)
             {

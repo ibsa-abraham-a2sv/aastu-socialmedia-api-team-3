@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Galacticos.Application.DTOs.Tags;
 using Galacticos.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace Galacticos.Application.DTOs.Posts
 {
@@ -11,6 +12,6 @@ namespace Galacticos.Application.DTOs.Posts
     {
 
         public string? Caption {get; set;} = "";
-        public string? Image {get; set;}= "";
+        public IFormFile? Image {get; set;}
     }
 }

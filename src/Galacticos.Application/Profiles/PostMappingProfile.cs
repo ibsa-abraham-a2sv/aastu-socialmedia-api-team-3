@@ -34,7 +34,9 @@ namespace Galacticos.Application.Profiles
                 }));
 
             CreateMap<Task<Post>, PostResponesDTO>();
+            CreateMap<Post, PostResponesDTO>();
             CreateMap<CreatePostRequestDTO, CreatePostCommand>();
+            CreateMap<PostDto, Post>().ReverseMap();
         }
 
     }

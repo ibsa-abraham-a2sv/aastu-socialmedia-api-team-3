@@ -16,3 +16,6 @@ test/UnitTest/Galacticos.Infrastructure.UnitTests/bin
 test/UnitTest/Galacticos.Infrastructure.UnitTests/obj
 test/UnitTest/Galacticos.Test.Api.UnitTests/bin
 test/UnitTest/Galacticos.Test.Api.UnitTests/obj
+assets
+src/Galacticos.Api/appsettings.Development.json
+src/Galacticos.Api/appsettings.json
