@@ -51,12 +51,25 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
 
         public async Task<ErrorOr<PostResponesDTO>> Handle(CreatePostCommand request, CancellationToken cancellationToken)
         {
+            // Check if user exists
             var user = await _userRepository.Exists(request.UserId);
+            if (user == false)
+            {
+                return Errors.Post.PostIsNotYours;
+            }
 
+            // Check if post contains inappropriate content
+            if(await _openAIService.ContentModeration(request.CreatePostRequestDTO.Caption) == false)
+            {
+                return Errors.Post.InappropriateContent;
+            }
+
+            // Upload image to cloudinary
             string picture = "";
             if(request.CreatePostRequestDTO.Image != null)
                 picture = _cloudinaryService.UploadImageAsync(request.CreatePostRequestDTO.Image !).Result;
 
+            // Validate post
             var validator = new CreatePostDtoValidator();
             var obj = new PostDto()
             {
@@ -69,17 +82,8 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
             {
                 return Errors.Post.InvalidPost;
             }
-
-            if (user == false)
-            {
-                return Errors.User.UserNotFound;
-            }
-
-            if(await _openAIService.ContentModeration(request.Caption) == false)
-            {
-                return Errors.Post.InappropriateContent;
-            }
             
+            // Add post to database  
             var post = _mapper.Map<Post>(obj);
             post.UserId = request.UserId;
             var postResult = await _postRepository.Add(post);
@@ -89,6 +93,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
                 return Errors.Post.PostNotCreated;// Assuming this returns an ErrorOr instance with appropriate error
             }
 
+            // Add tags to database
             var caption = request.CreatePostRequestDTO.Caption;
             var regex = new Regex(@"#\w+");
 
@@ -97,23 +102,23 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
             
 
             var tags = new List<Tag>();
-            
-            // List<string> generatedTags = _openAIService.GenerateTags(caption, 60).Result;
-            // foreach (var tag in generatedTags)
-            // {
-            //     var tagResult = await _tagRepository.GetTagByName(tag);
-            //     if (tagResult == null)
-            //     {
-            //         var newTag = new Tag { Name = tag };
-            //         await _tagRepository.Add(newTag);
-            //         tags.Add(newTag);
-            //     }
-            //     else
-            //     {
-            //         tags.Add(tagResult);
-            //     }
-            // }
-
+            // Generate tags
+            List<string> generatedTags = _openAIService.GenerateTags(caption, 60).Result;
+            foreach (var tag in generatedTags)
+            {
+                var tagResult = await _tagRepository.GetTagByName(tag);
+                if (tagResult == null)
+                {
+                    var newTag = new Tag { Name = tag };
+                    await _tagRepository.Add(newTag);
+                    tags.Add(newTag);
+                }
+                else
+                {
+                    tags.Add(tagResult);
+                }
+            }
+            // Add tags to post
             foreach (var hashtag in hashtags)
             {
                 var tag = await _tagRepository.GetTagByName(hashtag);
@@ -125,7 +130,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
 
                 tags.Add(tag);
             }
-
+            // Add post tags to database
             foreach (var hashtag in tags)
             {
                 var tag = await _tagRepository.GetTagByName(hashtag.Name);
@@ -141,9 +146,8 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
                 }
             }
 
-
+            // Add post to user
             var response = _mapper.Map<PostResponesDTO>(postResult);
-            
             return response;
         }
     }
