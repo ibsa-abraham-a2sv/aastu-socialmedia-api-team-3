@@ -2,24 +2,24 @@ Social Media API
 - This is a RESTful API built using ASP.NET Core for a social media platform. It provides endpoints to manage users, posts, and comments. The API allows users to create accounts, post content, follow other users, and interact with posts through comments and likes.
   
 Features:
-User Management:
+1. User Management:
 - Create a new user account
 - Authenticate users using JWT (JSON Web Tokens)
 - Update user profile information
 
-Post Management:
+2. Post Management:
 - Create a new post
 - Retrieve posts by user or by specific criteria
 - Update post content
 - Delete a post
 
-Comment Management:
+3. Comment Management:
 - Add a comment to a post
 - Retrieve comments for a post
 - Update a comment
 - Delete a comment
   
-Like Management:
+4. Like Management:
 - Like or unlike a post
 
 
