@@ -21,19 +21,18 @@ namespace Galacticos.Api.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public ProfileController(
-            IMediator mediator,
-            IHttpContextAccessor httpContextAccessor
-            )
+        private readonly IMapper _mapper;
+        
+        public ProfileController(IMediator mediator, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _mediator = mediator;
+            _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(Guid id)
-        {   
+        {
             GetProfileRequest request = new GetProfileRequest()
             {
                 UserId = id
@@ -46,12 +45,17 @@ namespace Galacticos.Api.Controllers
             );
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(Guid id, [FromBody] EditProfileRequestDTO editProfileRequestDTO)
+        [HttpPut]
+        public async Task<ActionResult> Put([FromForm] EditProfileRequestDTO editProfileRequestDTO)
         {
+            var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
             EditProfileRequest request = new EditProfileRequest()
             {
-                UserId = id,
+                UserId = Guid.Parse(userIdClaim),
                 EditProfileRequestDTO = editProfileRequestDTO
             };
             ErrorOr<ProfileResponseDTO> result = await _mediator.Send(request);

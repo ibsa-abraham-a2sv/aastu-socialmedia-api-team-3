@@ -12,6 +12,7 @@ using Galacticos.Application.DTOs.Posts.Validator;
 using Galacticos.Application.Features.Comments.Request.Commands;
 using Galacticos.Application.Features.Posts.Request.Commands;
 using Galacticos.Application.Persistence.Contracts;
+using Galacticos.Application.Services.ImageUpload;
 using Galacticos.Application.Services.OpenAI;
 using Galacticos.Domain.Entities;
 using Galacticos.Domain.Errors;
@@ -28,6 +29,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
 
         private readonly IUserRepository _userRepository;
         private readonly IOpenAIService _openAIService;
+        private readonly ICloudinaryService _cloudinaryService;
 
         public CreatePostCommandHandler(
             IPostRepository postRepository,
@@ -35,7 +37,8 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
             ITagRepository tagRepository,
             IPostTagRepository postTagRepository,
             IUserRepository userRepository,
-            IOpenAIService openAIService)
+            IOpenAIService openAIService,
+            ICloudinaryService cloudinaryService)
         {
             _mapper = mapper;
             _postRepository = postRepository;
@@ -43,17 +46,35 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
             _postTagRepository = postTagRepository;
             _userRepository = userRepository;
             _openAIService = openAIService;
+            _cloudinaryService = cloudinaryService;
         }
 
         public async Task<ErrorOr<PostResponesDTO>> Handle(CreatePostCommand request, CancellationToken cancellationToken)
         {
+            // Check if user exists
             var user = await _userRepository.Exists(request.UserId);
-
-            var validator = new CreatePostDtoValidator();
-            var obj = new CreatePostRequestDTO()
+            if (user == false)
             {
-                Caption = request.Caption,
-                Image = request.Image
+                return Errors.Post.PostIsNotYours;
+            }
+
+            // Check if post contains inappropriate content
+            if(await _openAIService.ContentModeration(request.CreatePostRequestDTO.Caption) == false)
+            {
+                return Errors.Post.InappropriateContent;
+            }
+
+            // Upload image to cloudinary
+            string picture = "";
+            if(request.CreatePostRequestDTO.Image != null)
+                picture = _cloudinaryService.UploadImageAsync(request.CreatePostRequestDTO.Image !).Result;
+
+            // Validate post
+            var validator = new CreatePostDtoValidator();
+            var obj = new PostDto()
+            {
+                Caption = request.CreatePostRequestDTO.Caption,
+                Image = picture
             };
             var result = validator.Validate(obj);
 
@@ -61,14 +82,10 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
             {
                 return Errors.Post.InvalidPost;
             }
-
-            if (user == false)
-            {
-                return Errors.User.UserNotFound;
-            }
             
-            var post = _mapper.Map<Post>(request);
-
+            // Add post to database  
+            var post = _mapper.Map<Post>(obj);
+            post.UserId = request.UserId;
             var postResult = await _postRepository.Add(post);
 
             if (postResult == null)
@@ -76,7 +93,8 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
                 return Errors.Post.PostNotCreated;// Assuming this returns an ErrorOr instance with appropriate error
             }
 
-            var caption = request.Caption;
+            // Add tags to database
+            var caption = request.CreatePostRequestDTO.Caption;
             var regex = new Regex(@"#\w+");
 
             var hashtags = regex.Matches(caption).Select(x => x.Value).ToList();
@@ -84,7 +102,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
             
 
             var tags = new List<Tag>();
-            
+            // Generate tags
             List<string> generatedTags = _openAIService.GenerateTags(caption, 60).Result;
             foreach (var tag in generatedTags)
             {
@@ -100,7 +118,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
                     tags.Add(tagResult);
                 }
             }
-
+            // Add tags to post
             foreach (var hashtag in hashtags)
             {
                 var tag = await _tagRepository.GetTagByName(hashtag);
@@ -112,7 +130,7 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
 
                 tags.Add(tag);
             }
-
+            // Add post tags to database
             foreach (var hashtag in tags)
             {
                 var tag = await _tagRepository.GetTagByName(hashtag.Name);
@@ -128,9 +146,8 @@ namespace Galacticos.Application.Features.Posts.Handlers.Commands
                 }
             }
 
-
+            // Add post to user
             var response = _mapper.Map<PostResponesDTO>(postResult);
-            
             return response;
         }
     }

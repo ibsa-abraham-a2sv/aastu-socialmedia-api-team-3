@@ -6,7 +6,7 @@ using FluentValidation;
 
 namespace Galacticos.Application.DTOs.Posts.Validator
 {
-    public class UpdatePostDtoValidator : AbstractValidator<UpdatePostRequestDTO>
+    public class UpdatePostDtoValidator : AbstractValidator<PostDto>
     {
         public UpdatePostDtoValidator()
         {
