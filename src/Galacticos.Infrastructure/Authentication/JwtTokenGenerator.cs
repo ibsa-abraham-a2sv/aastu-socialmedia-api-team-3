@@ -21,6 +21,31 @@ public class JwtTokenGenerator : IJwtTokenGenerator{
         _jwtSettings = jwtOptions.Value;
     }
 
+    public string GenerateRecoveryToken(string email)
+    {
+        var signingCredentials = new SigningCredentials(
+            new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
+                SecurityAlgorithms.HmacSha256
+        );
+
+        var claims = new List<Claim>
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, email),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
+
+        var securityToken = new JwtSecurityToken(
+            issuer: _jwtSettings.Issuer,
+            audience: _jwtSettings.Audience,
+            claims: claims,
+            expires: _dateTimeProvider.UtcNow.AddHours(_jwtSettings.ExpirationInHours),
+            signingCredentials: signingCredentials
+        );
+
+        return new JwtSecurityTokenHandler().WriteToken(securityToken);
+    }
+
     public string GenerateToken(User user){
 
         var signingCredentials = new SigningCredentials(

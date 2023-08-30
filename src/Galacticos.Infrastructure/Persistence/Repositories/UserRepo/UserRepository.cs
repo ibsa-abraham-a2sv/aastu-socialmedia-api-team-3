@@ -56,6 +56,7 @@ public class UserRepository : IUserRepository
         userToEdit.UserName = user.UserName;
         userToEdit.Bio = user.Bio;
         userToEdit.Picture = user.Picture;
+        userToEdit.Password = user.Password;
 
         if (_context.SaveChanges() == 0)
             throw new Exception("User not edited");
