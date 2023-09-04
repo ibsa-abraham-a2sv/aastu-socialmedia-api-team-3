@@ -52,6 +52,8 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.NotificationRepo
         {
             var notifications = await _context.notifications.Where(n => n.UserToId == UserId && n.IsRead == false).ToListAsync();
             var notificationDTOs = _mapper.Map<List<GetNotificationDTO>>(notifications);
+            // sort with date reverse
+            notificationDTOs.Sort((x, y) => DateTime.Compare(y.CreatedAt, x.CreatedAt));
             return notificationDTOs;
         }
     }
