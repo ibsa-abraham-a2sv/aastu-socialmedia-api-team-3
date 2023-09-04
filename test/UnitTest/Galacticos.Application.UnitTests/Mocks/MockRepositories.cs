@@ -1,5 +1,7 @@
 using Galacticos.Application.Common.Interface.Authentication;
 using Galacticos.Application.DTOs.Comments;
+using Galacticos.Application.DTOs.Notifications;
+using Galacticos.Application.DTOs.Relations;
 using Galacticos.Application.Persistence.Contracts;
 using Galacticos.Application.Services.Authentication;
 using Galacticos.Domain.Entities;
@@ -192,19 +194,19 @@ namespace Galacticos.Application.UnitTests.Mocks
             var mockRepo = new Mock<IRelationRepository>();
 
             mockRepo.Setup(repo => repo.Follow(It.IsAny<Guid>(), It.IsAny<Guid>()))
-                    .ReturnsAsync((Guid followerId, Guid followedUserId) => new Follow
+                    .Callback((Guid followerId, Guid followedUserId) => Relations.Add(new Follow
                     {
                         FollowerId = followerId,
-                        FollowedUserId = followedUserId,
-                    });
+                        FollowedUserId = followedUserId
+                    }));
 
             
             mockRepo.Setup(repo => repo.UnFollow(It.IsAny<Guid>(), It.IsAny<Guid>()))
-                    .ReturnsAsync((Guid followerId, Guid followedUserId) => new Follow
+                    .Callback((Guid followerId, Guid followedUserId) => Relations.Add(new Follow
                     {
                         FollowerId = followerId,
-                        FollowedUserId = followedUserId,
-                    });
+                        FollowedUserId = followedUserId
+                    }));
             
             mockRepo.Setup(repo => repo.Get(It.IsAny<Guid>(), It.IsAny<Guid>()))
                     .ReturnsAsync((Guid followerId, Guid followedUserId) => new Follow

@@ -7,10 +7,19 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <DebugType>Full</DebugType>
+    <CollectCoverage>true</CollectCoverage>
+    <CoverletOutputFormat>lcov</CoverletOutputFormat>
+    <CoverletOutput>./TestResults/</CoverletOutput>
+
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="coverlet.msbuild" Version="6.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />

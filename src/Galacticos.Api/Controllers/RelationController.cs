@@ -103,7 +103,7 @@ namespace Galacticos.Api.Controllers
         }
 
         [HttpGet("{followedId}")]
-        public async Task<ActionResult<RelationDTO>> Get(Guid followedId)
+        public async Task<ActionResult<GetFollowersDTO>> Get(Guid followedId)
         {
             var userIdClaim = _httpContextAccessor.HttpContext!.User.FindFirstValue("uid");
 
