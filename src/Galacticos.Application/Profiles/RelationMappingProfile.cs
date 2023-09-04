@@ -9,6 +9,7 @@ namespace Galacticos.Application.Profiles
         public RelationMappingProfile()
         {
             CreateMap<Follow, RelationDTO>().ReverseMap();
+            CreateMap<Follow, GetFollowersDTO>().ReverseMap();
         }
     }
 }
