@@ -56,7 +56,7 @@ namespace Galacticos.Api.Controllers
                     {
                         NotificationDTO = new CreateNotificationDTO()
                         {
-                            UserToId = follower_id,
+                            UserToId = follower_id.FollowerId,
                             UserById = Guid.Parse(userIdClaim),
                             Content = $"{user.Value.UserName} has posted a new post"
                         }

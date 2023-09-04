@@ -8,7 +8,7 @@ using Galacticos.Domain.Entities;
 
 namespace Galacticos.Application.Features.Relation.Handler.Command
 {
-    public class FollowCommandHandler : IRequestHandler<FollowCommand, Guid>
+    public class FollowCommandHandler : IRequestHandler<FollowCommand, GetFollowersDTO>
     {
         private readonly IMapper _mapper;
         private readonly IRelationRepository _relationRepository;
@@ -19,7 +19,7 @@ namespace Galacticos.Application.Features.Relation.Handler.Command
             _relationRepository = relationRepository;
         }
 
-        public async Task<Guid> Handle(FollowCommand request, CancellationToken cancellationToken)
+        public async Task<GetFollowersDTO> Handle(FollowCommand request, CancellationToken cancellationToken)
         {
             var validator = new RelationDTOValidator();
             var validation = await validator.ValidateAsync(request.RelationDTO);
@@ -29,12 +29,18 @@ namespace Galacticos.Application.Features.Relation.Handler.Command
             }
 
             var relation = _mapper.Map<Follow>(request.RelationDTO);
-            relation = await _relationRepository.Follow(relation.FollowerId, relation.FollowedUserId);
+            var user = await _relationRepository.Follow(relation.FollowerId, relation.FollowedUserId);
+
+            
+            
             if (relation == null)
             {
-                return Guid.Empty;
+                return null;
             }
-            return relation.Id;
+
+            var relationDTO = _mapper.Map<GetFollowersDTO>(relation);
+
+            return relationDTO;
         }
     }
 }

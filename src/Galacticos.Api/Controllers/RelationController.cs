@@ -39,7 +39,7 @@ namespace Galacticos.Api.Controllers
                 var result = await _mediator.Send(new FollowCommand { RelationDTO = relation });
                 var user = await _mediator.Send(new GetProfileRequest { UserId = relation.FollowerId });
 
-                if (result != Guid.Empty)
+                if (result != null)
                 {
                     await _mediator.Send(new CreateNotificationCommand
                     {
@@ -78,7 +78,7 @@ namespace Galacticos.Api.Controllers
                 var result = await _mediator.Send(new UnFollowCommand { RelationDTO = relation });
                 var user = await _mediator.Send(new GetProfileRequest { UserId = relation.FollowerId });
 
-                if (result != Guid.Empty)
+                if (result != null)
                 {
                     // Send Notification
                     await _mediator.Send(new CreateNotificationCommand

@@ -12,7 +12,7 @@ namespace Galacticos.Infrastructure.Repositories.RelationRepo
         {
             _context = context;
         }
-        public async Task<Follow> Follow(Guid followerId, Guid followingId)
+        public async Task<User> Follow(Guid followerId, Guid followingId)
         {
             var follow = new Follow
             {
@@ -27,13 +27,15 @@ namespace Galacticos.Infrastructure.Repositories.RelationRepo
                 await _context.relations.AddAsync(follow);
                 await _context.SaveChangesAsync();
 
-                return follow;
+                var user = await _context.users.FirstOrDefaultAsync(u => u.Id == followingId);
+
+                return user;
             }
 
             return null;
         }
 
-        public async Task<Follow> UnFollow(Guid followerId, Guid followingId)
+        public async Task<User> UnFollow(Guid followerId, Guid followingId)
         {
             var unfollow = await _context.relations.FirstOrDefaultAsync(f => f.FollowerId == followerId && f.FollowedUserId == followingId);
 
@@ -42,7 +44,9 @@ namespace Galacticos.Infrastructure.Repositories.RelationRepo
                 _context.relations.Remove(unfollow);
                 await _context.SaveChangesAsync();
 
-                return unfollow;
+                var user = await _context.users.FirstOrDefaultAsync(u => u.Id == followingId);
+
+                return user;
             }
 
             return null;
@@ -51,27 +55,32 @@ namespace Galacticos.Infrastructure.Repositories.RelationRepo
         public async Task<Follow> Get(Guid followerId, Guid followingId)
         {
             var res = await _context.relations.FirstOrDefaultAsync(f => f.FollowerId == followerId && f.FollowedUserId == followingId);
+
             return res;
         }
 
-        public async Task<List<Guid>> GetAllFollowedIdsByUserId(Guid id)
+        public async Task<List<User>> GetAllFollowedIdsByUserId(Guid id)
         {
             var followedIds = await _context.relations
                 .Where(f => f.FollowerId == id)
                 .Select(f => f.FollowedUserId)
                 .ToListAsync();
 
-            return followedIds;
+            var users = await _context.users.Where(u => followedIds.Contains(u.Id)).ToListAsync();
+
+            return users;
         }
 
-        public async Task<List<Guid>> GetAllFollowersId(Guid id)
+        public async Task<List<User>> GetAllFollowersId(Guid id)
         {
             var followersIds = await _context.relations
                 .Where(f => f.FollowedUserId == id)
                 .Select(f => f.FollowerId)
                 .ToListAsync();
+            
+            var users = await _context.users.Where(u => followersIds.Contains(u.Id)).ToListAsync();
 
-            return followersIds;
+            return users;
         }
 
     }

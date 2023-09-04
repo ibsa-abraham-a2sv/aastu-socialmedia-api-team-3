@@ -7,7 +7,7 @@ using Galacticos.Application.DTOs.Relations.Validators;
 
 namespace Galacticos.Application.Features.Relation.Handler.Command
 {
-    public class UnFollowCommandHandler : IRequestHandler<UnFollowCommand, Guid>
+    public class UnFollowCommandHandler : IRequestHandler<UnFollowCommand, GetFollowersDTO>
     {
         private readonly IMapper _mapper;
         private readonly IRelationRepository _relationRepository;
@@ -18,7 +18,7 @@ namespace Galacticos.Application.Features.Relation.Handler.Command
             _relationRepository = relationRepository;
         }
 
-        public async Task<Guid> Handle(UnFollowCommand request, CancellationToken cancellationToken)
+        public async Task<GetFollowersDTO> Handle(UnFollowCommand request, CancellationToken cancellationToken)
         {
             var validator = new RelationDTOValidator();
             var validation = await validator.ValidateAsync(request.RelationDTO);
@@ -32,10 +32,12 @@ namespace Galacticos.Application.Features.Relation.Handler.Command
 
             if (result == null)
             {
-                return Guid.Empty;
+                return null;
             }
 
-            return result.Id;
+            var relationDTO = _mapper.Map<GetFollowersDTO>(result);
+
+            return relationDTO;
         }
     }
 }

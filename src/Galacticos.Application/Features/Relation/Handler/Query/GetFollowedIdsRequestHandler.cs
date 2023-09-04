@@ -6,7 +6,7 @@ using Galacticos.Application.Features.Relation.Request.Query;
 
 namespace Galacticos.Application.Features.Relation.Handler.Query
 {
-    public class GetFollowedIdsRequestHandler : IRequestHandler<GetFollowedIdsRequest, List<Guid>>
+    public class GetFollowedIdsRequestHandler : IRequestHandler<GetFollowedIdsRequest, List<GetFollowersDTO>>
     {
         private readonly IMapper _mapper;
         private readonly IRelationRepository _relationRepository;
@@ -17,10 +17,13 @@ namespace Galacticos.Application.Features.Relation.Handler.Query
             _relationRepository = relationRepository;
         }
 
-        public async Task<List<Guid>> Handle(GetFollowedIdsRequest request, CancellationToken cancellationToken)
+        public async Task<List<GetFollowersDTO>> Handle(GetFollowedIdsRequest request, CancellationToken cancellationToken)
         {
             var relation = await _relationRepository.GetAllFollowedIdsByUserId(request.id);
-            return relation;
+            
+            var relationDTO = _mapper.Map<List<GetFollowersDTO>>(relation);
+
+            return relationDTO;
         }
     }
 }

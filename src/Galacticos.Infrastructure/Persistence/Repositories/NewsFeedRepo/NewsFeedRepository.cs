@@ -27,7 +27,7 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
 
             foreach (var followedUserId in followedUserIds)
             {
-                var postsFromFollowedUser = await _postRepository.GetPostsByUserId(followedUserId);
+                var postsFromFollowedUser = await _postRepository.GetPostsByUserId(followedUserId.Id);
                 aggregatedPosts.AddRange(postsFromFollowedUser);
             }
 

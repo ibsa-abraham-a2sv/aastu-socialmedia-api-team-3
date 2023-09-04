@@ -8,10 +8,10 @@ namespace Galacticos.Application.Persistence.Contracts
 {
     public interface IRelationRepository
     {
-        Task<Follow> Follow(Guid followerId, Guid followingId); // Follow
-        Task<Follow> UnFollow(Guid followerId, Guid followingId); // Unfollow
+        Task<User> Follow(Guid followerId, Guid followingId); // Follow
+        Task<User> UnFollow(Guid followerId, Guid followingId); // Unfollow
         Task<Follow> Get(Guid followerId, Guid followingId); // Get Relation
-        Task<List<Guid>> GetAllFollowedIdsByUserId(Guid id);
-        Task<List<Guid>> GetAllFollowersId(Guid id);
+        Task<List<User>> GetAllFollowedIdsByUserId(Guid id);
+        Task<List<User>> GetAllFollowersId(Guid id);
     }
 }

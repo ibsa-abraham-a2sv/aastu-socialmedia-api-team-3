@@ -7,6 +7,7 @@ using Galacticos.Application.Features.Auth.Requests.Queries;
 using Galacticos.Domain.Entities;
 using Galacticos.Application.Features.Profile.Request.Commands;
 using Galacticos.Application.DTOs.Profile;
+using Galacticos.Application.DTOs.Relations;
 
 namespace Galacticos.Application.Profiles;
 
@@ -24,5 +25,6 @@ public class MappingProfile : Profile
         CreateMap<UpdatePasswordRequest, UpdatePasswordRequestDTO>().ReverseMap();
         CreateMap<UpdatePasswordTokenRequest, User>();
         CreateMap<UpdatePasswordRequest, User>();
+        CreateMap<User, GetFollowersDTO>().ReverseMap();
     }
 }
