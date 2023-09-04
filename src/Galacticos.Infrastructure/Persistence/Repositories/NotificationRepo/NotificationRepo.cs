@@ -50,7 +50,7 @@ namespace Galacticos.Infrastructure.Persistence.Repositories.NotificationRepo
 
         public async Task<List<GetNotificationDTO>> GetNotificationByUserId(Guid UserId)
         {
-            var notifications = await _context.notifications.Where(n => n.UserToId == UserId).ToListAsync();
+            var notifications = await _context.notifications.Where(n => n.UserToId == UserId && n.IsRead == false).ToListAsync();
             var notificationDTOs = _mapper.Map<List<GetNotificationDTO>>(notifications);
             return notificationDTOs;
         }
