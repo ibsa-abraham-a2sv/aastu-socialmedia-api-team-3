@@ -4,11 +4,17 @@ using System.Security.Claims;
 using AutoMapper;
 using ErrorOr;
 using Galacticos.Application.DTOs.Posts;
+using Galacticos.Application.DTOs.Notifications;
 using Galacticos.Application.Features.Posts.Request.Commands;
 using Galacticos.Application.Features.Posts.Request.Queries;
+using Galacticos.Application.Features.Notifications.Commands;
+using Galacticos.Application.Features.Auth.Requests.Commands;
+using Galacticos.Application.Features.Relation.Request.Query;
+using Galacticos.Application.Persistence.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Galacticos.Application.Features.Profile.Request.Queries;
 
 
 namespace Galacticos.Api.Controllers
@@ -40,6 +46,22 @@ namespace Galacticos.Api.Controllers
                     CreatePostRequestDTO = request
                 };
                 ErrorOr<PostResponesDTO> result = await _mediator.Send(command);
+
+                var follower_ids = await _mediator.Send(new GetFollowersIdRequest() { id = Guid.Parse(userIdClaim) });
+                var user = await _mediator.Send(new GetProfileRequest() { UserId = Guid.Parse(userIdClaim) }); 
+
+                foreach (var follower_id in follower_ids)
+                {
+                    await _mediator.Send(new CreateNotificationCommand()
+                    {
+                        NotificationDTO = new CreateNotificationDTO()
+                        {
+                            UserToId = follower_id,
+                            UserById = Guid.Parse(userIdClaim),
+                            Content = $"{user.Value.UserName} has posted a new post"
+                        }
+                    });
+                }
 
                 return result.Match<IActionResult>(
                     post => Ok(post),
