@@ -66,7 +66,12 @@ namespace Galacticos.Infrastructure.Repositories.RelationRepo
                 .Select(f => f.FollowedUserId)
                 .ToListAsync();
 
-            var users = await _context.users.Where(u => followedIds.Contains(u.Id)).ToListAsync();
+            List<User> users = new();
+            foreach (var followedId in followedIds)
+            {
+                var user = await _context.users.FirstOrDefaultAsync(u => u.Id == followedId);
+                users.Add(user);
+            }
 
             return users;
         }
@@ -78,7 +83,12 @@ namespace Galacticos.Infrastructure.Repositories.RelationRepo
                 .Select(f => f.FollowerId)
                 .ToListAsync();
             
-            var users = await _context.users.Where(u => followersIds.Contains(u.Id)).ToListAsync();
+            List<User> users = new();
+            foreach (var followerId in followersIds)
+            {
+                var user = await _context.users.FirstOrDefaultAsync(u => u.Id == followerId);
+                users.Add(user);
+            }
 
             return users;
         }
