@@ -44,6 +44,7 @@ namespace Galacticos.Infrastructure.Persistence.Repositories
                 newsFeedData.Add(post);
             }
 
+            newsFeedData.Sort((x, y) => DateTime.Compare(y.CreatedAt, x.CreatedAt));
             return newsFeedData;
         }
     }
