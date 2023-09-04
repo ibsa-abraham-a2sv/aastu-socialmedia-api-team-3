@@ -63,7 +63,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<s
         {
             To = user.Email,
             Subject = "Social Media App Verification",
-            Body = $"Please verify your account by clicking the link below: <br/> <a href='{scheme}://{host}/Users/verify?email={user.Email.Replace("@", "%40")}&token={verificationToken}'>Verify Email</a>"
+            Body = $"Please verify your account by clicking the link below: <br/> <a href='http://localhost:5293/api/auth/verify-email/{verificationToken}'>Verify Email</a>"
         });
         var token = _jwtTokenGenerator.GenerateToken(user);
 

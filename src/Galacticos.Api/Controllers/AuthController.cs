@@ -57,7 +57,7 @@ public class AuthController : ApiController{
         );
     }
     
-    [HttpGet("verify-email")]
+    [HttpGet("verify-email/{token}")]
     public async Task<IActionResult> VerifyEmail(string token)
     {
         var command = new VerifyEmailCommand { Token = token }; // Create a command with the token
