@@ -33,12 +33,12 @@ namespace Galacticos.Application.Features.Relation.Handler.Command
 
             
             
-            if (relation == null)
+            if (user == null)
             {
                 return null;
             }
 
-            var relationDTO = _mapper.Map<GetFollowersDTO>(relation);
+            var relationDTO = _mapper.Map<GetFollowersDTO>(user);
 
             return relationDTO;
         }
